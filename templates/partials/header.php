@@ -1,15 +1,30 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style2.css">
+// Si la page est appelée directement par son adresse, on redirige en passant pas la page index
+if (basename($_SERVER["PHP_SELF"]) != "index.php")
+{
+	header("Location:../index.php");
+	die("");
+}
+
+// Pose qq soucis avec certains serveurs...
+echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- **** H E A D **** -->
+<head>	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Projet Web</title>
+	<link rel="stylesheet" type="text/css" href="public/css/style.css">
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
+<!-- **** F I N **** H E A D **** -->
 
+
+<!-- **** B O D Y **** -->
 <body>
     <nav class="navbar">
         <ul>
@@ -41,7 +56,7 @@
                 </div>
             </li>
             <li class="profile-info-name">
-                <img src="./tomber-trou-noir-001-1200x900.jpg" alt="" class="profile-image">
+                <img src="public/img/default.jpg" alt="" class="profile-image">
                 <div class="profile-name">John Doe</div>
                 <i class='bx bx-chevron-down'></i>
             </li>
@@ -55,6 +70,3 @@
     <section>
         <h2>Section 2</h2>
     </section>
-</body>
-
-</html>

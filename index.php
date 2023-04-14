@@ -30,7 +30,7 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
 	// Le formulaire de recherche ainsi que le lien de connexion 
 	// si l'utilisateur n'est pas connecté 
 
-	include("templates/header.php");
+	include("templates/partials/header.php");
 
 	// En fonction de la vue à afficher, on appelle tel ou tel template
 	switch($view)
@@ -50,6 +50,6 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
 
 	// Dans tous les cas, on affiche le pied de page
 	// Qui contient les coordonnées de la personne si elle est connectée
-	include("templates/footer.php");
+	include("templates/partials/footer.php");
 	
 ?>
