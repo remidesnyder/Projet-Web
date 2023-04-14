@@ -8,7 +8,7 @@ body {
     align-items: flex-start;
     padding: 0px;
     position: absolute;
-    width: 1073px;
+    /*width: 1073px;*/
     height: 80px;
     left: 150px;
     top: 7px;
@@ -144,6 +144,8 @@ body {
 form.nosubmit {
     border: none;
     padding: 0;
+    color: #858EAD;
+    background: #262D34;
 }
 
 input.nosubmit {
@@ -196,6 +198,59 @@ input.nosubmit {
     place-content: center;
 }
 
+.position {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /*padding: 10px;
+    gap: 10px;*/
+    /*width: 40px;
+    height: 40px;*/
+    /* Dark 4 */
+    /*background: #2C353D;
+    border-radius: 7px;*/
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    place-content: center;
+}
+
+.bxs-bell {
+    position: relative;
+    width: 56px;
+    /*background: #2C353D;*/
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.badge {
+    position: absolute;
+    top: 6px;
+    /* right: -18px; */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 10px;
+    height: 10px;
+    /* padding: 1px 10px 0 10px; */
+    /* border: 3px solid #f4fdff; */
+    border-radius: 500px;
+    /* font-size: 14px; */
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+    left: 19px;
+    transition: transform 0.15s, background-color 0.5s;
+}
+
+.red {
+    background: #ff3c35;
+}
+
 .profile {
     display: flex;
     flex-direction: row;
@@ -221,5 +276,9 @@ input.nosubmit {
 
 .profile-name,
 .bx-chevron-down {
+    color: white;
+}
+
+.bx {
     color: white;
 }
