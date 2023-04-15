@@ -5,6 +5,7 @@ session_start();
 	include_once "libs/maLibSQL.pdo.php";
 	include_once "libs/maLibSecurisation.php"; 
 	include_once "libs/modele.php"; 
+	include_once "libs/config.php";
 
 	$qs = "";
 
@@ -55,9 +56,10 @@ session_start();
 			break;
 
 			case 'Logout' :
-				// traitement métier
-
-			break;
+				// On détruit les variables de session
+				session_destroy();
+				// On redirigera vers la page index automatiquement
+				break;
 
 			case 'Autoriser' : 
 			break;
@@ -78,7 +80,7 @@ session_start();
 	// On l'extrait donc du chemin du script courant : $_SERVER["PHP_SELF"]
 	// Par exemple, si $_SERVER["PHP_SELF"] vaut /chat/data.php, dirname($_SERVER["PHP_SELF"]) contient /chat
 
-	$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
+	$urlBase = $ROOT_PATH . dirname($_SERVER["PHP_SELF"]) . "/index.php";
 	// On redirige vers la page index avec les bons arguments
 
 	header("Location:" . $urlBase . $qs);

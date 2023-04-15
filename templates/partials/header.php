@@ -50,16 +50,25 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                     </form>
                 </div>
             </li>
-            <li>
-                <div class="calendar"><i class='bx bxs-bell'></i>
-                    <div class="badge red"></div>
-                </div>
-            </li>
-            <li class="profile-info-name">
-                <img src="public/img/default.jpg" alt="" class="profile-image">
-                <div class="profile-name">John Doe</div>
-                <i class='bx bx-chevron-down'></i>
-            </li>
+			<?php if (isset($_SESSION['userID'])) : ?>
+				<li>
+					<div class="calendar"><i class='bx bxs-bell'></i>
+						<div class="badge red"></div>
+					</div>
+				</li>
+				<li class="profile-info-name">
+					<img src="public/img/default.jpg" alt="" class="profile-image">
+					<div class="profile-name">John Doe</div>
+					<i class='bx bx-chevron-down'></i>
+				</li>
+			<?php else : ?>
+				<li>
+					<a class="link" href="index.php?view=login">Connexion</a>
+				</li>
+				<li>
+					<a href="index.php?view=register">Inscription</a>
+				</li>
+			<?php endif ?>
         </ul>
     </nav>
 

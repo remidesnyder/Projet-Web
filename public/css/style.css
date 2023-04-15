@@ -143,3 +143,12 @@ input.nosubmit {
 .profile-name {
     padding-left: 10px;
 }
+
+a {
+    text-decoration: none;
+    color: white;
+    background: var(--background-color);
+    font-size: 15px;
+    border-radius: 10px;
+    border: 5px solid var(--background-color);
+}
