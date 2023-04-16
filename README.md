@@ -30,11 +30,26 @@ Insert gif or link to demo
 | Example Color | ![#E84A5F](https://via.placeholder.com/10/E84A5F?text=+) #E84A5F |
 
 
-## Environment Variables
+## Variables d'environnement
 
-To run this project, you will need to add the following environment variables to your .env file
+Pour exécuter ce projet, vous devrez ajouter les variables d'environnement suivantes à votre fichier .env
 
 `API_KEY`
+
+### Comment récupérer une clé API TMDb:
+
+ - Rendez-vous sur le site web de [TMDb](https://www.themoviedb.org/)
+ - Créez un compte en cliquant sur "S'inscrire" en haut à droite de la page d'accueil. 
+ - Remplissez les champs demandés et cliquez sur "S'inscrire".
+ - Une fois que vous avez créé un compte et que vous êtes connecté, cliquez sur votre nom d'utilisateur en haut à droite de la page d'accueil.
+ - Dans le menu déroulant, cliquez sur "Paramètres".
+ - Dans le menu de gauche, cliquez sur "API".
+ - Dans la section "Créer une nouvelle application", donnez un nom à votre application dans le champ "Nom de l'application".
+ - Cochez les cases "Accepter les conditions d'utilisation" et "Je ne suis pas un robot".
+ - Cliquez sur "Créer".
+ - Vous devriez maintenant voir votre clé API TMDb sous la section "Paramètres de l'API". Copiez cette clé pour l'utiliser dans votre code.
+
+Assurez-vous de garder votre clé API TMDb privée et ne la partagez pas avec d'autres personnes.
 ## Screenshots
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
@@ -59,4 +74,3 @@ To run this project, you will need to add the following environment variables to
 
 
 ![Logo](https://ig2i.centralelille.fr/wp-content/uploads/sites/6/Logos/Centrale_Lille_IG2I_@2x.png)
-
