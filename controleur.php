@@ -5,7 +5,7 @@ session_start();
 	include_once "libs/maLibSQL.pdo.php";
 	include_once "libs/maLibSecurisation.php"; 
 	include_once "libs/modele.php"; 
-	include_once "libs/config.php";
+	require_once "libs/config.php";
 
 	$qs = "";
 
@@ -60,42 +60,17 @@ session_start();
 				session_destroy();
 				// On redirigera vers la page index automatiquement
 				break;
-
-			case 'Autoriser' : 
-			break;
-
-			case 'Interdire' :  
-			break; 
-
-
-			case 'Poster' : 			 
-			break;
-
-
 		}
-
 	}
 
 	// On redirige toujours vers la page index, mais on ne connait pas le répertoire de base
 	// On l'extrait donc du chemin du script courant : $_SERVER["PHP_SELF"]
 	// Par exemple, si $_SERVER["PHP_SELF"] vaut /chat/data.php, dirname($_SERVER["PHP_SELF"]) contient /chat
 
-	$urlBase = $ROOT_PATH . dirname($_SERVER["PHP_SELF"]) . "/index.php";
+	$urlBase = $ROOT_URL . dirname($_SERVER["PHP_SELF"]) . "index.php";
 	// On redirige vers la page index avec les bons arguments
 
 	header("Location:" . $urlBase . $qs);
 
 	// On écrit seulement après cette entête
 	ob_end_flush();
-	
-?>
-
-
-
-
-
-
-
-
-
-

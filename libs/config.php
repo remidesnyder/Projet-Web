@@ -11,6 +11,6 @@ $BDD_base="db_projet_web";
 /* 
 * Configuration de l'application
 */
-$ROOT_PATH = "localhost:8888";
+$ROOT_URL = "http://localhost:8888";
 
 ?>

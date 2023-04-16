@@ -26,6 +26,16 @@ function isAdmin($id) {
 }
 
 /**
+ * Fonction de récupération du rôle d'un utilisateur
+ * @param int $id
+ * @return int
+ */
+function getPermissionLevel($id) {
+	$SQL="SELECT roles.permission_level FROM `users` INNER JOIN `roles` ON users.role = roles.id WHERE users.id = '$id'";
+	return SQLGetChamp($SQL);
+}
+
+/**
  * Fonction de changement de nom d'utilisateur
  * @param int $id
  * @param string $newUsername
@@ -548,3 +558,44 @@ function deleteMovieToSee($userID, $movieID) {
 	$SQL="DELETE FROM movies_to_see WHERE userID='$userID' AND movieID='$movieID'";
 	return SQLDelete($SQL);
 }
+
+/* Fonction GLOBALE */
+
+// Définition des niveaux de permission
+define("PERMISSION_CREATOR", 4);
+define("PERMISSION_ADMIN", 3);
+define("PERMISSION_MODERATOR", 2);
+define("PERMISSION_USER", 1);
+define("PERMISSION_GUEST", 0);
+
+/**
+ * Fonction de vérification de la permission d'un utilisateur
+ * @param int $requiredPermission
+ * @return boolean
+ */
+function checkPermission($requiredPermission) {
+    // Vérification de la session de l'utilisateur
+    session_start();
+    if (!isset($_SESSION["user_id"]) || !isset($_SESSION["permission_level"])) {
+        header("Location: login.php");
+        exit();
+    }
+    
+    // Vérification de la permission de l'utilisateur
+    $userPermission = $_SESSION["permission_level"];
+    if ($userPermission < $requiredPermission) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/**	
+ * Exemple d'utilisation
+ * if (checkPermission(PERMISSION_ADMIN)) {
+ *  (Affichage de la vue réservée aux administrateurs ...)
+ * } else {
+ *   die("Vous n'avez pas la permission d'accéder à cette page");
+ * }
+ */
+

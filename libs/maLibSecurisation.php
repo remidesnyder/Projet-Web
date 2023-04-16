@@ -33,6 +33,7 @@ function verifUser($login,$password)
 	$_SESSION["isLog"] = true;
 	$_SESSION["connexionDate"] = date("H:i:s");
 	$_SESSION["isAdmin"] = isAdmin($id);
+	$_SESSION['permission_level'] = getPermissionLevel($id);
 
 	return true;	
 }
