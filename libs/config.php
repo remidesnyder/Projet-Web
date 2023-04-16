@@ -1,5 +1,9 @@
 <?php
 
+include_once "modele.php";
+
+fillEnvVarFromFile();
+
 /*
 * Configuration de la base de données
 */
@@ -12,5 +16,6 @@ $BDD_base="db_projet_web";
 * Configuration de l'application
 */
 $ROOT_URL = "http://localhost:8888";
+$API_KEY = getenv("API_KEY");
 
 ?>
