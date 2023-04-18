@@ -71,11 +71,3 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 			<?php endif ?>
         </ul>
     </nav>
-
-    <section>
-        <h1>Hero</h1>
-    </section>
-
-    <section>
-        <h2>Section 2</h2>
-    </section>

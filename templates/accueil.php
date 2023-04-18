@@ -8,19 +8,28 @@
 
 // Si la page est appelée directement par son adresse, on redirige en passant pas la page index
 // Pas de soucis de bufferisation, puisque c'est dans le cas où on appelle directement la page sans son contexte
-if (basename($_SERVER["PHP_SELF"]) != "index.php")
-{
-	header("Location:../index.php?view=accueil");
+if (basename($_SERVER["PHP_SELF"]) != "index.php") {
+	header("Location: ../index.php?view=accueil");
 	die("");
 }
 
 ?>
 
 
-<div id="corps">
+<section class="MovieTrend">
+	<h1>Films tendances</h1>
+	<p>La liste ici</p>
+</section>
 
-<h1>Accueil</h1>
+<section class="MovieWatch">
+	<h1>Films vus</h1>
+	<p>La liste ici</p>
+</section>
 
-Bienvenue dans notre site de messagerie instantanée !
+<section class="MovieToWatch">
+	<h1>Films à voir</h1>
+	<p>La liste ici</p>
+</section>
+
 
 </div>
