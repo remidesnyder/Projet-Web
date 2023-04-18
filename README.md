@@ -1,5 +1,7 @@
 # 🇫🇷 Projet Web / 🇬🇧 Web project
 
+Voici le repository destiné au "Projet Web", un projet réalisé dans notre école, l'IG2I (Centrale Lille), où le but est de réaliser un site web, en utilisant les différentes méthodes vues en cours, sur un sujet libre. Nous avons choisi de réaliser un site intitulé "MovieList", qui a pour but de permettre à des utilisateurs de se connecter à un compte, et d'y ajouter les films vus, ou à voir, de laisser des commentaires, ou même noter des films. Nous disposons d'un temps imparti pour réaliser ce projet.
+
 ## 🇫🇷 Projet : MovieList
 
 Le projet MovieList est une application web permettant à l'utilisateur de créer et de gérer une liste de films. L'utilisateur peut ajouter des films qu'il a vus ou qu'il souhaite voir dans le futur. Il peut également noter les films, donner son acteur préféré et ajouter des commentaires sur les films.
@@ -61,7 +63,7 @@ Assurez-vous de garder votre clé API TMDb privée et ne la partagez pas avec d'
 
 ## Fonctionnalités
 
-- Creéation d'utilisateurs et assignements de rôles
+- Création d'utilisateurs et assignements de rôles
 - Ajout par l'utilisateur des films vus, à voir
 - L'utilisateur peut noter les films qu'il a vus, et choisir l'acteur qu'il a préféré dans ce film
 - Une partie administrateur qui permet de gérer les membres, et notamment de modérer les commentaires qui ont été mis par les membres
@@ -83,6 +85,3 @@ Assurez-vous de garder votre clé API TMDb privée et ne la partagez pas avec d'
 
 
 ![Logo-IG2I-couleur-RVB](https://user-images.githubusercontent.com/66905063/232838860-f5d11e41-380e-4a44-b00d-0fc4306be969.png)
-
-
-![Logo](https://ig2i.centralelille.fr/wp-content/uploads/sites/6/Logos/Centrale_Lille_IG2I_@2x.png)
