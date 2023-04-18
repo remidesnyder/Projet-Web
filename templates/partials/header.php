@@ -59,7 +59,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 				</li>
 				<li class="profile-info-name">
 					<img src="public/img/default.jpg" alt="" class="profile-image">
-					<div class="profile-name">John Doe</div>
+					<div class="profile-name"><?= $_SESSION['username'] ?></div>
 					<i class='bx bx-chevron-down'></i>
 				</li>
 			<?php else : ?>

@@ -16,8 +16,11 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php") {
 include_once "libs/modele.php";
 
 $movietrendData = getPopularMovies();
-$watchData = getAllMoviesSeen($_SESSION['userID']);
-$toWatchData = getAllMoviesToSee($_SESSION['userID']);
+
+if (isset($_SESSION['userID'])) {
+	$watchData = getAllMoviesSeen($_SESSION['userID']);
+	$toWatchData = getAllMoviesToSee($_SESSION['userID']);
+}
 
 ?>
 
@@ -64,6 +67,10 @@ $toWatchData = getAllMoviesToSee($_SESSION['userID']);
 </section>
 <!-- Movie Trend Section End -->
 
+<?php if (isset($_SESSION['userID'])) : ?>
+
+<?php if (count($watchData) > 0) : ?>
+
 <!-- Movie Watch Section Start -->
 <section class="watch container" id="watch">
 	<!-- Heading -->
@@ -105,6 +112,10 @@ $toWatchData = getAllMoviesToSee($_SESSION['userID']);
 	</div>
 </section>
 <!-- Movie Watch Section End -->
+
+<?php endif ?>
+
+<?php if (count($toWatchData) > 0) : ?>
 
 <!-- Movie ToWatch Section Start -->
 <section class="towatch container" id="towatch">
@@ -148,5 +159,8 @@ $toWatchData = getAllMoviesToSee($_SESSION['userID']);
 </section>
 <!-- Movie ToWatch Section End -->
 
+<?php endif ?>
+
+<?php endif ?>
 
 </div>

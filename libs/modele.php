@@ -2,6 +2,7 @@
 
 include_once "config.php";
 require_once 'libs/maLibSQL.pdo.php';
+require_once 'libs/maLibUtils.php';
 /* Fonction utilisateur */
 
 /**
@@ -373,6 +374,9 @@ function getMovie($id)
  */
 function addMovie($movieID, $title, $overview, $poster_path, $runtime, $release_date)
 {
+	if (empty(getMovie($movieID))) {
+		return false;
+	}
 	$SQL = "INSERT INTO movies (movieID, title, overview, poster_path, runtime, release_date) VALUES ('$movieID', '$title', '$overview', '$poster_path', '$runtime', '$release_date')";
 	return SQLInsert($SQL);
 }
@@ -696,8 +700,27 @@ function getPopularMovies()
 	$api_url = "https://api.themoviedb.org/3/movie/popular?api_key=" . $API_KEY . "&language=fr-FR&page=1&region=FR";
 	$api_json = file_get_contents($api_url);
 	$api_array = json_decode($api_json, true);
+	addPopularMoviesOnDB($api_array["results"]);
 	return $api_array["results"];
 }
+
+/**
+ * Fonction d'ajout des films populaires dans la base de données
+ * @param array $array
+ * @return int
+ */
+function addPopularMoviesOnDB($array) {
+	foreach ($array as $movie) {
+		$movieID = $movie["id"];
+		$title = proteger($movie["title"]);
+		$overview = proteger($movie["overview"]);
+		$poster_path = $movie["poster_path"];
+		$release_date = $movie["release_date"];
+		$runtime = 0;
+		addMovie($movieID, $title, $overview, $poster_path, $runtime, $release_date);
+	}
+}
+
 
 /**
  * Fonction de récupération des diffuseurs d'un film
