@@ -14,7 +14,7 @@ if ($checked = valider("remember", "COOKIE")) $checked = "checked";
 
 ?>
 
-<div id="corps">
+<section id="corps">
 
 <h1>Connexion</h1>
 
@@ -29,4 +29,4 @@ if ($checked = valider("remember", "COOKIE")) $checked = "checked";
 </div>
 
 
-</div>
+</section>

@@ -1,7 +1,7 @@
 <?php
 
 include_once "config.php";
-
+require_once 'libs/maLibSQL.pdo.php';
 /* Fonction utilisateur */
 
 /**
@@ -534,7 +534,8 @@ function editNote($id, $note)
  */
 function getAllMoviesSeen($userID)
 {
-	$SQL = "SELECT * FROM watched_movies WHERE userID='$userID'";
+	//$SQL = "SELECT * FROM watched_movies WHERE userID='$userID'";
+	$SQL = "SELECT watched_movies.userID, watched_movies.seen_date, movies.* FROM `watched_movies` INNER JOIN `movies` ON movies.movieID = watched_movies.movieID WHERE watched_movies.userID = '$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -583,7 +584,8 @@ function addMultipleSeen($userID, $movieID)
  */
 function getAllMoviesToSee($userID)
 {
-	$SQL = "SELECT * FROM movies_to_see WHERE userID='$userID'";
+	//$SQL = "SELECT * FROM towatch_movies WHERE userID='$userID'";
+	$SQL = "SELECT towatch_movies.userID, towatch_movies.add_date, movies.* FROM `towatch_movies` INNER JOIN `movies` ON movies.movieID = towatch_movies.movieID WHERE towatch_movies.userID = '$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -595,7 +597,7 @@ function getAllMoviesToSee($userID)
  */
 function addMovieToSee($userID, $movieID)
 {
-	$SQL = "INSERT INTO movies_to_see (userID, movieID) VALUES ('$userID', '$movieID')";
+	$SQL = "INSERT INTO towatch_movies (userID, movieID) VALUES ('$userID', '$movieID')";
 	return SQLInsert($SQL);
 }
 
@@ -607,7 +609,7 @@ function addMovieToSee($userID, $movieID)
  */
 function deleteMovieToSee($userID, $movieID)
 {
-	$SQL = "DELETE FROM movies_to_see WHERE userID='$userID' AND movieID='$movieID'";
+	$SQL = "DELETE FROM towatch_movies WHERE userID='$userID' AND movieID='$movieID'";
 	return SQLDelete($SQL);
 }
 
@@ -694,7 +696,7 @@ function getPopularMovies()
 	$api_url = "https://api.themoviedb.org/3/movie/popular?api_key=" . $API_KEY . "&language=fr-FR&page=1&region=FR";
 	$api_json = file_get_contents($api_url);
 	$api_array = json_decode($api_json, true);
-	return $api_array;
+	return $api_array["results"];
 }
 
 /**

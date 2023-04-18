@@ -8,9 +8,15 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php") {
 
 ?>
 
-<div id="pied">
+<section id="pied">
 	<p>&copy All Right Reserved</p>
-</div>
+	<?= tprint($_SESSION); ?>
+</section>
+
+<!-- Link to JS -->
+<script src="public/js/swiper-bundle.min.js"></script>
+<script src="public/js/index.js"></script>
 
 </body>
+
 </html>
