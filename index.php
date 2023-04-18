@@ -51,5 +51,3 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
 	// Dans tous les cas, on affiche le pied de page
 	// Qui contient les coordonnées de la personne si elle est connectée
 	include("templates/partials/footer.php");
-	
-?>
