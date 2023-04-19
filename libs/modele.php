@@ -125,6 +125,14 @@ function getUsers()
 	return parcoursRs(SQLSelect($SQL));
 }
 
+function getMovieTime($userID) {
+	$SQL = "SELECT SUM((watched_movies.multiple * movies.runtime)) AS timeRuntime
+				FROM `watched_movies` 
+    			INNER JOIN `movies` ON movies.movieID = watched_movies.movieID
+   				WHERE `userID` = '$userID'";
+	return SQLGetChamp($SQL);
+}
+
 /**
  * Fonction de mise à jour de la date de dernière connexion
  * @param int $id
