@@ -613,6 +613,18 @@ function addMultipleSeen($userID, $movieID)
 	return SQLUpdate($SQL);
 }
 
+/**
+ * Fonction de récupération du nombre de fois qu'un utilisateur a vu un film
+ * @param int $userID
+ * @param int $movieID
+ * @return int
+ */
+function getHowManyTimeUserHasSeenMovie($userID, $movieID)
+{
+	$SQL = "SELECT multiple FROM watched_movies WHERE userID='$userID' AND movieID = '$movieID'";
+	return SQLGetChamp($SQL);
+}
+
 /* Fonctions FILMS A VOIR */
 
 /**

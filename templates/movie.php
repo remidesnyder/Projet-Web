@@ -9,6 +9,8 @@ if ($movieID == 0) {
     exit;
 }
 
+$multipleSeen = getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) ? getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) : 0;
+
 $actors = getActorsByMovie($movieID);
 $movie = getMovieFromAPI($movieID);
 
@@ -29,7 +31,7 @@ $comments = getCommentsByMovie($movieID);
             <p><?= $movie['overview'] ?></p>
         </div>
         <button class="round-button addMultipleMovie">
-            <span>x1</span>
+            <span>x<?= $multipleSeen ?></span>
         </button>
     </div>
 </section>
@@ -119,7 +121,7 @@ $comments = getCommentsByMovie($movieID);
                             <div class="comment-form">
                                 <form action="controleur.php?action=AddReply" method="post">
                                     <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                                    <input type="hidden" name="commentID" value="<?= $rep['commentID'] ?>">
+                                    <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
                                     <input type="text" id="input-reply" name="reply" placeholder="Entrez une réponse ici">
                                 </form>
                             </div>
