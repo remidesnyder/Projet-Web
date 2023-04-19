@@ -38,7 +38,8 @@ $movie = getMovieFromAPI($movieID);
         <div class="comment-section">
             <div class="comment-header">
                 <div class="comment-form">
-                    <form action="/movie/comments" method="post">
+                    <form action="controleur.php?action=AddComment" method="post">
+                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
                         <textarea name="content" id="comment-content" placeholder="Ajouter un commentaire"></textarea>
                         <button type="submit">Commenter</button>
                     </form>

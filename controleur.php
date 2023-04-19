@@ -72,6 +72,33 @@ if ($action = valider("action")) {
 		case 'DeleteProfile':
 			// On redirigera vers la page index automatiquement
 			break;
+		case 'AddComment':
+			$movieID = valider("movieID", 'POST');
+			$comment = valider("content", 'POST');
+
+			// On vérifie que le commentaire n'est pas vide
+			if ($movieID && $comment && $comment != "") {
+				// On ajoute le commentaire
+				addComment($_SESSION['userID'], $movieID, $comment);
+			}
+			$qs = "?view=movie&movieID=$movieID";
+			// On redirigera vers la page index automatiquement
+			break;
+		case 'DeleteComment':
+			// On redirigera vers la page index automatiquement
+			break;
+		case 'UpdateComment':
+			// On redirigera vers la page index automatiquement
+			break;
+		case 'AddReply':
+			// On redirigera vers la page index automatiquement
+			break;
+		case 'DeleteReply':
+			// On redirigera vers la page index automatiquement
+			break;
+		case 'UpdateReply':
+			// On redirigera vers la page index automatiquement
+			break;
 	}
 }
 
