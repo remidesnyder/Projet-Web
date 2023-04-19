@@ -370,6 +370,16 @@ function getMovie($id)
 	return parcoursRs(SQLSelect($SQL));
 }
 
+function getMovieFromAPI($movieID)
+{
+	global $API_KEY;
+	$api_url = "https://api.themoviedb.org/3/movie/" . $movieID . "?api_key=" . $API_KEY . "&language=fr-FR";
+	$api_json = file_get_contents($api_url);
+	$api_array = json_decode($api_json, true);
+
+	return $api_array;
+}
+
 /**
  * Fonction d'ajout d'un film
  * @param int $movieID
@@ -414,6 +424,16 @@ function editMovie($id, $title, $overview, $poster_path, $runtime, $release_date
 {
 	$SQL = "UPDATE movies SET title='$title', overview='$overview', poster_path='$poster_path', runtime='$runtime', release_date='$release_date' WHERE id='$id'";
 	return SQLUpdate($SQL);
+}
+
+function getActorsByMovie($movieID)
+{
+	global $API_KEY;
+	$api_url = "https://api.themoviedb.org/3/movie/" . $movieID . "/credits?api_key=" . $API_KEY . "&language=fr-FR";
+	$api_json = file_get_contents($api_url);
+	$api_array = json_decode($api_json, true);
+
+	return $api_array['cast'];
 }
 
 /* Fonctions VOTE ACTEURS */

@@ -52,7 +52,7 @@ if (isset($_SESSION['userID'])) {
 					<img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
 					<div class="box-text">
 						<h2 class="movie-title">
-							<a class="movie-a" href="/movie/<?= $data['id'] ?>"><?= $data['title'] ?></a>
+							<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
 						</h2>
 						<span class="movie-type">NaN</span>
 						<a href="#" class="watch-btn play-btn">
