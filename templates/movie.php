@@ -12,6 +12,8 @@ if ($movieID == 0) {
 $actors = getActorsByMovie($movieID);
 $movie = getMovieFromAPI($movieID);
 
+$comments = getCommentsByMovie($movieID);
+
 ?>
 
 <section>
@@ -46,48 +48,84 @@ $movie = getMovieFromAPI($movieID);
                 </div>
             </div>
             <div class="comments">
-                <div class="comment">
-                    <div class="comment1">
-                        <div class="comment-author">
-                            <img src="public/img/default.jpg" alt="Profil">
-                            <div class="author-info">
-                                <h4>John Doe</h4>
-                                <span>Ecrit le 19/04/2023 (Il y a 2 secondes)</span>
+                <?php foreach ($comments as $comment) : ?>
+                    <?php $reply = getRepliesByComment($comment['id']); ?>
+                    <div class="comment">
+                        <div class="comment1">
+                            <div class="comment-author">
+                                <img src="public/img/<?= $comment['profil_picture'] ?>" alt="Profil">
+                                <div class="author-info">
+                                    <h4><?= $comment['username'] ?></h4>
+                                    <?php
+                                        $date = new DateTime($comment['created_at']);
+                                        $current_time = new DateTime();
+                                        $time_diff = abs($current_time->getTimestamp() - $date->getTimestamp());
+
+                                        $formatted_date = "Ecrit le " . $date->format("d/m/Y");
+                                        if ($time_diff < 60) {
+                                            $formatted_date .= " (Il y a " . $time_diff . " seconde(s))";
+                                        } else if ($time_diff < 3600) {
+                                            $time_diff = round($time_diff / 60);
+                                            $formatted_date .= " (Il y a " . $time_diff . " minute(s))";
+                                        } else if ($time_diff < 86400) {
+                                            $time_diff = round($time_diff / 3600);
+                                            $formatted_date .= " (Il y a " . $time_diff . " heure(s))";
+                                        } else if ($time_diff < 604800) {
+                                            $time_diff = round($time_diff / 86400);
+                                            $formatted_date .= " (Il y a " . $time_diff . " jour(s))";
+                                        } else if ($time_diff < 2592000) {
+                                            $time_diff = round($time_diff / 604800);
+                                            $formatted_date .= " (Il y a " . $time_diff . " semaine(s))";
+                                        } else if ($time_diff < 31536000) {
+                                            $time_diff = round($time_diff / 2592000);
+                                            $formatted_date .= " (Il y a " . $time_diff . " mois)";
+                                        } else {
+                                            $time_diff = round($time_diff / 31536000);
+                                            $formatted_date .= " (Il y a " . $time_diff . " an(s))";
+                                        }
+                                        
+                                    ?>
+                                    <span><?= $formatted_date ?></span>
+                                </div>
+                            </div>
+                            <div class="comment-content">
+                                <p><?= $comment['content'] ?></p>
+                                <div class="comment-actions">
+                                    <span><?= count($reply) ?> <?= count($reply) > 1 ? 'Réponses' : 'Réponse' ?></span>
+                                    <span><?= $comment['reactions'] ?> <?= $comment['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="comment-content">
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam dolorum tempore nesciunt voluptate consequatur animi non provident sit eligendi labore, doloribus consequuntur amet ducimus corporis maxime dolorem? Fugiat, vel saepe.</p>
-                            <div class="comment-actions">
-                                <span>1 Réponse</span>
-                                <span>0 Like</span>
+                        <?php foreach ($reply as $rep) : ?>
+                            <div class="comment-reply">
+                                <div class="comment-author">
+                                    <img src="public/img/<?= $rep['profil_picture'] ?>" alt="Profil">
+                                    <div class="author-info">
+                                        <h4><?= $rep['username'] ?></h4>
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <p><?= $rep['content'] ?></p>
+                                    <div class="comment-actions">
+                                        <span><?= $rep['reactions'] ?> <?= $rep['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        <div class="reply-container">
+                            <div class="profile-pic">
+                                <img src="public/img/default.jpg" alt="Profile picture">
+                            </div>
+                            <div class="comment-form">
+                                <form action="controleur.php?action=AddReply" method="post">
+                                    <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                    <input type="hidden" name="commentID" value="<?= $rep['commentID'] ?>">
+                                    <input type="text" id="input-reply" name="reply" placeholder="Entrez une réponse ici">
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="comment-reply">
-                        <div class="comment-author">
-                            <img src="public/img/default.jpg" alt="Profil">
-                            <div class="author-info">
-                                <h4>John Doe</h4>
-                            </div>
-                        </div>
-                        <div class="comment-content">
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi exercitationem sed quasi laborum animi sapiente dolorum magnam architecto voluptas earum fugiat aspernatur fuga, consequuntur quisquam debitis doloribus aut corrupti. Laboriosam.</p>
-                            <div class="comment-actions">
-                                <span>0 Like</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply-container">
-                        <div class="profile-pic">
-                            <img src="public/img/default.jpg" alt="Profile picture">
-                        </div>
-                        <div class="comment-form">
-                            <form>
-                                <input type="text" id="input-reply" name="reply" placeholder="Entrez une réponse ici">
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -105,23 +143,23 @@ $movie = getMovieFromAPI($movieID);
             <!-- Content -->
             <div class="casting-content swiper">
                 <div class="swiper-wrapper">
-                    <?php foreach($actors as $actor) : ?>
-                    <!-- Movies Box -->
-                    <div class="swiper-slide swiper-actor">
-                        <div class="movie-box-right">
-                            <img src="https://image.tmdb.org/t/p/original<?= $actor['profile_path'] ?>" alt="Image de <?= $actor['name'] ?>" class="movie-box-img-right">
-                            <div class="box-text-right">
-                                <h2 class="movie-title">
-                                    <a class="cast-name" href="/person/<?= $actor['id'] ?>"><?= $actor['name'] ?></a>
-                                </h2>
-                                <span class="movie-type"><?= $actor['character'] ?></span>
-                                <span class="actor-nbvote votes-count">0 vote</span>
-                                <a class="watch-btn play-btn">
-                                    <i class='bx bxs-upvote'></i>
-                                </a>
+                    <?php foreach ($actors as $actor) : ?>
+                        <!-- Movies Box -->
+                        <div class="swiper-slide swiper-actor">
+                            <div class="movie-box-right">
+                                <img src="https://image.tmdb.org/t/p/original<?= $actor['profile_path'] ?>" alt="Image de <?= $actor['name'] ?>" class="movie-box-img-right">
+                                <div class="box-text-right">
+                                    <h2 class="movie-title">
+                                        <a class="cast-name" href="/person/<?= $actor['id'] ?>"><?= $actor['name'] ?></a>
+                                    </h2>
+                                    <span class="movie-type"><?= $actor['character'] ?></span>
+                                    <span class="actor-nbvote votes-count">0 vote</span>
+                                    <a class="watch-btn play-btn">
+                                        <i class='bx bxs-upvote'></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>

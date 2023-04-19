@@ -235,7 +235,10 @@ function getAllComments($userID)
  */
 function getCommentsByMovie($movieID)
 {
-	$SQL = "SELECT * FROM comments WHERE movieID='$movieID'";
+	$SQL = "SELECT comments.*, users.id AS userID, users.username, users.profil_picture, users.role
+				FROM `comments` 
+    			INNER JOIN `users` ON users.id = comments.userID
+    			WHERE `movieID` ='$movieID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -296,7 +299,10 @@ function addReaction($commentID)
  */
 function getRepliesByComment($commentID)
 {
-	$SQL = "SELECT * FROM replies WHERE commentID='$commentID'";
+	$SQL = "SELECT replies.*, users.id AS userID, users.username, users.profil_picture, users.role 
+			FROM replies 
+			INNER JOIN `users` ON users.id = replies.userID
+			WHERE commentID='$commentID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 

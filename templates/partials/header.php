@@ -30,7 +30,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
     <nav class="navbar">
         <ul>
             <li class="icons">
-                <div class="home"><i class='bx bxs-home'></i></div>
+                <a href="/"><div class="home"><i class='bx bxs-home'></i></div></a>
             </li>
             <li class="icons">
                 <div class="calendar"><i class='bx bxs-calendar'></i></div>

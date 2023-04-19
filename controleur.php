@@ -91,6 +91,17 @@ if ($action = valider("action")) {
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'AddReply':
+			$movieID = valider("movieID", 'POST');
+			$commentID = valider("commentID", 'POST');
+			$reply = valider("reply", 'POST');
+
+			// On vérifie que le commentaire n'est pas vide
+			if ($commentID && $reply && $reply != "") {
+				// On ajoute le commentaire
+				addReply($_SESSION['userID'], $commentID, $reply);
+			}
+			$qs = "?view=movie&movieID=$movieID";
+
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'DeleteReply':
