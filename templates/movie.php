@@ -11,6 +11,13 @@ if ($movieID == 0) {
 
 $multipleSeen = getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) ? getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) : 0;
 
+
+// TODO
+// Regler ça
+/*$data = getMovieInfo($movieID, $API_KEY);
+$movie = $data['movie'];
+$actors = $data['cast'];*/
+
 $actors = getActorsByMovie($movieID);
 $movie = getMovieFromAPI($movieID);
 
