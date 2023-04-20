@@ -12,14 +12,12 @@ if ($movieID == 0) {
 $multipleSeen = getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) ? getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) : 0;
 
 
-// TODO
-// Regler ça
-/*$data = getMovieInfo($movieID, $API_KEY);
+$data = getMovieInfo($movieID, $API_KEY);
 $movie = $data['movie'];
-$actors = $data['cast'];*/
+$actors = $data['cast']['cast'];
 
-$actors = getActorsByMovie($movieID);
-$movie = getMovieFromAPI($movieID);
+//$actors = getActorsByMovie($movieID);
+//$movie = getMovieFromAPI($movieID);
 
 $comments = getCommentsByMovie($movieID);
 
@@ -28,15 +26,18 @@ $comments = getCommentsByMovie($movieID);
 <section>
     <img src="https://image.tmdb.org/t/p/original<?= $movie['backdrop_path'] ?>" class="movie-backdrop">
     <div class="about-movie container">
-        <h2 class="title"><?= $movie['title'] ?></h2>
-        <div class="tags">
-            <?php foreach ($movie['genres'] as $genre) : ?>
-                <span><?= $genre['name'] ?></span>
-            <?php endforeach; ?>
+        <div class="about-movie-content">
+            <h2 class="title"><?= $movie['title'] ?></h2>
+            <div class="tags">
+                <?php foreach ($movie['genres'] as $genre) : ?>
+                    <span><?= $genre['name'] ?></span>
+                <?php endforeach; ?>
+            </div>
+            <div class="about-movie content">
+                <p><?= $movie['overview'] ?></p>
+            </div>
         </div>
-        <div class="about-movie content">
-            <p><?= $movie['overview'] ?></p>
-        </div>
+
         <button class="round-button addMultipleMovie">
             <span>x<?= $multipleSeen ?></span>
         </button>
@@ -66,33 +67,33 @@ $comments = getCommentsByMovie($movieID);
                                 <div class="author-info">
                                     <h4><?= $comment['username'] ?></h4>
                                     <?php
-                                        $date = new DateTime($comment['created_at']);
-                                        $current_time = new DateTime();
-                                        $time_diff = abs($current_time->getTimestamp() - $date->getTimestamp());
+                                    $date = new DateTime($comment['created_at']);
+                                    $current_time = new DateTime();
+                                    $time_diff = abs($current_time->getTimestamp() - $date->getTimestamp());
 
-                                        $formatted_date = "Ecrit le " . $date->format("d/m/Y");
-                                        if ($time_diff < 60) {
-                                            $formatted_date .= " (Il y a " . $time_diff . " seconde(s))";
-                                        } else if ($time_diff < 3600) {
-                                            $time_diff = round($time_diff / 60);
-                                            $formatted_date .= " (Il y a " . $time_diff . " minute(s))";
-                                        } else if ($time_diff < 86400) {
-                                            $time_diff = round($time_diff / 3600);
-                                            $formatted_date .= " (Il y a " . $time_diff . " heure(s))";
-                                        } else if ($time_diff < 604800) {
-                                            $time_diff = round($time_diff / 86400);
-                                            $formatted_date .= " (Il y a " . $time_diff . " jour(s))";
-                                        } else if ($time_diff < 2592000) {
-                                            $time_diff = round($time_diff / 604800);
-                                            $formatted_date .= " (Il y a " . $time_diff . " semaine(s))";
-                                        } else if ($time_diff < 31536000) {
-                                            $time_diff = round($time_diff / 2592000);
-                                            $formatted_date .= " (Il y a " . $time_diff . " mois)";
-                                        } else {
-                                            $time_diff = round($time_diff / 31536000);
-                                            $formatted_date .= " (Il y a " . $time_diff . " an(s))";
-                                        }
-                                        
+                                    $formatted_date = "Ecrit le " . $date->format("d/m/Y");
+                                    if ($time_diff < 60) {
+                                        $formatted_date .= " (Il y a " . $time_diff . " seconde(s))";
+                                    } else if ($time_diff < 3600) {
+                                        $time_diff = round($time_diff / 60);
+                                        $formatted_date .= " (Il y a " . $time_diff . " minute(s))";
+                                    } else if ($time_diff < 86400) {
+                                        $time_diff = round($time_diff / 3600);
+                                        $formatted_date .= " (Il y a " . $time_diff . " heure(s))";
+                                    } else if ($time_diff < 604800) {
+                                        $time_diff = round($time_diff / 86400);
+                                        $formatted_date .= " (Il y a " . $time_diff . " jour(s))";
+                                    } else if ($time_diff < 2592000) {
+                                        $time_diff = round($time_diff / 604800);
+                                        $formatted_date .= " (Il y a " . $time_diff . " semaine(s))";
+                                    } else if ($time_diff < 31536000) {
+                                        $time_diff = round($time_diff / 2592000);
+                                        $formatted_date .= " (Il y a " . $time_diff . " mois)";
+                                    } else {
+                                        $time_diff = round($time_diff / 31536000);
+                                        $formatted_date .= " (Il y a " . $time_diff . " an(s))";
+                                    }
+
                                     ?>
                                     <span><?= $formatted_date ?></span>
                                 </div>
@@ -159,7 +160,7 @@ $comments = getCommentsByMovie($movieID);
                                 <img src="https://image.tmdb.org/t/p/original<?= $actor['profile_path'] ?>" alt="Image de <?= $actor['name'] ?>" class="movie-box-img-right">
                                 <div class="box-text-right">
                                     <h2 class="movie-title">
-                                        <a class="cast-name" href="/person/<?= $actor['id'] ?>"><?= $actor['name'] ?></a>
+                                        <a class="cast-name" href="?view=actor&actorID=<?= $actor['id'] ?>"><?= $actor['name'] ?></a>
                                     </h2>
                                     <span class="movie-type"><?= $actor['character'] ?></span>
                                     <span class="actor-nbvote votes-count">0 vote</span>

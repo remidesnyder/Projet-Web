@@ -4,8 +4,8 @@
     --primary-color: #ff3c35;
     --notification-color: #ff3c35;
     --search-bar-color: #2c353d;
-    --main-color: #7A3E3E;
-    --hover-color: #7A3E3E;
+    --main-color: #7a3e3e;
+    --hover-color: #7a3e3e;
     --body-color: #1e1e2a;
     --container-color: #2d2e37;
 }
@@ -308,7 +308,7 @@ a {
 /* About Movie */
 
 .about-movie {
-    margin-top: 2rem;
+    /*margin-top: 2rem;*/
     display: flex;
 }
 

@@ -47,6 +47,7 @@ function getPermissionLevel($id) {
 
 function changeUsername($id, $newUsername) {
 	$SQL = "UPDATE users SET username='$newUsername' WHERE id='$id'";
+	updateLastUpdate($id);
 	return SQLUpdate($SQL);
 }
 
@@ -59,6 +60,7 @@ function changeUsername($id, $newUsername) {
 
 function changePassword($id, $newPassword) {
 	$SQL = "UPDATE users SET password='$newPassword' WHERE id='$id'";
+	updateLastUpdate($id);
 	return SQLUpdate($SQL);
 }
 
@@ -70,6 +72,7 @@ function changePassword($id, $newPassword) {
  */
 function changeRole($id, $newRole) {
 	$SQL = "UPDATE users SET role='$newRole' WHERE id='$id'";
+	updateLastUpdate($id);
 	return SQLUpdate($SQL);
 }
 
@@ -81,7 +84,18 @@ function changeRole($id, $newRole) {
  */
 function changeProfilImage($id, $newImage) {
 	$SQL = "UPDATE users SET profil_image='$newImage' WHERE id='$id'";
+	updateLastUpdate($id);
 	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction de vérification de l'existence d'un utilisateur
+ * @param string $username
+ * @return int
+ */
+function usernameAlreadyExist($username) {
+	$SQL = "SELECT id FROM users WHERE username='$username'";
+	return SQLGetChamp($SQL);
 }
 
 /**
@@ -92,6 +106,7 @@ function changeProfilImage($id, $newImage) {
  * @return int
  */
 function addUser($username, $password, $role) {
+	if (usernameAlreadyExist($username)) return false;
 	$SQL = "INSERT INTO users (username, password, role) VALUES ('$username', '$password', '$role')";
 	return SQLInsert($SQL);
 }
@@ -135,6 +150,16 @@ function getMovieTime($userID) {
  */
 function updateLastConnexion($id) {
 	$SQL = "UPDATE users SET last_connexion = NOW() WHERE id='$id'";
+	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction de mise à jour de la date de dernière mise à jour
+ * @param int $id
+ * @return array
+ */
+function updateLastUpdate($id) {
+	$SQL = "UPDATE users SET updated_at = NOW() WHERE id='$id'";
 	return SQLUpdate($SQL);
 }
 
@@ -411,6 +436,11 @@ function editMovie($id, $title, $overview, $poster_path, $runtime, $release_date
 	return SQLUpdate($SQL);
 }
 
+/**
+ * Fonction de récupération de la liste des acteurs d'un film
+ * @param int $movieID
+ * @return array
+ */
 function getActorsByMovie($movieID) {
 	global $API_KEY;
 	$api_url = "https://api.themoviedb.org/3/movie/" . $movieID . "/credits?api_key=" . $API_KEY . "&language=fr-FR";
@@ -536,7 +566,7 @@ function editNote($id, $note) {
 }
 
 /* ******************************** */
-/* 		Fonction Film Vus */
+/* 		Fonction Film Vus 			*/
 /* ******************************** */
 
 /**
@@ -556,6 +586,12 @@ function getAllMoviesSeen($userID) {
  * @return int
  */
 function addMovieSeen($userID, $movieID) {
+	if (isTheMovieInToWatchList($userID, $movieID) != null) {
+		deleteMovieToSee($userID, $movieID);
+	}
+	if (isTheMovieInWatchedList($userID, $movieID) != null) {
+		return addMultipleSeen($userID, $movieID);
+	}
 	$SQL = "INSERT INTO watched_movies (userID, movieID) VALUES ('$userID', '$movieID')";
 	return SQLInsert($SQL);
 }
@@ -593,6 +629,17 @@ function getHowManyTimeUserHasSeenMovie($userID, $movieID) {
 	return SQLGetChamp($SQL);
 }
 
+/**
+ * Fonction de vérification si un film est dans la liste des films vus d'un utilisateur
+ * @param int $userID
+ * @param int $movieID
+ * @return int
+ */
+function isTheMovieInWatchedList($userID, $movieID) {
+	$SQL = "SELECT * FROM watched_movies WHERE userID='$userID' AND movieID = '$movieID'";
+	return SQLGetChamp($SQL);
+}
+
 /* ******************************** */
 /* 		Fonction Film à voir 	    */
 /* ******************************** */
@@ -614,6 +661,8 @@ function getAllMoviesToSee($userID) {
  * @return int
  */
 function addMovieToSee($userID, $movieID) {
+	if (isTheMovieInWatchedList($userID, $movieID) != null) return false;
+	if (isTheMovieInToWatchList($userID, $movieID) != null) return false;
 	$SQL = "INSERT INTO towatch_movies (userID, movieID) VALUES ('$userID', '$movieID')";
 	return SQLInsert($SQL);
 }
@@ -627,6 +676,17 @@ function addMovieToSee($userID, $movieID) {
 function deleteMovieToSee($userID, $movieID) {
 	$SQL = "DELETE FROM towatch_movies WHERE userID='$userID' AND movieID='$movieID'";
 	return SQLDelete($SQL);
+}
+
+/**
+ * Fonction de vérification si un film est dans la liste à voir d'un utilisateur
+ * @param int $userID
+ * @param int $movieID
+ * @return int
+ */
+function isTheMovieInToWatchList($userID, $movieID) {
+	$SQL = "SELECT * FROM towatch_movies WHERE userID='$userID' AND movieID='$movieID'";
+	return SQLGetChamp($SQL);
 }
 
 /* ******************************** */
