@@ -23,8 +23,11 @@ $comments = getCommentsByMovie($movieID);
 
 ?>
 
-<section>
-    <img src="https://image.tmdb.org/t/p/original<?= $movie['backdrop_path'] ?>" class="movie-backdrop">
+<section class="moviecontent">
+<img src="https://image.tmdb.org/t/p/original<?= $movie['backdrop_path'] ?>" class="movie-backdrop">
+</section>
+
+<section class="">
     <div class="about-movie container">
         <div class="about-movie-content">
             <h2 class="title"><?= $movie['title'] ?></h2>

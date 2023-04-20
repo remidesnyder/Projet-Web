@@ -24,12 +24,13 @@ if (isset($_SESSION['userID'])) {
 
 ?>
 
+<section class="home-content"></section>
 
 <!-- Movie Trend Section Start -->
 <section class="movietrend container" id="movietrend">
 	<!-- Heading -->
 	<div class="heading">
-		<a href="/all/moviesWanted" class="movie-a">
+		<a href="" class="movie-a">
 			<h2 class="heading-title">
 				Film populaire (<?= count($movietrendData); ?>)
 			</h2>
@@ -75,7 +76,7 @@ if (isset($_SESSION['userID'])) {
 <section class="watch container" id="watch">
 	<!-- Heading -->
 	<div class="heading">
-		<a href="/all/moviesWatch" class="movie-a">
+		<a href="" class="movie-a">
 			<h2 class="heading-title">
 				Film vus (<?= count($watchData); ?>)
 			</h2>
@@ -121,7 +122,7 @@ if (isset($_SESSION['userID'])) {
 <section class="towatch container" id="towatch">
 	<!-- Heading -->
 	<div class="heading">
-		<a href="/all/moviesWanted" class="movie-a">
+		<a href="" class="movie-a">
 			<h2 class="heading-title">
 				Film à voir (<?= count($toWatchData); ?>)
 			</h2>
