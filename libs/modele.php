@@ -835,6 +835,32 @@ function searchActors($query) {
 	return $api_array;
 }
 
+/**
+ * Fonction de récupération des informations d'un acteur
+ * @param int $actorID
+ * @return array
+ */
+function getActorByID($actorID) {
+	global $API_KEY;
+	$api_url = "https://api.themoviedb.org/3/person/" . $actorID . "?api_key=" . $API_KEY . "&language=fr-FR";
+	$api_json = file_get_contents($api_url);
+	$api_array = json_decode($api_json, true);
+	return $api_array;
+}
+
+/**
+ * Fonction de récupération des films d'un acteur
+ * @param int $actorID
+ * @return array
+ */
+function getActorMovies($actorID) {
+	global $API_KEY;
+	$api_url = "https://api.themoviedb.org/3/person/" . $actorID . "/movie_credits?api_key=" . $API_KEY . "&language=fr-FR";
+	$api_json = file_get_contents($api_url);
+	$api_array = json_decode($api_json, true);
+	return $api_array['cast'];
+}
+
 /* ******************************** */
 /* 		Fonction GLOBALE		    */
 /* ******************************** */
