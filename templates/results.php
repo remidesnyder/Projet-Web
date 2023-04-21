@@ -35,7 +35,16 @@ $moviesData = searchMovies($search);
                         <h2 class="movie-title">
                             <a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
                         </h2>
-                        <span class="movie-type"></span>
+                        <?php if (isTheMovieInWatchedList($_SESSION['userID'], $data['id'])) : ?>
+                            <button class="btn btn-red">Retirer vu</button>
+                        <?php else : ?>
+                            <button class="btn btn-green">Ajouter vu</button>
+                        <?php endif ?>
+                        <?php if (isTheMovieInToWatchList($_SESSION['userID'], $data['id'])) : ?>
+                            <button class="btn btn-red">Retirer à voir</button>
+                        <?php elseif (!isTheMovieInWatchedList($_SESSION['userID'], $data['id'])) : ?>
+                            <button class="btn btn-orange">Ajouter à voir</button>
+                        <?php endif ?>
                     </div>
                 </div>
             <?php endforeach ?>
