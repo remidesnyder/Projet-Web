@@ -57,8 +57,8 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
             </li>
             <li>
                 <div class="search">
-                    <form class="nosubmit">
-                        <input class="nosubmit" type="search" placeholder="Tapez ici pour chercher.">
+                    <form class="nosubmit" action="index.php?view=results" method="POST">
+                        <input class="nosubmit" type="text" placeholder="Tapez ici pour chercher." name="search">
                     </form>
                 </div>
             </li>

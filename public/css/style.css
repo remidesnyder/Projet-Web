@@ -18,17 +18,18 @@
 
 body::-webkit-scrollbar {
     width: 15px;
-  }
-  
-  body::-webkit-scrollbar-track {
+}
+
+body::-webkit-scrollbar-track {
     background-color: none;
-  }
-  
-  body::-webkit-scrollbar-thumb {
-    background-color:var(--main-color);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--main-color);
     border-radius: 20px;
     border: 2px solid var(--main-color);
-  }
+}
+
 
 /* Selection */
 
@@ -675,5 +676,24 @@ section .home-content {
 }
 
 .movie-box-all h2 {
+    margin: 10px 0;
+}
+
+.image-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}
+
+.movie-box-result {
+    text-align: center;
+}
+
+.movie-box-result img {
+    width: 100%;
+    height: auto;
+}
+
+.movie-box-result h2 {
     margin: 10px 0;
 }
