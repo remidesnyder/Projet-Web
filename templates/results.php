@@ -49,9 +49,17 @@ $moviesData = searchMovies($search);
                             </form>
                         <?php endif ?>
                         <?php if (isTheMovieInToWatchList($_SESSION['userID'], $data['id'])) : ?>
-                            <button class="btn btn-red">Retirer à voir</button>
+                            <form action="controleur.php?action=RemoveMovieFromToWatchList" method="POST">
+                                <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
+                                <input type="hidden" name="request" value="<?= $search ?>">
+                                <button class="btn btn-red">Retirer à voir</button>
+                            </form>
                         <?php elseif (!isTheMovieInWatchedList($_SESSION['userID'], $data['id'])) : ?>
-                            <button class="btn btn-orange">Ajouter à voir</button>
+                            <form action="controleur.php?action=AddMovieInToWatchList" method="POST">
+                                <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
+                                <input type="hidden" name="request" value="<?= $search ?>">
+                                <button class="btn btn-orange">Ajouter à voir</button>
+                            </form>
                         <?php endif ?>
                     </div>
                 </div>

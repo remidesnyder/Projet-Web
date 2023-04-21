@@ -30,6 +30,9 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
 	// Le formulaire de recherche ainsi que le lien de connexion 
 	// si l'utilisateur n'est pas connecté 
 
+	if (($view == "login" || $view == "inscription") && $_SESSION['userID'] > 0)
+		$view = "accueil";
+
 	include("templates/partials/header.php");
 
 	// En fonction de la vue à afficher, on appelle tel ou tel template

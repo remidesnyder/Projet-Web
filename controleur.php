@@ -52,10 +52,7 @@ if ($action = valider("action")) {
 			$movieID = valider("movieID", 'POST');
 			$request = valider("request", 'POST');
 
-			var_dump($_SESSION['userID'] . " " . $movieID . " " . $request);
-			die();
-
-			if (isset($_SESSION['userID']))
+			if (isset($_SESSION['userID']) && $_SESSION['userID'] > 0 && $movieID > 0)
 				addMovieSeen($_SESSION['userID'], $movieID);
 
 			$qs = "?view=movie&movieID=$movieID&request=$request";
@@ -63,12 +60,25 @@ if ($action = valider("action")) {
 			break;
 		case 'RemoveMovieFromWatchList':
 			$movieID = valider("movieID", 'POST');
+			if (isset($_SESSION['userID']) && $_SESSION['userID'] > 0 && $movieID > 0)
+				removeMovieSeen($_SESSION['userID'], $movieID);
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'AddMovieInToWatchList':
+			$movieID = valider("movieID", 'POST');
+			$request = valider("request", 'POST');
+
+			if (isset($_SESSION['userID']) && $_SESSION['userID'] > 0 && $movieID > 0)
+				addMovieToSee($_SESSION['userID'], $movieID);
+
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'RemoveMovieFromToWatchList':
+			$movieID = valider("movieID", 'POST');
+
+			if (isset($_SESSION['userID']) && $_SESSION['userID'] > 0 && $movieID > 0)
+				removeMovieToSee($_SESSION['userID'], $movieID);
+
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'Profile':

@@ -380,7 +380,7 @@ function getAllMovies() {
  * @return array
  */
 function getMovie($id) {
-	$SQL = "SELECT * FROM movies WHERE id='$id'";
+	$SQL = "SELECT * FROM movies WHERE movieID='$id'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -404,11 +404,37 @@ function getMovieFromAPI($movieID) {
  * @return array
  */
 function addMovie($movieID, $title, $overview, $poster_path, $runtime, $release_date) {
-	if (empty(getMovie($movieID))) {
+	if (getMovie($movieID) != null) {
 		return false;
 	}
 	$SQL = "INSERT INTO movies (movieID, title, overview, poster_path, runtime, release_date) VALUES ('$movieID', '$title', '$overview', '$poster_path', '$runtime', '$release_date')";
 	return SQLInsert($SQL);
+}
+
+/**
+ * Fonction d'ajout d'un film via l'API
+ * @param int $movieID
+ * @return array
+ */
+function addMovieWithAPI($movieID) {
+	if (empty($movieID)) {
+		return false;
+	}
+	if (!empty(getMovie($movieID))) {
+		return false;
+	}
+	$movie = getMovieFromAPI($movieID);
+
+	$movieID = $movie['id'];
+	$title = proteger($movie['title']);
+	$overview = proteger($movie['overview']);
+	$poster_path = $movie['poster_path'];
+	$runtime = $movie['runtime'] ? $movie['runtime'] : 0;
+	$release_date = $movie['release_date'];
+
+	addMovie($movieID, $title, $overview, $poster_path, $runtime, $release_date);
+
+	return true;
 }
 
 /**
@@ -586,8 +612,13 @@ function getAllMoviesSeen($userID) {
  * @return int
  */
 function addMovieSeen($userID, $movieID) {
+
+	if (getMovie($movieID) == null) {
+		addMovieWithAPI($movieID);
+	}
+
 	if (isTheMovieInToWatchList($userID, $movieID) != null) {
-		deleteMovieToSee($userID, $movieID);
+		removeMovieToSee($userID, $movieID);
 	}
 	if (isTheMovieInWatchedList($userID, $movieID) != null) {
 		return addMultipleSeen($userID, $movieID);
@@ -602,7 +633,7 @@ function addMovieSeen($userID, $movieID) {
  * @param int $movieID
  * @return int
  */
-function deleteMovieSeen($userID, $movieID) {
+function removeMovieSeen($userID, $movieID) {
 	$SQL = "DELETE FROM watched_movies WHERE userID='$userID' AND movieID='$movieID'";
 	return SQLDelete($SQL);
 }
@@ -661,6 +692,9 @@ function getAllMoviesToSee($userID) {
  * @return int
  */
 function addMovieToSee($userID, $movieID) {
+	if (getMovie($movieID) == null) {
+		addMovieWithAPI($movieID);
+	}
 	if (isTheMovieInWatchedList($userID, $movieID) != null) return false;
 	if (isTheMovieInToWatchList($userID, $movieID) != null) return false;
 	$SQL = "INSERT INTO towatch_movies (userID, movieID) VALUES ('$userID', '$movieID')";
@@ -673,7 +707,7 @@ function addMovieToSee($userID, $movieID) {
  * @param int $movieID
  * @return int
  */
-function deleteMovieToSee($userID, $movieID) {
+function removeMovieToSee($userID, $movieID) {
 	$SQL = "DELETE FROM towatch_movies WHERE userID='$userID' AND movieID='$movieID'";
 	return SQLDelete($SQL);
 }
