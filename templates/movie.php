@@ -36,14 +36,40 @@ $comments = getCommentsByMovie($movieID);
                     <span><?= $genre['name'] ?></span>
                 <?php endforeach; ?>
             </div>
+            <div class="tags add">
+                <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
+                    <form action="controleur.php?action=RemoveMovieFromWatchList" method="POST">
+                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                        <button class="btn btn-red">Retirer vu</button>
+                    </form>
+                <?php else : ?>
+                    <form action="controleur.php?action=AddMovieInWatchList" method="POST">
+                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                        <button class="btn btn-green">Ajouter vu</button>
+                    </form>
+                <?php endif ?>
+                <?php if (isTheMovieInToWatchList($_SESSION['userID'], $movieID)) : ?>
+                    <form action="controleur.php?action=RemoveMovieFromToWatchList" method="POST">
+                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                        <button class="btn btn-red">Retirer à voir</button>
+                    </form>
+                <?php elseif (!isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
+                    <form action="controleur.php?action=AddMovieInToWatchList" method="POST">
+                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                        <button class="btn btn-orange">Ajouter à voir</button>
+                    </form>
+                <?php endif ?>
+            </div>
             <div class="about-movie content">
                 <p><?= $movie['overview'] ?></p>
             </div>
         </div>
 
-        <button class="round-button addMultipleMovie">
-            <span>x<?= $multipleSeen ?></span>
-        </button>
+        <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
+            <button class="round-button addMultipleMovie">
+                <span>x<?= $multipleSeen ?></span>
+            </button>
+        <?php endif ?>
     </div>
 </section>
 
@@ -127,7 +153,7 @@ $comments = getCommentsByMovie($movieID);
                         <?php endforeach; ?>
                         <div class="reply-container">
                             <div class="profile-pic">
-                                <img src="public/img/default.jpg" alt="Profile picture">
+                                <img src="public/img/<?= getProfilPath($_SESSION['userID']) ?>" alt="Profile picture">
                             </div>
                             <div class="comment-form">
                                 <form action="controleur.php?action=AddReply" method="post">

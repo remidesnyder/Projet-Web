@@ -722,3 +722,17 @@ section .home-content {
     background-color: var(--danger-color);
     border-color: var(--danger-color);
 }
+
+.tags span {
+    color: white;
+    font-size: 16px;
+    background-color: var(--main-color);
+    border: 4px solid var(--main-color);
+    border-radius: 18px;
+}
+
+.tags.add {
+    display: flex;
+    gap: 4px;
+    padding-top: 10px;
+}

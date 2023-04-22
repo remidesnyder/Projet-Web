@@ -163,6 +163,16 @@ function updateLastUpdate($id) {
 	return SQLUpdate($SQL);
 }
 
+/**
+ * Fonction de récupération de l'image de profil de profil d'un utilisateur
+ * @param int $id
+ * @return array
+ */
+function getProfilPath($id) {
+	$SQL = "SELECT profil_picture FROM users WHERE id='$id'";
+	return SQLGetChamp($SQL);
+}
+
 /* ******************************** */
 /* 		Fonction Notification */
 /* ******************************** */
