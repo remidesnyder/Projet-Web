@@ -14,11 +14,6 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
 
 	// on récupère le paramètre view éventuel 
 	$view = valider("view"); 
-	/* valider automatise le code suivant :
-	if (isset($_GET["view"]) && $_GET["view"]!="")
-	{
-		$view = $_GET["view"]
-	}*/
 
 	// S'il est vide, on charge la vue accueil par défaut
 	if (!$view) $view = "accueil"; 

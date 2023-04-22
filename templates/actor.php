@@ -59,7 +59,11 @@ $biographyLimite = 350; // Nombre de caractères maximum pour la biographie
                 <?php foreach ($actorMovies as $data) : ?>
                     <div class="swiper-slide">
                         <div class="movie-box">
-                            <img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
+                            <?php if ($data['poster_path']) : ?>
+                                <img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
+                            <?php else : ?>
+                                <img src="public/img/visuel-default.png" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img">
+                            <?php endif ?>
                             <div class="box-text">
                                 <h2 class="movie-title">
                                     <a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>

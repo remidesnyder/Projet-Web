@@ -24,7 +24,7 @@ $comments = getCommentsByMovie($movieID);
 ?>
 
 <section class="moviecontent">
-<img src="https://image.tmdb.org/t/p/original<?= $movie['backdrop_path'] ?>" class="movie-backdrop">
+    <img src="https://image.tmdb.org/t/p/original<?= $movie['backdrop_path'] ?>" class="movie-backdrop">
 </section>
 
 <section class="">
@@ -160,7 +160,11 @@ $comments = getCommentsByMovie($movieID);
                         <!-- Movies Box -->
                         <div class="swiper-slide swiper-actor">
                             <div class="movie-box-right">
-                                <img src="https://image.tmdb.org/t/p/original<?= $actor['profile_path'] ?>" alt="Image de <?= $actor['name'] ?>" class="movie-box-img-right">
+                                <?php if ($actor['profile_path']) : ?>
+                                    <img src="https://image.tmdb.org/t/p/original<?= $actor['profile_path'] ?>" alt="Image de <?= $actor['name'] ?>" class="movie-box-img-right" />
+                                <?php else : ?>
+                                    <img src="public/img/visuel-default.png" alt="Image de <?= $actor['name'] ?>" class="movie-box-img-right">
+                                <?php endif ?>
                                 <div class="box-text-right">
                                     <h2 class="movie-title">
                                         <a class="cast-name" href="?view=actor&actorID=<?= $actor['id'] ?>"><?= $actor['name'] ?></a>

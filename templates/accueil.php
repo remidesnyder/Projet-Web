@@ -48,20 +48,24 @@ if (isset($_SESSION['userID'])) {
 		<div class="swiper-wrapper">
 			<!-- Movies Box -->
 			<?php foreach ($movietrendData as $data) : ?>
-			<div class="swiper-slide">
-				<div class="movie-box">
-					<img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
-					<div class="box-text">
-						<h2 class="movie-title">
-							<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
-						</h2>
-						<span class="movie-type">NaN</span>
-						<a href="#" class="watch-btn play-btn">
-							<i class="bx bx-right-arrow"></i>
-						</a>
+				<div class="swiper-slide">
+					<div class="movie-box">
+						<?php if ($data['poster_path']) : ?>
+							<img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
+						<?php else : ?>
+							<img src="public/img/visuel-default.png" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img">
+						<?php endif ?>
+						<div class="box-text">
+							<h2 class="movie-title">
+								<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
+							</h2>
+							<span class="movie-type">NaN</span>
+							<a href="#" class="watch-btn play-btn">
+								<i class="bx bx-right-arrow"></i>
+							</a>
+						</div>
 					</div>
 				</div>
-			</div>
 			<?php endforeach ?>
 		</div>
 	</div>
@@ -70,97 +74,105 @@ if (isset($_SESSION['userID'])) {
 
 <?php if (isset($_SESSION['userID'])) : ?>
 
-<?php if (count($watchData) > 0) : ?>
+	<?php if (count($watchData) > 0) : ?>
 
-<!-- Movie Watch Section Start -->
-<section class="watch container" id="watch">
-	<!-- Heading -->
-	<div class="heading">
-		<a href="" class="movie-a">
-			<h2 class="heading-title">
-				Film vus (<?= count($watchData); ?>)
-			</h2>
-		</a>
+		<!-- Movie Watch Section Start -->
+		<section class="watch container" id="watch">
+			<!-- Heading -->
+			<div class="heading">
+				<a href="" class="movie-a">
+					<h2 class="heading-title">
+						Film vus (<?= count($watchData); ?>)
+					</h2>
+				</a>
 
-		<!-- Swiper Buttons -->
-		<div class="swiper-btn">
-			<div class="swiper-button-prev" id="watch-prev"></div>
-			<div class="swiper-button-next" id="watch-next"></div>
-		</div>
-	</div>
-
-	<!-- Content -->
-	<div class="watch-content swiper">
-		<div class="swiper-wrapper">
-			<!-- Movies Box -->
-			<?php foreach ($watchData as $data) : ?>
-			<div class="swiper-slide">
-				<div class="movie-box">
-					<img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
-					<div class="box-text">
-						<h2 class="movie-title">
-							<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['movieID'] ?>"><?= $data['title'] ?></a>
-						</h2>
-						<span class="movie-type">NaN</span>
-						<a href="#" class="watch-btn play-btn">
-							<i class="bx bx-right-arrow"></i>
-						</a>
-					</div>
+				<!-- Swiper Buttons -->
+				<div class="swiper-btn">
+					<div class="swiper-button-prev" id="watch-prev"></div>
+					<div class="swiper-button-next" id="watch-next"></div>
 				</div>
 			</div>
-			<?php endforeach ?>
-		</div>
-	</div>
-</section>
-<!-- Movie Watch Section End -->
 
-<?php endif ?>
-
-<?php if (count($toWatchData) > 0) : ?>
-
-<!-- Movie ToWatch Section Start -->
-<section class="towatch container" id="towatch">
-	<!-- Heading -->
-	<div class="heading">
-		<a href="" class="movie-a">
-			<h2 class="heading-title">
-				Film à voir (<?= count($toWatchData); ?>)
-			</h2>
-		</a>
-
-		<!-- Swiper Buttons -->
-		<div class="swiper-btn">
-			<div class="swiper-button-prev" id="towatch-prev"></div>
-			<div class="swiper-button-next" id="towatch-next"></div>
-		</div>
-	</div>
-
-	<!-- Content -->
-	<div class="towatch-content swiper">
-		<div class="swiper-wrapper">
-			<!-- Movies Box -->
-			<?php foreach ($toWatchData as $data) : ?>
-			<div class="swiper-slide">
-				<div class="movie-box">
-					<img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
-					<div class="box-text">
-						<h2 class="movie-title">
-							<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['movieID'] ?>"><?= $data['title'] ?></a>
-						</h2>
-						<span class="movie-type">NaN</span>
-						<a href="#" class="watch-btn play-btn">
-							<i class="bx bx-right-arrow"></i>
-						</a>
-					</div>
+			<!-- Content -->
+			<div class="watch-content swiper">
+				<div class="swiper-wrapper">
+					<!-- Movies Box -->
+					<?php foreach ($watchData as $data) : ?>
+						<div class="swiper-slide">
+							<div class="movie-box">
+								<?php if ($data['poster_path']) : ?>
+									<img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
+								<?php else : ?>
+									<img src="public/img/visuel-default.png" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img">
+								<?php endif ?>
+								<div class="box-text">
+									<h2 class="movie-title">
+										<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['movieID'] ?>"><?= $data['title'] ?></a>
+									</h2>
+									<span class="movie-type">NaN</span>
+									<a href="#" class="watch-btn play-btn">
+										<i class="bx bx-right-arrow"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					<?php endforeach ?>
 				</div>
 			</div>
-			<?php endforeach ?>
-		</div>
-	</div>
-</section>
-<!-- Movie ToWatch Section End -->
+		</section>
+		<!-- Movie Watch Section End -->
 
-<?php endif ?>
+	<?php endif ?>
+
+	<?php if (count($toWatchData) > 0) : ?>
+
+		<!-- Movie ToWatch Section Start -->
+		<section class="towatch container" id="towatch">
+			<!-- Heading -->
+			<div class="heading">
+				<a href="" class="movie-a">
+					<h2 class="heading-title">
+						Film à voir (<?= count($toWatchData); ?>)
+					</h2>
+				</a>
+
+				<!-- Swiper Buttons -->
+				<div class="swiper-btn">
+					<div class="swiper-button-prev" id="towatch-prev"></div>
+					<div class="swiper-button-next" id="towatch-next"></div>
+				</div>
+			</div>
+
+			<!-- Content -->
+			<div class="towatch-content swiper">
+				<div class="swiper-wrapper">
+					<!-- Movies Box -->
+					<?php foreach ($toWatchData as $data) : ?>
+						<div class="swiper-slide">
+							<div class="movie-box">
+								<?php if ($data['poster_path']) : ?>
+									<img src="https://image.tmdb.org/t/p/original<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img" />
+								<?php else : ?>
+									<img src="public/img/visuel-default.png" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img">
+								<?php endif ?>
+								<div class="box-text">
+									<h2 class="movie-title">
+										<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['movieID'] ?>"><?= $data['title'] ?></a>
+									</h2>
+									<span class="movie-type">NaN</span>
+									<a href="#" class="watch-btn play-btn">
+										<i class="bx bx-right-arrow"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</section>
+		<!-- Movie ToWatch Section End -->
+
+	<?php endif ?>
 
 <?php endif ?>
 
