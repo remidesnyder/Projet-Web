@@ -5,6 +5,7 @@
     --notification-color: #ff3c35;
     --main-color: #7a3e3e;
     --search-bar-color: #2c353d;
+    --success-color: #198754;
     --warning-color: #ffc107;
     --danger-color: #dc3545;
 }
@@ -714,8 +715,8 @@ section .home-content {
 }
 
 .btn-green {
-    background-color: green;
-    border-color: green;
+    background-color: var(--success-color);
+    border-color: var(--success-color);
 }
 
 .btn-red {
@@ -735,4 +736,9 @@ section .home-content {
     display: flex;
     gap: 4px;
     padding-top: 10px;
+}
+
+.btnResultAdd {
+    display: flex;
+    gap: 4px;
 }

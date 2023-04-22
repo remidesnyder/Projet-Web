@@ -35,6 +35,7 @@ $moviesData = searchMovies($search);
                         <h2 class="movie-title">
                             <a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
                         </h2>
+                        <div class="btnResultAdd">
                         <?php if (isTheMovieInWatchedList($_SESSION['userID'], $data['id'])) : ?>
                             <form action="controleur.php?action=RemoveMovieFromWatchList" method="POST">
                                 <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
@@ -61,6 +62,7 @@ $moviesData = searchMovies($search);
                                 <button class="btn btn-orange">Ajouter à voir</button>
                             </form>
                         <?php endif ?>
+                        </div>
                     </div>
                 </div>
             <?php endforeach ?>
