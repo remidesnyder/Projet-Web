@@ -35,6 +35,8 @@ function verifUser($login,$password)
 	$_SESSION["isAdmin"] = isAdmin($id);
 	$_SESSION['permission_level'] = getPermissionLevel($id);
 
+	updateLastConnexion($_SESSION['userID']);
+
 	return true;	
 }
 

@@ -81,9 +81,6 @@ if ($action = valider("action")) {
 
 			// On redirigera vers la page index automatiquement
 			break;
-		case 'Profile':
-			// On redirigera vers la page index automatiquement
-			break;
 		case 'UpdateProfile':
 			// On redirigera vers la page index automatiquement
 			break;
@@ -95,18 +92,37 @@ if ($action = valider("action")) {
 			$comment = valider("content", 'POST');
 
 			// On vérifie que le commentaire n'est pas vide
-			if ($movieID && $comment && $comment != "") {
+			if ($movieID && isset($_SESSION['userID']) && $comment && $comment != "") {
 				// On ajoute le commentaire
 				addComment($_SESSION['userID'], $movieID, $comment);
 			}
 			$qs = "?view=movie&movieID=$movieID";
-			// On redirigera vers la page index automatiquement
 			break;
 		case 'DeleteComment':
-			// On redirigera vers la page index automatiquement
+			$commentID = valider("commentID", 'POST');
+			$movieID = valider("movieID", 'POST');
+			
+			if ($commentID && isset($_SESSION['userID'])) {
+				// On ajoute le commentaire
+				deleteComment($commentID);
+			}
+			$qs = "?view=movie&movieID=$movieID";
 			break;
 		case 'UpdateComment':
 			// On redirigera vers la page index automatiquement
+			break;
+		case 'UpdateReaction' : 
+			$commentID = valider("commentID", 'POST');
+			$movieID = valider("movieID", 'POST');
+
+			if ($commentID && isset($_SESSION['userID'])) {
+				// On ajoute le commentaire
+				if (userHasAlreadyReacted($commentID, $_SESSION['userID']))
+					deleteReaction($commentID, $_SESSION['userID']);
+				else
+				addReaction($commentID, $_SESSION['userID']);
+			}
+			$qs = "?view=movie&movieID=$movieID";
 			break;
 		case 'AddReply':
 			$movieID = valider("movieID", 'POST');
@@ -114,7 +130,7 @@ if ($action = valider("action")) {
 			$reply = valider("reply", 'POST');
 
 			// On vérifie que le commentaire n'est pas vide
-			if ($commentID && $reply && $reply != "") {
+			if ($commentID && isset($_SESSION['userID']) && $reply && $reply != "") {
 				// On ajoute le commentaire
 				addReply($_SESSION['userID'], $commentID, $reply);
 			}
@@ -123,10 +139,32 @@ if ($action = valider("action")) {
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'DeleteReply':
+			$replyID = valider("replyID", 'POST');
+			$movieID = valider("movieID", 'POST');
+
+			if ($replyID && isset($_SESSION['userID'])) {
+				// On ajoute le commentaire
+				deleteReply($replyID);
+			}
+
+			$qs = "?view=movie&movieID=$movieID";
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'UpdateReply':
 			// On redirigera vers la page index automatiquement
+			break;
+		case 'UpdateReactionReply':
+			$replyID = valider("replyID", 'POST');
+			$movieID = valider("movieID", 'POST');
+
+			if ($replyID && isset($_SESSION['userID'])) {
+				// On ajoute le commentaire
+				if (userHasAlreadyReactedReply($replyID, $_SESSION['userID']))
+					deleteReplyReaction($replyID, $_SESSION['userID']);
+				else
+				addReplyReaction($replyID, $_SESSION['userID']);
+			}
+			$qs = "?view=movie&movieID=$movieID";
 			break;
 	}
 }

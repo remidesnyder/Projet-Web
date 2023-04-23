@@ -3,6 +3,7 @@
 include_once "config.php";
 require_once 'libs/maLibSQL.pdo.php';
 require_once 'libs/maLibUtils.php';
+
 /* Fonction utilisateur */
 
 /**
@@ -397,6 +398,10 @@ function addComment($userID, $movieID, $content)
  */
 function deleteComment($id)
 {
+
+	$SQL = "DELETE FROM replies WHERE commentID='$id'";
+	SQLDelete($SQL);
+
 	$SQL = "DELETE FROM comments WHERE id='$id'";
 	return SQLDelete($SQL);
 }
@@ -414,13 +419,51 @@ function editComment($id, $content)
 }
 
 /**
+ * Fonction qui vérifie si un utilisateur a déjà réagi à un commentaire
+ * @param int $commentID
+ * @param int $userID
+ * @return array
+ */
+function userHasAlreadyReacted($commentID, $userID)
+{
+	$SQL = "SELECT * FROM comments_reactions WHERE commentID='$commentID' AND userID='$userID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+/**
  * Fonction d'ajout d'une réaction
  * @param int $commentID
  * @return int
  */
-function addReaction($commentID)
-{
+function addReaction($commentID, $userID) {
+
+	if (userHasAlreadyReacted($commentID, $userID) != null) {
+		return false;
+	}
+
+	$SQL = "INSERT INTO comments_reactions (commentID, userID) VALUES ('$commentID', '$userID')";
+	SQLInsert($SQL);
+
 	$SQL = "UPDATE comments SET reactions=reactions+1 WHERE id='$commentID'";
+	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction de suppression d'une réaction
+ * @param int $commentID
+ * @param int $userID
+ * @return int
+ */
+function deleteReaction($commentID, $userID){
+
+	if (userHasAlreadyReacted($commentID, $userID) == null) {
+		return false;
+	}
+
+	$SQL = "DELETE FROM comments_reactions WHERE commentID='$commentID' AND userID='$userID'";
+	SQLDelete($SQL);
+
+	$SQL = "UPDATE comments SET reactions=reactions-1 WHERE id='$commentID'";
 	return SQLUpdate($SQL);
 }
 
@@ -479,13 +522,51 @@ function editReply($id, $content)
 }
 
 /**
+ * Fonction qui vérifie si un utilisateur a déjà réagi à une réponse
+ * @param int $commentID
+ * @param int $userID
+ * @return array
+ */
+function userHasAlreadyReactedReply($replyID, $userID)
+{
+	$SQL = "SELECT * FROM replies_reactions WHERE replyID='$replyID' AND userID='$userID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+/**
  * Fonction d'ajout d'une réaction
  * @param int $replyID
  * @return int
  */
-function addReplyReaction($replyID)
-{
+function addReplyReaction($replyID, $userID) {
+
+	if (userHasAlreadyReactedReply($replyID, $userID) != null) {
+		return false;
+	}
+
+	$SQL = "INSERT INTO replies_reactions (replyID, userID) VALUES ('$replyID', '$userID')";
+	SQLInsert($SQL);
+
 	$SQL = "UPDATE replies SET reactions=reactions+1 WHERE id='$replyID'";
+	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction de suppression d'une réaction
+ * @param int $replyID
+ * @param int $userID
+ * @return int
+ */
+function deleteReplyReaction($replyID, $userID){
+	
+	if (userHasAlreadyReactedReply($replyID, $userID) == null) {
+		return false;
+	}
+
+	$SQL = "DELETE FROM replies_reactions WHERE replyID='$replyID' AND userID='$userID'";
+	SQLDelete($SQL);
+
+	$SQL = "UPDATE replies SET reactions=reactions-1 WHERE id='$replyID'";
 	return SQLUpdate($SQL);
 }
 

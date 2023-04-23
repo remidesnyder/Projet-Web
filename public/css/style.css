@@ -750,3 +750,47 @@ section .home-content {
 #myChart {
     width: 100%;
 }
+
+
+/* NOTIFICATION DROPDOWN */
+
+.notification-drop {
+    font-family: 'Ubuntu', sans-serif;
+    color: #444;
+}
+
+.notification-drop {
+    padding: 10px;
+    font-size: 18px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-drop ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background: #fff;
+    left: -200px;
+    right: 0;
+    z-index: 1;
+}
+
+.notification-drop ul li {
+    font-size: 16px;
+    padding: 15px 0 15px 25px;
+}
+
+.notification-drop ul li:hover {
+    background: #ddd;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.notification-text {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.notification-text span {
+    float: right;
+}

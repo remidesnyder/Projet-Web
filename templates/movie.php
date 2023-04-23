@@ -141,6 +141,26 @@ $comments = getCommentsByMovie($movieID);
                                     <div class="comment-actions">
                                         <span><?= count($reply) ?> <?= count($reply) > 1 ? 'Réponses' : 'Réponse' ?></span>
                                         <span><?= $comment['reactions'] ?> <?= $comment['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
+                                        <?php if (!userHasAlreadyReacted($comment['id'], $_SESSION['userID'])) : ?>
+                                            <form action="controleur.php?action=UpdateReaction" method="POST">
+                                                <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
+                                                <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                                <button><i class='bx bx-like'></i></button>
+                                            </form>
+                                        <?php else : ?>
+                                            <form action="controleur.php?action=UpdateReaction" method="POST">
+                                                <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
+                                                <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                                <button><i class='bx bxs-like'></i></button>
+                                            </form>
+                                        <?php endif ?>
+                                        <?php if ($comment['userID'] == $_SESSION['userID']) : ?>
+                                            <form action="controleur.php?action=DeleteComment" method="post">
+                                                <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                                <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
+                                                <button type="submit">Supprimer</button>
+                                            </form>
+                                        <?php endif ?>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +175,27 @@ $comments = getCommentsByMovie($movieID);
                                     <div class="comment-content">
                                         <p><?= $rep['content'] ?></p>
                                         <div class="comment-actions">
-                                            <span><?= $rep['reactions'] ?> <?= $rep['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
+                                            <span style="color: white;"><?= $rep['reactions'] ?> <?= $rep['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
+                                            <?php if (!userHasAlreadyReactedReply($rep['id'], $_SESSION['userID'])) : ?>
+                                                <form action="controleur.php?action=UpdateReactionReply" method="POST">
+                                                    <input type="hidden" name="replyID" value="<?= $rep['id'] ?>">
+                                                    <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                                    <button><i class='bx bx-like'></i></button>
+                                                </form>
+                                            <?php else : ?>
+                                                <form action="controleur.php?action=UpdateReactionReply" method="POST">
+                                                    <input type="hidden" name="replyID" value="<?= $rep['id'] ?>">
+                                                    <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                                    <button><i class='bx bxs-like'></i></button>
+                                                </form>
+                                            <?php endif ?>
+                                            <?php if ($rep['userID'] == $_SESSION['userID']) : ?>
+                                                <form action="controleur.php?action=DeleteReply" method="post">
+                                                    <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                                    <input type="hidden" name="replyID" value="<?= $rep['id'] ?>">
+                                                    <button type="submit">Supprimer</button>
+                                                </form>
+                                            <?php endif ?>
                                         </div>
                                     </div>
                                 </div>

@@ -6,6 +6,8 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php") {
     die("");
 }
 
+include_once 'libs/modele.php';
+
 // Pose qq soucis avec certains serveurs...
 echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 ?>
@@ -22,6 +24,14 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".notification-drop").on('click', function() {
+                $(this).find('ul').toggle();
+            });
+        });
+    </script>
 
 </head>
 <!-- **** F I N **** H E A D **** -->
@@ -66,11 +76,21 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
             </li>
             <?php if (isset($_SESSION['userID'])) : ?>
                 <li>
-                    <a href="">
-                        <div class="calendar"><i class='bx bxs-bell'></i>
-                            <div class="badge red"></div>
+                        <div class="calendar notification-drop"><i class='bx bxs-bell'></i>
+                            <?php if (getUnreadNotifications($_SESSION['userID'])) : ?>
+                                <div class="badge red"></div>
+                                <ul>
+                                    <li>Notifications</li>
+                                    <?php foreach (getUnreadNotifications($_SESSION['userID']) as $notification) : ?>
+                                        <li>
+                                            <a href="index.php?view=notification&id=<?= $notification['id'] ?>">
+                                                <?= $notification['content'] ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach ?>
+                                </ul>
+                            <?php endif ?>
                         </div>
-                    </a>
                 </li>
                 <li class="profile-info-name">
                     <img src="public/img/default.jpg" alt="" class="profile-image">
