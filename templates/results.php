@@ -35,35 +35,38 @@ $moviesData = searchMovies($search);
                         <h2 class="movie-title">
                             <a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
                         </h2>
-                        <div class="btnResultAdd">
-                        <?php if (isTheMovieInWatchedList($_SESSION['userID'], $data['id'])) : ?>
-                            <form action="controleur.php?action=RemoveMovieFromWatchList" method="POST">
-                                <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
-                                <input type="hidden" name="request" value="<?= $search ?>">
-                                <button class="btn btn-red">Retirer vu</button>
-                            </form>
-                        <?php else : ?>
-                            <form action="controleur.php?action=AddMovieInWatchList" method="POST">
-                                <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
-                                <input type="hidden" name="request" value="<?= $search ?>">
-                                <button class="btn btn-green">Ajouter vu</button>
-                            </form>
+                        <?php if (isset($_SESSION['userID'])) : ?>
+                            <div class="btnResultAdd">
+                                <?php if (isTheMovieInWatchedList($_SESSION['userID'], $data['id'])) : ?>
+                                    <form action="controleur.php?action=RemoveMovieFromWatchList" method="POST">
+                                        <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
+                                        <input type="hidden" name="request" value="<?= $search ?>">
+                                        <button class="btn btn-red">Retirer vu</button>
+                                    </form>
+                                <?php else : ?>
+                                    <form action="controleur.php?action=AddMovieInWatchList" method="POST">
+                                        <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
+                                        <input type="hidden" name="request" value="<?= $search ?>">
+                                        <button class="btn btn-green">Ajouter vu</button>
+                                    </form>
+                                <?php endif ?>
+                                <?php if (isTheMovieInToWatchList($_SESSION['userID'], $data['id'])) : ?>
+                                    <form action="controleur.php?action=RemoveMovieFromToWatchList" method="POST">
+                                        <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
+                                        <input type="hidden" name="request" value="<?= $search ?>">
+                                        <button class="btn btn-red">Retirer à voir</button>
+                                    </form>
+                                <?php elseif (!isTheMovieInWatchedList($_SESSION['userID'], $data['id'])) : ?>
+                                    <form action="controleur.php?action=AddMovieInToWatchList" method="POST">
+                                        <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
+                                        <input type="hidden" name="request" value="<?= $search ?>">
+                                        <button class="btn btn-orange">Ajouter à voir</button>
+                                    </form>
+                                <?php endif ?>
+                            </div>
                         <?php endif ?>
-                        <?php if (isTheMovieInToWatchList($_SESSION['userID'], $data['id'])) : ?>
-                            <form action="controleur.php?action=RemoveMovieFromToWatchList" method="POST">
-                                <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
-                                <input type="hidden" name="request" value="<?= $search ?>">
-                                <button class="btn btn-red">Retirer à voir</button>
-                            </form>
-                        <?php elseif (!isTheMovieInWatchedList($_SESSION['userID'], $data['id'])) : ?>
-                            <form action="controleur.php?action=AddMovieInToWatchList" method="POST">
-                                <input type="hidden" name="movieID" value="<?= $data['id'] ?>">
-                                <input type="hidden" name="request" value="<?= $search ?>">
-                                <button class="btn btn-orange">Ajouter à voir</button>
-                            </form>
-                        <?php endif ?>
-                        </div>
                     </div>
+
                 </div>
             <?php endforeach ?>
         </div>

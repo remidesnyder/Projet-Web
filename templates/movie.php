@@ -9,10 +9,11 @@ if ($movieID == 0) {
     exit;
 }
 
-$multipleSeen = getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) ? getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) : 0;
+if (isset($_SESSION['userID']))
+    $multipleSeen = getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) ? getHowManyTimeUserHasSeenMovie($_SESSION['userID'], $movieID) : 0;
 
 
-$data = getMovieInfo($movieID, $API_KEY);
+$data = getMovieInfo($movieID);
 $movie = $data['movie'];
 $actors = $data['cast']['cast'];
 
@@ -37,27 +38,29 @@ $comments = getCommentsByMovie($movieID);
                 <?php endforeach; ?>
             </div>
             <div class="tags add">
-                <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
-                    <form action="controleur.php?action=RemoveMovieFromWatchList" method="POST">
-                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                        <button class="btn btn-red">Retirer vu</button>
-                    </form>
-                <?php else : ?>
-                    <form action="controleur.php?action=AddMovieInWatchList" method="POST">
-                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                        <button class="btn btn-green">Ajouter vu</button>
-                    </form>
-                <?php endif ?>
-                <?php if (isTheMovieInToWatchList($_SESSION['userID'], $movieID)) : ?>
-                    <form action="controleur.php?action=RemoveMovieFromToWatchList" method="POST">
-                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                        <button class="btn btn-red">Retirer à voir</button>
-                    </form>
-                <?php elseif (!isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
-                    <form action="controleur.php?action=AddMovieInToWatchList" method="POST">
-                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                        <button class="btn btn-orange">Ajouter à voir</button>
-                    </form>
+                <?php if (isset($_SESSION['userID'])) : ?>
+                    <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
+                        <form action="controleur.php?action=RemoveMovieFromWatchList" method="POST">
+                            <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                            <button class="btn btn-red">Retirer vu</button>
+                        </form>
+                    <?php else : ?>
+                        <form action="controleur.php?action=AddMovieInWatchList" method="POST">
+                            <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                            <button class="btn btn-green">Ajouter vu</button>
+                        </form>
+                    <?php endif ?>
+                    <?php if (isTheMovieInToWatchList($_SESSION['userID'], $movieID)) : ?>
+                        <form action="controleur.php?action=RemoveMovieFromToWatchList" method="POST">
+                            <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                            <button class="btn btn-red">Retirer à voir</button>
+                        </form>
+                    <?php elseif (!isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
+                        <form action="controleur.php?action=AddMovieInToWatchList" method="POST">
+                            <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                            <button class="btn btn-orange">Ajouter à voir</button>
+                        </form>
+                    <?php endif ?>
                 <?php endif ?>
             </div>
             <div class="about-movie content">
@@ -65,13 +68,15 @@ $comments = getCommentsByMovie($movieID);
             </div>
         </div>
 
-        <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
-            <form action="controleur.php?action=AddMovieInWatchList" method="post">
-            <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                <button class="round-button addMultipleMovie">
-                    <span>x<?= $multipleSeen ?></span>
-                </button>
-            </form>
+        <?php if (isset($_SESSION['userID'])) : ?>
+            <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
+                <form action="controleur.php?action=AddMovieInWatchList" method="post">
+                    <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                    <button class="round-button addMultipleMovie">
+                        <span>x<?= $multipleSeen ?></span>
+                    </button>
+                </form>
+            <?php endif ?>
         <?php endif ?>
     </div>
 </section>
@@ -79,97 +84,99 @@ $comments = getCommentsByMovie($movieID);
 <!-- Section Cast, rating & comments Starts -->
 <section class="movie-container container">
     <div class="left-container">
-        <div class="comment-section">
-            <div class="comment-header">
-                <div class="comment-form">
-                    <form action="controleur.php?action=AddComment" method="post">
-                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                        <textarea name="content" id="comment-content" placeholder="Ajouter un commentaire"></textarea>
-                        <button type="submit">Commenter</button>
-                    </form>
+        <?php if (isset($_SESSION['userID'])) : ?>
+            <div class="comment-section">
+                <div class="comment-header">
+                    <div class="comment-form">
+                        <form action="controleur.php?action=AddComment" method="post">
+                            <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                            <textarea name="content" id="comment-content" placeholder="Ajouter un commentaire"></textarea>
+                            <button type="submit">Commenter</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="comments">
-                <?php foreach ($comments as $comment) : ?>
-                    <?php $reply = getRepliesByComment($comment['id']); ?>
-                    <div class="comment">
-                        <div class="comment1">
-                            <div class="comment-author">
-                                <img src="public/img/<?= $comment['profil_picture'] ?>" alt="Profil">
-                                <div class="author-info">
-                                    <h4><?= $comment['username'] ?></h4>
-                                    <?php
-                                    $date = new DateTime($comment['created_at']);
-                                    $current_time = new DateTime();
-                                    $time_diff = abs($current_time->getTimestamp() - $date->getTimestamp());
-
-                                    $formatted_date = "Ecrit le " . $date->format("d/m/Y");
-                                    if ($time_diff < 60) {
-                                        $formatted_date .= " (Il y a " . $time_diff . " seconde(s))";
-                                    } else if ($time_diff < 3600) {
-                                        $time_diff = round($time_diff / 60);
-                                        $formatted_date .= " (Il y a " . $time_diff . " minute(s))";
-                                    } else if ($time_diff < 86400) {
-                                        $time_diff = round($time_diff / 3600);
-                                        $formatted_date .= " (Il y a " . $time_diff . " heure(s))";
-                                    } else if ($time_diff < 604800) {
-                                        $time_diff = round($time_diff / 86400);
-                                        $formatted_date .= " (Il y a " . $time_diff . " jour(s))";
-                                    } else if ($time_diff < 2592000) {
-                                        $time_diff = round($time_diff / 604800);
-                                        $formatted_date .= " (Il y a " . $time_diff . " semaine(s))";
-                                    } else if ($time_diff < 31536000) {
-                                        $time_diff = round($time_diff / 2592000);
-                                        $formatted_date .= " (Il y a " . $time_diff . " mois)";
-                                    } else {
-                                        $time_diff = round($time_diff / 31536000);
-                                        $formatted_date .= " (Il y a " . $time_diff . " an(s))";
-                                    }
-
-                                    ?>
-                                    <span><?= $formatted_date ?></span>
-                                </div>
-                            </div>
-                            <div class="comment-content">
-                                <p><?= $comment['content'] ?></p>
-                                <div class="comment-actions">
-                                    <span><?= count($reply) ?> <?= count($reply) > 1 ? 'Réponses' : 'Réponse' ?></span>
-                                    <span><?= $comment['reactions'] ?> <?= $comment['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
-                                </div>
-                            </div>
-                        </div>
-                        <?php foreach ($reply as $rep) : ?>
-                            <div class="comment-reply">
+                <div class="comments">
+                    <?php foreach ($comments as $comment) : ?>
+                        <?php $reply = getRepliesByComment($comment['id']); ?>
+                        <div class="comment">
+                            <div class="comment1">
                                 <div class="comment-author">
-                                    <img src="public/img/<?= $rep['profil_picture'] ?>" alt="Profil">
+                                    <img src="public/img/<?= $comment['profil_picture'] ?>" alt="Profil">
                                     <div class="author-info">
-                                        <h4><?= $rep['username'] ?></h4>
+                                        <h4><?= $comment['username'] ?></h4>
+                                        <?php
+                                        $date = new DateTime($comment['created_at']);
+                                        $current_time = new DateTime();
+                                        $time_diff = abs($current_time->getTimestamp() - $date->getTimestamp());
+
+                                        $formatted_date = "Ecrit le " . $date->format("d/m/Y");
+                                        if ($time_diff < 60) {
+                                            $formatted_date .= " (Il y a " . $time_diff . " seconde(s))";
+                                        } else if ($time_diff < 3600) {
+                                            $time_diff = round($time_diff / 60);
+                                            $formatted_date .= " (Il y a " . $time_diff . " minute(s))";
+                                        } else if ($time_diff < 86400) {
+                                            $time_diff = round($time_diff / 3600);
+                                            $formatted_date .= " (Il y a " . $time_diff . " heure(s))";
+                                        } else if ($time_diff < 604800) {
+                                            $time_diff = round($time_diff / 86400);
+                                            $formatted_date .= " (Il y a " . $time_diff . " jour(s))";
+                                        } else if ($time_diff < 2592000) {
+                                            $time_diff = round($time_diff / 604800);
+                                            $formatted_date .= " (Il y a " . $time_diff . " semaine(s))";
+                                        } else if ($time_diff < 31536000) {
+                                            $time_diff = round($time_diff / 2592000);
+                                            $formatted_date .= " (Il y a " . $time_diff . " mois)";
+                                        } else {
+                                            $time_diff = round($time_diff / 31536000);
+                                            $formatted_date .= " (Il y a " . $time_diff . " an(s))";
+                                        }
+
+                                        ?>
+                                        <span><?= $formatted_date ?></span>
                                     </div>
                                 </div>
                                 <div class="comment-content">
-                                    <p><?= $rep['content'] ?></p>
+                                    <p><?= $comment['content'] ?></p>
                                     <div class="comment-actions">
-                                        <span><?= $rep['reactions'] ?> <?= $rep['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
+                                        <span><?= count($reply) ?> <?= count($reply) > 1 ? 'Réponses' : 'Réponse' ?></span>
+                                        <span><?= $comment['reactions'] ?> <?= $comment['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-                        <div class="reply-container">
-                            <div class="profile-pic">
-                                <img src="public/img/<?= getProfilPath($_SESSION['userID']) ?>" alt="Profile picture">
-                            </div>
-                            <div class="comment-form">
-                                <form action="controleur.php?action=AddReply" method="post">
-                                    <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                                    <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
-                                    <input type="text" id="input-reply" name="reply" placeholder="Entrez une réponse ici">
-                                </form>
+                            <?php foreach ($reply as $rep) : ?>
+                                <div class="comment-reply">
+                                    <div class="comment-author">
+                                        <img src="public/img/<?= $rep['profil_picture'] ?>" alt="Profil">
+                                        <div class="author-info">
+                                            <h4><?= $rep['username'] ?></h4>
+                                        </div>
+                                    </div>
+                                    <div class="comment-content">
+                                        <p><?= $rep['content'] ?></p>
+                                        <div class="comment-actions">
+                                            <span><?= $rep['reactions'] ?> <?= $rep['reactions'] > 1 ? 'Likes' : 'Like' ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            <div class="reply-container">
+                                <div class="profile-pic">
+                                    <img src="public/img/<?= getProfilPath($_SESSION['userID']) ?>" alt="Profile picture">
+                                </div>
+                                <div class="comment-form">
+                                    <form action="controleur.php?action=AddReply" method="post">
+                                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                        <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
+                                        <input type="text" id="input-reply" name="reply" placeholder="Entrez une réponse ici">
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
+        <?php endif ?>
     </div>
     <div class="right-container">
         <div class="actors-container">
