@@ -742,3 +742,11 @@ section .home-content {
     display: flex;
     gap: 4px;
 }
+
+.chart-container {
+    max-width: 500px;
+}
+
+#myChart {
+    width: 100%;
+}

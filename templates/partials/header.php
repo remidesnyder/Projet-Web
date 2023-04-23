@@ -21,6 +21,8 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
     <link rel="stylesheet" href="public/css/swiper-bundle.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <!-- **** F I N **** H E A D **** -->
 
