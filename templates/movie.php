@@ -66,9 +66,12 @@ $comments = getCommentsByMovie($movieID);
         </div>
 
         <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
-            <button class="round-button addMultipleMovie">
-                <span>x<?= $multipleSeen ?></span>
-            </button>
+            <form action="controleur.php?action=AddMovieInWatchList" method="post">
+            <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                <button class="round-button addMultipleMovie">
+                    <span>x<?= $multipleSeen ?></span>
+                </button>
+            </form>
         <?php endif ?>
     </div>
 </section>
