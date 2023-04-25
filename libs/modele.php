@@ -472,6 +472,17 @@ function deleteReaction($commentID, $userID){
 /* ******************************** */
 
 /**
+ * Fonction de récupération de la liste des réponses d'un utilisateur
+ * @param int $userID
+ * @return array
+ */
+function getAllRepliesByUser($userID)
+{
+	$SQL = "SELECT * FROM replies WHERE userID='$userID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+/**
  * Fonction de récupération de la liste des réponses d'un commentaire
  * @param int $commentID
  * @return array
