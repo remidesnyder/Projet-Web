@@ -359,7 +359,10 @@ function markAsRead($id)
  */
 function getAllCommentsByUser($userID)
 {
-	$SQL = "SELECT * FROM comments WHERE userID='$userID'";
+	$SQL = "SELECT movies.title, comments.* 
+			FROM `comments`
+    		INNER JOIN `movies` ON comments.movieID = movies.movieID
+    		WHERE comments.`userID` = '$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -478,7 +481,11 @@ function deleteReaction($commentID, $userID){
  */
 function getAllRepliesByUser($userID)
 {
-	$SQL = "SELECT * FROM replies WHERE userID='$userID'";
+	$SQL = "SELECT movies.title, replies.*
+			FROM `replies` 
+   			INNER JOIN `comments` ON comments.id = replies.commentID
+    		INNER JOIN `movies` ON movies.movieID = comments.movieID
+    		WHERE replies.`userID` = '$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 

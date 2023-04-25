@@ -42,6 +42,21 @@ if ($action = valider("action")) {
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'Inscription':
+			// On verifie la presence des champs login et passe
+			if ($login = valider("login"))
+				if ($passe = valider("passe")) {
+					if (usernameAlreadyExist($login)) {
+						// L'utilisateur existe déjà
+						$qs = "?view=signup&error=" . urldecode("Le nom d'utilisateur existe déjà");
+						break;
+					}
+					// L'utilisateur n'existe pas, on l'ajoute
+					addUser($login, $passe, 4);
+					$qs = "?view=login";
+					break;
+				}
+
+			// On redirigera vers la page index automatiquement
 			break;
 		case 'Logout':
 			// On détruit les variables de session

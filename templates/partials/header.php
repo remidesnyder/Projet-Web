@@ -104,7 +104,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                     <a href="index.php?view=login">Connexion</a>
                 </li>
                 <li class="profile-info-name">
-                    <a href="index.php?view=register">Inscription</a>
+                    <a href="index.php?view=signup">Inscription</a>
                 </li>
             <?php endif ?>
         </ul>
