@@ -12,11 +12,7 @@ $qs = "";
 if ($action = valider("action")) {
 	ob_start();
 	echo "Action = '$action' <br />";
-
-	/* TODO: A REVOIR !!
-		if ($action != "Connexion") 
-			securiser("login");
-		*/
+	
 	switch ($action) {
 		case 'Connexion':
 			// On verifie la presence des champs login et passe
