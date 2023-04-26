@@ -63,6 +63,7 @@ if ($action = valider("action")) {
 			$movieID = valider("movieID", 'POST');
 			$request = valider("request", 'POST');
 
+			// On vérifie que l'utilisateur est connecté et que le film existe
 			if (isset($_SESSION['userID']) && $_SESSION['userID'] > 0 && $movieID > 0)
 				addMovieSeen($_SESSION['userID'], $movieID);
 
