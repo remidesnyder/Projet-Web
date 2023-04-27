@@ -77,11 +77,20 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
             <?php if (isset($_SESSION['userID'])) : ?>
                 <li>
                         <div class="calendar notification-drop"><i class='bx bxs-bell'></i>
+                        <?php if (getAllNotifications($_SESSION['userID'])) : ?>
                             <?php if (getUnreadNotifications($_SESSION['userID'])) : ?>
                                 <div class="badge red"></div>
+                            <?php endif ?>
                                 <ul>
                                     <li>Notifications</li>
                                     <?php foreach (getUnreadNotifications($_SESSION['userID']) as $notification) : ?>
+                                        <li>
+                                            <a href="index.php?view=notification&id=<?= $notification['id'] ?>">
+                                                <?= $notification['content'] ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach ?>
+                                    <?php foreach (getReadNotifications($_SESSION['userID']) as $notification) : ?>
                                         <li>
                                             <a href="index.php?view=notification&id=<?= $notification['id'] ?>">
                                                 <?= $notification['content'] ?>
