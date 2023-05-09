@@ -1066,10 +1066,17 @@ function getPopularMovies()
 {
 	global $API_KEY;
 	$api_url = "https://api.themoviedb.org/3/movie/popular?api_key=" . $API_KEY . "&language=fr-FR&page=1&region=FR";
-	$api_json = file_get_contents($api_url);
-	$api_array = json_decode($api_json, true);
-	addPopularMoviesOnDB($api_array["results"]);
-	return $api_array["results"];
+	try {
+		$api_json = file_get_contents($api_url);
+		if ($api_json === false) {
+			return [];
+		}
+		$api_array = json_decode($api_json, true);
+		addPopularMoviesOnDB($api_array["results"]);
+		return $api_array["results"];
+	} catch (\Throwable $th) {
+		return [];
+	}
 }
 
 /**

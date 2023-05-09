@@ -15,7 +15,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php") {
 
 include_once "libs/modele.php";
 
-$movietrendData = getPopularMovies();
+$movietrendData = null !== getPopularMovies() ? getPopularMovies() : [];
 
 if (isset($_SESSION['userID'])) {
 	$watchData = getAllMoviesSeen($_SESSION['userID']);
