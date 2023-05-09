@@ -27,7 +27,7 @@ function verifUserBdd($login, $passe)
 function isAdmin($id)
 {
 	$SQL = "SELECT role FROM users WHERE id='$id'";
-	if (SQLGetChamp($SQL) == 1 || 2) return true;
+	if (SQLGetChamp($SQL) == 1 || 2) return true; // 1 représentant l'id pour le créateur et 2 pour l'administrateur
 	else return false;
 }
 
@@ -52,7 +52,7 @@ function getPermissionLevel($id)
 function changeUsername($id, $newUsername)
 {
 	$SQL = "UPDATE users SET username='$newUsername' WHERE id='$id'";
-	updateLastUpdate($id);
+	updateLastUpdate($id); // On met à jour la date de dernière mise à jour
 	return SQLUpdate($SQL);
 }
 
@@ -440,6 +440,7 @@ function userHasAlreadyReacted($commentID, $userID)
  */
 function addReaction($commentID, $userID) {
 
+	// On vérifie si l'utilisateur a déjà réagi à ce commentaire
 	if (userHasAlreadyReacted($commentID, $userID) != null) {
 		return false;
 	}
@@ -459,6 +460,7 @@ function addReaction($commentID, $userID) {
  */
 function deleteReaction($commentID, $userID){
 
+	// On vérifie si l'utilisateur a déjà réagi à ce commentaire
 	if (userHasAlreadyReacted($commentID, $userID) == null) {
 		return false;
 	}
@@ -558,6 +560,7 @@ function userHasAlreadyReactedReply($replyID, $userID)
  */
 function addReplyReaction($replyID, $userID) {
 
+	// On vérifie si l'utilisateur a déjà réagi à cette réponse
 	if (userHasAlreadyReactedReply($replyID, $userID) != null) {
 		return false;
 	}
@@ -577,6 +580,7 @@ function addReplyReaction($replyID, $userID) {
  */
 function deleteReplyReaction($replyID, $userID){
 	
+	// On vérifie si l'utilisateur a déjà réagi à cette réponse
 	if (userHasAlreadyReactedReply($replyID, $userID) == null) {
 		return false;
 	}
@@ -615,10 +619,11 @@ function getMovie($id)
 
 function getMovieFromAPI($movieID)
 {
-	global $API_KEY;
+	// Récupération des informations du film
+	global $API_KEY; // Récupération de la clé API
 	$api_url = "https://api.themoviedb.org/3/movie/" . $movieID . "?api_key=" . $API_KEY . "&language=fr-FR";
-	$api_json = file_get_contents($api_url);
-	$api_array = json_decode($api_json, true);
+	$api_json = file_get_contents($api_url); // Récupération du JSON
+	$api_array = json_decode($api_json, true); // Décodage du JSON
 
 	return $api_array;
 }
@@ -635,6 +640,7 @@ function getMovieFromAPI($movieID)
  */
 function addMovie($movieID, $title, $overview, $poster_path, $runtime, $release_date)
 {
+	// On vérifie si le film n'existe pas déjà
 	if (getMovie($movieID) != null) {
 		return false;
 	}
@@ -847,7 +853,10 @@ function editNote($id, $note)
  */
 function getAllMoviesSeen($userID)
 {
-	$SQL = "SELECT watched_movies.userID, watched_movies.seen_date, movies.* FROM `watched_movies` INNER JOIN `movies` ON movies.movieID = watched_movies.movieID WHERE watched_movies.userID = '$userID'";
+	$SQL = "SELECT watched_movies.userID, watched_movies.seen_date, movies.* 
+			FROM `watched_movies` 
+			INNER JOIN `movies` ON movies.movieID = watched_movies.movieID 
+			WHERE watched_movies.userID = '$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -933,7 +942,10 @@ function isTheMovieInWatchedList($userID, $movieID)
  */
 function getAllMoviesToSee($userID)
 {
-	$SQL = "SELECT towatch_movies.userID, towatch_movies.add_date, movies.* FROM `towatch_movies` INNER JOIN `movies` ON movies.movieID = towatch_movies.movieID WHERE towatch_movies.userID = '$userID'";
+	$SQL = "SELECT towatch_movies.userID, towatch_movies.add_date, movies.* 
+			FROM `towatch_movies` 
+			INNER JOIN `movies` ON movies.movieID = towatch_movies.movieID 
+			WHERE towatch_movies.userID = '$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -1017,10 +1029,10 @@ function testApi()
 function getMovieInfo($movieID)
 {
 	global $API_KEY;
-	$api_url_movie = "https://api.themoviedb.org/3/movie/" . $movieID . "?api_key=" . $API_KEY . "&language=fr-FR";
-	$api_json_movie = file_get_contents($api_url_movie);
-	$api_array_movie = json_decode($api_json_movie, true);
-	$api_url_cast = "https://api.themoviedb.org/3/movie/" . $movieID . "/credits?api_key=" . $API_KEY . "&language=fr-FR";
+	$api_url_movie = "https://api.themoviedb.org/3/movie/" . $movieID . "?api_key=" . $API_KEY . "&language=fr-FR"; // Récupération de l'URL de l'API
+	$api_json_movie = file_get_contents($api_url_movie); // Récupération du JSON
+	$api_array_movie = json_decode($api_json_movie, true); // Décodage du JSON
+	$api_url_cast = "https://api.themoviedb.org/3/movie/" . $movieID . "/credits?api_key=" . $API_KEY . "&language=fr-FR"; // Récupération de l'URL de l'API concernant les acteurs
 	$api_json_cast = file_get_contents($api_url_cast);
 	$api_array_cast = json_decode($api_json_cast, true);
 
@@ -1069,12 +1081,13 @@ function getPopularMovies()
 	try {
 		$api_json = file_get_contents($api_url);
 		if ($api_json === false) {
-			return [];
+			$api_json = [];
 		}
 		$api_array = json_decode($api_json, true);
 		addPopularMoviesOnDB($api_array["results"]);
 		return $api_array["results"];
-	} catch (\Throwable $th) {
+	} catch (Exception $e) {
+		// Gérer l'erreur
 		return [];
 	}
 }
@@ -1086,6 +1099,9 @@ function getPopularMovies()
  */
 function addPopularMoviesOnDB($array)
 {
+	if (empty($array)) {
+		return false;
+	}
 	foreach ($array as $movie) {
 		$movieID = $movie["id"];
 		$title = proteger($movie["title"]);
@@ -1173,11 +1189,11 @@ function getActorMovies($actorID)
 /* ******************************** */
 
 // Définition des niveaux de permission
-define("PERMISSION_CREATOR", 4);
-define("PERMISSION_ADMIN", 3);
-define("PERMISSION_MODERATOR", 2);
-define("PERMISSION_USER", 1);
-define("PERMISSION_GUEST", 0);
+define("PERMISSION_CREATOR", 4); // Créateur du site
+define("PERMISSION_ADMIN", 3); // Administrateur
+define("PERMISSION_MODERATOR", 2); // Modérateur
+define("PERMISSION_USER", 1); // Utilisateur
+define("PERMISSION_GUEST", 0); // Invité
 
 /**
  * Fonction de vérification de la permission d'un utilisateur
@@ -1201,7 +1217,6 @@ function checkPermission($requiredPermission)
 		return true;
 	}
 }
-
 /**	
  * Exemple d'utilisation
  * if (checkPermission(PERMISSION_ADMIN)) {
@@ -1211,6 +1226,7 @@ function checkPermission($requiredPermission)
  * }
  */
 
+ 
 /**
  * Fonction de remplissage des variables d'environnement à partir d'un fichier .env
  * @return void
