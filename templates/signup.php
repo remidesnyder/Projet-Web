@@ -11,11 +11,11 @@ $error = valider("error");
 ?>
 <section></section>
 <section>
-    <h1>Inscription</h1>
+    <h1 class="signup">Inscription</h1>
     <?php if ($error) { ?>
         <div class="error" style="color: red;"><?= $error ?></div>
     <?php } ?>
-    <div id="formSignup">
+    <div id="formSignup" class="signup">
         <form action="controleur.php" method="POST">
             <label for="login"> Login : </label><input type="text" id="login" name="login"/><br />
             <label for="passe">Passe : </label><input type="password" id="passe" name="passe"/><br />

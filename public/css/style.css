@@ -38,6 +38,8 @@ body::-webkit-scrollbar-thumb {
 
 a {
     text-decoration: none;
+    color: var(--text-color);
+    background-color: transparent;
 }
 
 li {
@@ -793,4 +795,16 @@ section .home-content {
 
 .notification-text span {
     float: right;
+}
+
+/*LOGIN*/
+.login{
+    text-align: center;
+    font-size: 24px;
+}
+
+/*SIGNUP*/
+.signup{
+    text-align: center;
+    font-size: 24px;
 }

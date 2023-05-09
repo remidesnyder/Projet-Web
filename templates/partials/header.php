@@ -40,6 +40,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 <!-- **** B O D Y **** -->
 
 <body>
+<a href="/templates/accueil.php"><h1 class="title">MovieList</a></h1>
     <nav class="navbar">
         <ul>
             <li class="icons">
