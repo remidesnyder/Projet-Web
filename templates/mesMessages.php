@@ -66,3 +66,8 @@ $myReplies = getAllRepliesByUser($_SESSION['userID']);
         </table>
     <?php endif; ?>
 </section>
+
+<!-- 
+    TODO
+    Add pagination ? 
+-->
