@@ -32,7 +32,7 @@ if (isset($_SESSION['userID'])) {
 	<div class="heading">
 		<a href="" class="movie-a">
 			<h2 class="heading-title">
-				Film populaire (<?= count($movietrendData); ?>)
+				Films populaires (<?= count($movietrendData); ?>)
 			</h2>
 		</a>
 
@@ -82,7 +82,7 @@ if (isset($_SESSION['userID'])) {
 			<div class="heading">
 				<a href="" class="movie-a">
 					<h2 class="heading-title">
-						Film vus (<?= count($watchData); ?>)
+						Films vus (<?= count($watchData); ?>)
 					</h2>
 				</a>
 
@@ -132,7 +132,7 @@ if (isset($_SESSION['userID'])) {
 			<div class="heading">
 				<a href="" class="movie-a">
 					<h2 class="heading-title">
-						Film à voir (<?= count($toWatchData); ?>)
+						Films à voir (<?= count($toWatchData); ?>)
 					</h2>
 				</a>
 
