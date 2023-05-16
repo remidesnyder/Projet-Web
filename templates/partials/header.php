@@ -106,7 +106,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                 </li>
                 <li class="profile-info-name">
                     <img src="public/img/default.jpg" alt="" class="profile-image">
-                    <a href="">
+                    <a href="index.php?view=monCompte">
                         <div class="profile-name"><?= $_SESSION['username'] ?></div>
                     </a>
                     <i class='bx bx-chevron-down'></i>
