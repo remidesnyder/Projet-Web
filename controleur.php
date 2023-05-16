@@ -115,7 +115,7 @@ if ($action = valider("action")) {
 			$movieID = valider("movieID", 'POST');
 			
 			if ($commentID && isset($_SESSION['userID'])) {
-				// On ajoute le commentaire
+				// On supprime le commentaire
 				deleteComment($commentID);
 			}
 			$qs = "?view=movie&movieID=$movieID";
@@ -177,6 +177,43 @@ if ($action = valider("action")) {
 				addReplyReaction($replyID, $_SESSION['userID']);
 			}
 			$qs = "?view=movie&movieID=$movieID";
+			break;
+		case 'EditCommentFromMesMessages':
+			/*// L'id du commentaire sera dans le lien : ?action=EditCommentFromMesMessages&commentID=...
+			$commentID = valider("commentID", "GET");
+
+			if ($commentID && isset($_SESSION['userID'])) {
+				// On supprime le commentaire
+				$comment = getComment($commentID);
+				$qs = "?view=editComment&commentID=$commentID&movieID=" . $comment['movieID'];
+			}*/
+			$qs = "?view=mesMessages";
+			break;
+		case 'DeleteCommentFromMesMessages':
+			// L'id du commentaire sera dans le lien : ?action=DeleteCommentFromMesMessages&commentID=...
+			$commentID = valider("commentID", "GET");
+
+			if ($commentID && isset($_SESSION['userID'])) {
+				// On supprime le commentaire
+				deleteComment($commentID);
+			}
+			$qs = "?view=mesMessages";
+			break;
+		case 'EditReplyFromMesMessages':
+			// L'id du commentaire sera dans le lien : ?action=EditReplyFromMesMessages&replyID=...
+			$replyID = valider("replyID", "GET");
+
+			$qs = "?view=mesMessages";
+			break;
+		case 'DeleteReplyFromMesMessages':
+			// L'id du commentaire sera dans le lien : ?action=DeleteReplyFromMesMessages&replyID=...
+			$replyID = valider("replyID", "GET");
+
+			if ($replyID && isset($_SESSION['userID'])) {
+				// On supprime le commentaire
+				deleteReply($replyID);
+			}
+			$qs = "?view=mesMessages";
 			break;
 	}
 }
