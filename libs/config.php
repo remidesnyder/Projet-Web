@@ -15,7 +15,6 @@ $BDD_base="db_projet_web";
 /* 
 * Configuration de l'application
 */
-$ROOT_URL = "http://localhost:8888";
 $API_KEY = getenv("API_KEY");
 
 ?>

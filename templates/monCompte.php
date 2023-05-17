@@ -6,23 +6,27 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
     die("");
 }
 
+$favorite_genres = getFavoriteGenresWithCount($_SESSION['userID']);
+$genresJson = json_encode($favorite_genres);
+
 ?>
 
 <section></section>
 
-<section>
-    <div class="mc-sidebar">
+<section class="profile">
+    <div class="profile-container mc-sidebar">
         <h1>Paramètres</h1>
-        <ul>
-            <li>Modifier mon profil</li>
-            <li>Mon compte</li>
-            <li>Notifications</li>
-            <li>Utilisateurs bloqués</li>
-            <li>Mes messages</li>
-            <li>Supprimer mon compte</li>
-        </ul>
-    </div>
-    <div class="mc-main">
+        <aside>
+            <ul>
+                <li><a href="?view=updateProfil">Modifier mon profil</a></li>
+                <li><a href="?view=monCompte">Mon compte</a></li>
+                <li><a href="?view=notifications">Notifications</a></li>
+                <li><a href="?view=blockedUsers">Utilisateurs bloqués</a></li>
+                <li><a href="?view=mesMessages">Mes messages</a></li>
+                <li><a href="">Supprimer mon compte</a></li>
+            </ul>
+        </aside>
+        <main>
         <div class="total_temps">
             <h1>Total temps passé</h1>
         </div>
@@ -32,9 +36,46 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
             <p>0 film vu</p>
             <p>0 film à voir</p>
         </div>
-        <div class="genres_favoris"></div>
+        <div class="genres_favoris">
+            <h1>Genres favoris</h1>
+            <div class="chart-container">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
         <div class="acteurs_pref">
             <!-- SLIDER ici -->
         </div>
+    </main>
     </div>
 </section>
+
+<script>
+    // Récupération des données JSON créées en PHP
+    var genresData = <?php echo $genresJson; ?>;
+
+    // Récupération des clés et des valeurs du tableau associatif
+    var genresLabels = Object.keys(genresData);
+    var genresValues = Object.values(genresData);
+
+    // Création du graphique avec Chart.js
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: genresLabels,
+            datasets: [{
+                label: 'Genres favoris',
+                data: genresValues,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(153, 102, 255)',
+                    'rgb(25, 120, 92)'
+                ]
+            }]
+        },
+        options: {}
+    });
+</script>

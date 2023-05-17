@@ -8,6 +8,8 @@
     --success-color: #198754;
     --warning-color: #ffc107;
     --danger-color: #dc3545;
+    --container-width-lg: 74%;
+    --container-width-md: 88%;
 }
 
 * {
@@ -797,14 +799,52 @@ section .home-content {
     float: right;
 }
 
+
 /*LOGIN*/
-.login{
+
+.login {
     text-align: center;
     font-size: 24px;
 }
 
+
 /*SIGNUP*/
-.signup{
+
+.signup {
     text-align: center;
     font-size: 24px;
+}
+
+
+/*PROFILE*/
+
+.profile {
+    margin-top: 6rem;
+}
+
+.profile-container {
+    width: var(--container-width-lg);
+    max-width: 1800px;
+    margin-inline: auto;
+}
+
+.mc-sidebar {
+    display: grid;
+    grid-template-columns: 14rem auto;
+    gap: 1rem;
+    background: var(--color-gray-900);
+    padding: 2rem;
+    margin-bottom: 5rem;
+}
+
+.profile aside a {
+    background-color: var(--color-primary);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.6rem;
+}
+
+.profile main {
+    margin-left: 1.5rem;
 }
