@@ -274,6 +274,14 @@ function getFavoriteGenresWithCount($userID)
 	return $genres;
 }
 
+function getNumberOfReactionsFromCommentsAndReplies($userID)
+{
+	$SQL = "SELECT COUNT(*) FROM comments_reactions WHERE userID='$userID'";
+	$commentResult = SQLGetChamp($SQL);
+	$SQL = "SELECT COUNT(*) FROM replies_reactions WHERE userID='$userID'";
+	$replyResult = SQLGetChamp($SQL);
+	return $commentResult + $replyResult;
+}
 
 /* ******************************** */
 /* 		Fonction Notification */
@@ -351,6 +359,17 @@ function markAsRead($id)
 /* ******************************** */
 /* 		Fonction Commentaire */
 /* ******************************** */
+
+/**
+ * Fonction de récupération du nombre de commentaires d'un utilisateur
+ * @param int $userID
+ * @return int
+ */
+function getNumberOfComment($userID)
+{
+	$SQL = "SELECT COUNT(*) FROM comments WHERE userID='$userID'";
+	return SQLGetChamp($SQL);
+}
 
 /**
  * Fonction de récupération de la liste des commentaires d'un utilisateur
@@ -859,6 +878,17 @@ function editNote($id, $note)
 /* ******************************** */
 
 /**
+ * Fonction de récupération du nombre de films vus d'un utilisateur
+ * @param int $userID
+ * @return int
+ */
+function getNumberOfSeenMovie($userID)
+{
+	$SQL = "SELECT COUNT(*) FROM watched_movies WHERE userID='$userID'";
+	return SQLGetChamp($SQL);
+}
+
+/**
  * Fonction de récupération de la liste des films vus d'un utilisateur
  * @param int $userID
  * @return array
@@ -946,6 +976,17 @@ function isTheMovieInWatchedList($userID, $movieID)
 /* ******************************** */
 /* 		Fonction Film à voir 	    */
 /* ******************************** */
+
+/**
+ * Fonction de récupération du nombre de films à voir d'un utilisateur
+ * @param int $userID
+ * @return int
+ */
+function getNumberOfToSeeMovie($userID)
+{
+	$SQL = "SELECT COUNT(*) FROM towatch_movies WHERE userID='$userID'";
+	return SQLGetChamp($SQL);
+}
 
 /**
  * Fonction de récupération de la liste des films à voir d'un utilisateur

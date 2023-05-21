@@ -9,6 +9,11 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 $favorite_genres = getFavoriteGenresWithCount($_SESSION['userID']);
 $genresJson = json_encode($favorite_genres);
 
+$nbComments = getNumberOfComment($_SESSION['userID']);
+$nbReactions = getNumberOfReactionsFromCommentsAndReplies($_SESSION['userID']);
+$nbMovieSeen = getNumberOfSeenMovie($_SESSION['userID']);
+$nbMovieToSee = getNumberOfToSeeMovie($_SESSION['userID']);
+
 ?>
 
 <section></section>
@@ -31,10 +36,10 @@ $genresJson = json_encode($favorite_genres);
             <h1>Total temps passé</h1>
         </div>
         <div class="stats">
-            <p>0 commentaires</p>
-            <p>0 réactions</p>
-            <p>0 film vu</p>
-            <p>0 film à voir</p>
+            <p><?= $nbComments ?> commentaires</p>
+            <p><?= $nbReactions ?> réactions</p>
+            <p><?= $nbMovieSeen ?> film vu</p>
+            <p><?= $nbMovieToSee ?> film à voir</p>
         </div>
         <div class="genres_favoris">
             <h1>Genres favoris</h1>

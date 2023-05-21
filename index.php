@@ -53,8 +53,8 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
 
 /**
  * Ce qui manque au projet web : (TODO)
- * - Ajouter l'icône vote aux acteurs
- * - Ajouter la possibilité de voter pour un acteur
+ * - Ajouter l'icône vote aux acteurs [OK]
+ * - Ajouter la possibilité de voter pour un acteur [OK]
  * - Ajouter un top sur la page de l'acteur ?
  * - Changer les icons du header
  * - Finir le système de notifications
