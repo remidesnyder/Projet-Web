@@ -215,6 +215,15 @@ if ($action = valider("action")) {
 			}
 			$qs = "?view=mesMessages";
 			break;
+		case 'VoteForActor':
+			$movieID = valider("movieID", "GET");
+			$actorID = valider("actorID", "GET");
+
+			if ($movieID && $actorID && isset($_SESSION['userID'])) {
+				addVoteActor($_SESSION['userID'], $movieID, $actorID);
+			}
+			$qs = "?view=movie&movieID=$movieID";
+			break;
 	}
 }
 

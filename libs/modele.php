@@ -728,7 +728,7 @@ function getActorsByMovie($movieID)
  */
 function getAllVotes($userID)
 {
-	$SQL = "SELECT * FROM votes WHERE userID='$userID'";
+	$SQL = "SELECT * FROM movie_favorite_actors WHERE userID='$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -739,7 +739,19 @@ function getAllVotes($userID)
  */
 function getVotesByMovie($movieID)
 {
-	$SQL = "SELECT * FROM votes WHERE movieID='$movieID'";
+	$SQL = "SELECT * FROM movie_favorite_actors WHERE movieID='$movieID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+function userHasAlreadyForThisActorInThisMovie($userID, $movieID, $actorID)
+{
+	$SQL = "SELECT * FROM movie_favorite_actors WHERE userID='$userID' AND movieID='$movieID' AND actorID='$actorID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+function userHasAlreadyInThisMovie($userID, $movieID)
+{
+	$SQL = "SELECT * FROM movie_favorite_actors WHERE userID='$userID' AND movieID='$movieID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -751,9 +763,15 @@ function getVotesByMovie($movieID)
  * @param int $vote
  * @return int
  */
-function addVote($userID, $movieID, $actorID, $vote)
+function addVoteActor($userID, $movieID, $actorID)
 {
-	$SQL = "INSERT INTO votes (userID, movieID, actorID, vote) VALUES ('$userID', '$movieID', '$actorID', '$vote')";
+	if (userHasAlreadyForThisActorInThisMovie($userID, $movieID, $actorID) != null) {
+		return false;
+	}
+	if (userHasAlreadyInThisMovie($userID, $movieID) != null) {
+		deleteVoteActor($userID, $movieID);
+	}
+	$SQL = "INSERT INTO movie_favorite_actors (userID, movieID, actorID) VALUES ('$userID', '$movieID', '$actorID')";
 	return SQLInsert($SQL);
 }
 
@@ -762,22 +780,16 @@ function addVote($userID, $movieID, $actorID, $vote)
  * @param int $id
  * @return int
  */
-function deleteVote($id)
+function deleteVoteActor($userID, $movieID)
 {
-	$SQL = "DELETE FROM votes WHERE id='$id'";
+	$SQL = "DELETE FROM movie_favorite_actors WHERE userID='$userID' AND movieID='$movieID'";
 	return SQLDelete($SQL);
 }
 
-/**
- * Fonction de modification d'un vote
- * @param int $id
- * @param int $vote
- * @return int
- */
-function editVote($id, $vote)
+function getVoteActorInMovie($actorID, $movieID)
 {
-	$SQL = "UPDATE votes SET vote='$vote' WHERE id='$id'";
-	return SQLUpdate($SQL);
+	$SQL = "SELECT count(id) FROM movie_favorite_actors WHERE actorID='$actorID' AND movieID='$movieID'";
+	return SQLGetChamp($SQL);
 }
 
 /* ******************************** */

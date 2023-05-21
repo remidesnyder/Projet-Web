@@ -17,6 +17,17 @@ $data = getMovieInfo($movieID);
 $movie = $data['movie'];
 $actors = $data['cast']['cast'];
 
+foreach ($actors as $key => $actor) {
+    $nbVoteActor = getVoteActorInMovie($actor['id'], $movieID);
+    $actors[$key]['nbVote'] = $nbVoteActor;
+}
+
+// On fait remonter les acteurs avec le plus de nombre de vote
+// Sans toucher au reste
+usort($actors, function ($a, $b) {
+    return $b['nbVote'] - $a['nbVote'];
+});
+
 //$actors = getActorsByMovie($movieID);
 //$movie = getMovieFromAPI($movieID);
 
@@ -233,6 +244,9 @@ $comments = getCommentsByMovie($movieID);
             <div class="casting-content swiper">
                 <div class="swiper-wrapper">
                     <?php foreach ($actors as $actor) : ?>
+                        <?php 
+                            $nbVoteActor = getVoteActorInMovie($actor['id'], $movieID);
+                        ?>
                         <!-- Movies Box -->
                         <div class="swiper-slide swiper-actor">
                             <div class="movie-box-right">
@@ -246,8 +260,8 @@ $comments = getCommentsByMovie($movieID);
                                         <a class="cast-name" href="?view=actor&actorID=<?= $actor['id'] ?>"><?= $actor['name'] ?></a>
                                     </h2>
                                     <span class="movie-type"><?= $actor['character'] ?></span>
-                                    <span class="actor-nbvote votes-count">0 vote</span>
-                                    <a class="watch-btn play-btn">
+                                    <span class="actor-nbvote votes-count"><?= $nbVoteActor ?> vote</span>
+                                    <a class="watch-btn vote-btn" href="controleur.php?action=VoteForActor&movieID=<?= $movieID ?>&actorID=<?= $actor['id'] ?>">
                                         <i class='bx bxs-upvote'></i>
                                     </a>
                                 </div>
