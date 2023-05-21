@@ -274,6 +274,11 @@ function getFavoriteGenresWithCount($userID)
 	return $genres;
 }
 
+/**
+ * Fonction de récupération du nombre de reactions d'un utilisateur
+ * @param int $id
+ * @return array
+ */
 function getNumberOfReactionsFromCommentsAndReplies($userID)
 {
 	$SQL = "SELECT COUNT(*) FROM comments_reactions WHERE userID='$userID'";
@@ -762,12 +767,25 @@ function getVotesByMovie($movieID)
 	return parcoursRs(SQLSelect($SQL));
 }
 
+/**
+ * Fonction de vérification si un utilisateur a déjà voté pour un acteur dans un film
+ * @param int $userID
+ * @param int $movieID
+ * @param int $actorID
+ * @return int
+ */
 function userHasAlreadyForThisActorInThisMovie($userID, $movieID, $actorID)
 {
 	$SQL = "SELECT * FROM movie_favorite_actors WHERE userID='$userID' AND movieID='$movieID' AND actorID='$actorID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
+/**
+ * Fonction de vérification si un utilisateur a déjà voté pour un film
+ * @param int $userID
+ * @param int $movieID
+ * @return int
+ */
 function userHasAlreadyInThisMovie($userID, $movieID)
 {
 	$SQL = "SELECT * FROM movie_favorite_actors WHERE userID='$userID' AND movieID='$movieID'";
@@ -805,6 +823,12 @@ function deleteVoteActor($userID, $movieID)
 	return SQLDelete($SQL);
 }
 
+/**
+ * Fonction de récupération du nombre de votes d'un acteur dans un film
+ * @param int $actorID
+ * @param int $movieID
+ * @return int
+ */
 function getVoteActorInMovie($actorID, $movieID)
 {
 	$SQL = "SELECT count(id) FROM movie_favorite_actors WHERE actorID='$actorID' AND movieID='$movieID'";
