@@ -18,7 +18,8 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Projet Web</title>
+    <title>MovieList</title>
+    <link rel="icon" type="image/png" href="public/img/favicon.png" />
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <link rel="stylesheet" href="public/css/swiper-bundle.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
