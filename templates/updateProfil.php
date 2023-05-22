@@ -22,7 +22,6 @@ $usersData = getUserByID($_SESSION['userID']);
             <input type="submit" value="Modifier" />
         </form>
     </div>
-    <br />
     <div id="formPassword">
         <form action="controleur.php?action=UpdateProfile" method="POST">
             <input type="hidden" name="whatUpdate" value="password">
@@ -30,7 +29,6 @@ $usersData = getUserByID($_SESSION['userID']);
             <input type="submit" value="Modifier" />
         </form>
     </div>
-    <br />
     <div id="formImage">
         <form action="controleur.php?action=UpdateProfile" enctype="multipart/form-data" method="POST">
             <input type="hidden" name="whatUpdate" value="image">
