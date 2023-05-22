@@ -16,35 +16,42 @@ $nbMovieToSee = getNumberOfToSeeMovie($_SESSION['userID']);
 
 $namePage = valider("view", 'GET');
 
+$timeRuntime = getMovieTime($_SESSION['userID']);
+
+// $timeRuntime est un nombre de minutes 
+// Et je veux le convertir en mois, jours, heures, minutes
+
+$minutes = $timeRuntime % 60;
+$hours = floor($timeRuntime / 60);
+$days = floor($hours / 24);
+$months = floor($days / 30);
+
+$timeRuntime = $months . " mois " . $days . " jour(s) " . $hours . " heure(s) " . $minutes . " minute(s)";
+
 ?>
 
 <section></section>
-<br />
-<br />
-<h1 class="monCompte">Mon compte</h1>
+
 <section class="profile">
     <div class="profile-container mc-sidebar">
-        <h1 class="param">Paramètres du compte</h1>
+        <h1>Paramètres</h1>
         <aside>
             <ul>
-                <li class="elemCompte"><a href="?view=updateProfil" class="<?= $namePage == "updateProfil" ? "active" : "" ?>">Modifier mon profil</a></li>
-                <li class="elemCompte"><a href="?view=monCompte" class="<?= $namePage == "monCompte" ? "active" : "" ?>">Mon compte</a></li>
-                <li class="elemCompte"><a href="?view=notifications" class="<?= $namePage == "notifications" ? "active" : "" ?>">Notifications</a></li>
-                <li class="elemCompte"><a href="?view=blockedUsers" class="<?= $namePage == "blockedUsers" ? "active" : "" ?>">Utilisateurs bloqués</a></li>
-                <li class="elemCompte"><a href="?view=mesMessages" class="<?= $namePage == "mesMessages" ? "active" : "" ?>">Mes messages</a></li>
-                <li class="elemCompte"><a href="controleur.php?action=Logout" class="btn-orange">Se déconnecter</a></li>
-                <li class="elemCompte"><a href="" class="btn-red">Supprimer mon compte</a></li>
+                <li><a href="?view=updateProfil" class="<?= $namePage == "updateProfil" ? "active" : "" ?>">Modifier mon profil</a></li>
+                <li><a href="?view=monCompte" class="<?= $namePage == "monCompte" ? "active" : "" ?>">Mon compte</a></li>
+                <li><a href="?view=notifications" class="<?= $namePage == "notifications" ? "active" : "" ?>">Notifications</a></li>
+                <li><a href="?view=blockedUsers" class="<?= $namePage == "blockedUsers" ? "active" : "" ?>">Utilisateurs bloqués</a></li>
+                <li><a href="?view=mesMessages" class="<?= $namePage == "mesMessages" ? "active" : "" ?>">Mes messages</a></li>
+                <li><a href="controleur.php?action=Logout" class="btn-red">Se déconnecter</a></li>
+                <li><a href="" class="btn-red">Supprimer mon compte</a></li>
             </ul>
         </aside>
         <main>
-        <br />
         <div class="total_temps">
-            <h1 class="temps">Temps de visionnage total : </h1>
-            <br />
+            <h1>Total temps passé</h1>
+            <h2><?= $timeRuntime ?></h2>
         </div>
         <div class="stats">
-            <br />
-            <h1 class="stats">Statistiques</h1>
             <p><?= $nbComments ?> commentaires</p>
             <p><?= $nbReactions ?> réactions</p>
             <p><?= $nbMovieSeen ?> films vus</p>
