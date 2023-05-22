@@ -27,6 +27,6 @@ $error = valider("error");
     <br />
     <div class="comptePasCompte">
     <h4 class="comptePasCompte">Déjà inscrit ?</h4>
-    <a class="comptePasCompte" href="index.php?view=login">Se connecter</a>
+    <a class="comptePasCompte" href="index.php?view=login" id=connecter>Se connecter</a>
     </div>
 </section>

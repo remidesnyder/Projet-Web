@@ -20,9 +20,11 @@ $biographyLimite = 350; // Nombre de caractères maximum pour la biographie
     <img src="https://image.tmdb.org/t/p/original<?= $actor['profile_path'] ?>" class="actor-profile">
     <div class="about-actor container">
         <div class="about-actor-content">
+            <br />
             <h2 class="title"><?= $actor['name'] ?></h2>
             <div class="about-actor content">
                 <p>
+                    <br />
                     <?php if (strlen($actor['biography']) > $biographyLimite) {
                         $biography = substr($actor['biography'], 0, $biographyLimite) . "...";
                         echo $biography;

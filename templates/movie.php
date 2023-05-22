@@ -43,6 +43,7 @@ $comments = getCommentsByMovie($movieID);
     <div class="about-movie container">
         <div class="about-movie-content">
             <h2 class="title"><?= $movie['title'] ?></h2>
+            <br />
             <div class="tags">
                 <?php foreach ($movie['genres'] as $genre) : ?>
                     <span><?= $genre['name'] ?></span>

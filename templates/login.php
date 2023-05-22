@@ -31,7 +31,7 @@ if ($checked = valider("remember", "COOKIE")) $checked = "checked";
 <br />
 <div class="comptePasCompte">
 	<h4>Pas encore de compte ?</h4>
-	<a href="index.php?view=signup">Créer un compte</a>
+	<a href="index.php?view=signup" id="creer">Créer un compte</a>
 </div>
 
 

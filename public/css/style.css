@@ -902,3 +902,15 @@ section .home-content {
     font-size: 16px;
     justify-content: center;
 }
+
+#creer, #connecter{
+    text-decoration: underline !important;
+}
+
+.filmpop{
+    font-size: 24px;
+}
+
+.title{
+    font-size: 24px;
+}
