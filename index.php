@@ -55,13 +55,14 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
  * Ce qui manque au projet web : (TODO)
  * - Ajouter l'icône vote aux acteurs [OK]
  * - Ajouter la possibilité de voter pour un acteur [OK]
+ * - Statistiques sur le profil [OK]
+ * 
  * - Ajouter un top sur la page de l'acteur ?
  * - Changer les icons du header
  * - Finir le système de notifications
  * - Ajotuer dropdown pour les notifications
  * - Ajouter dropdown pour le profil
  * - Modifier le profil
- * - Statistiques sur le profil
  * - Utilisateurs bloqués
  * - Supprimer mon compte
  * - Design

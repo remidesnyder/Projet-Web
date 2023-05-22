@@ -458,6 +458,17 @@ function userHasAlreadyReacted($commentID, $userID)
 }
 
 /**
+ * Fonction de récupération de l'auteur d'un commentaire
+ * @param int $commentID
+ * @return int
+ */
+function getCommentAuthor($commentID)
+{
+	$SQL = "SELECT userID FROM comments WHERE id='$commentID'";
+	return SQLGetChamp($SQL);
+}
+
+/**
  * Fonction d'ajout d'une réaction
  * @param int $commentID
  * @return int
@@ -539,7 +550,13 @@ function getRepliesByComment($commentID)
 function addReply($userID, $commentID, $content)
 {
 	$SQL = "INSERT INTO replies (userID, commentID, content) VALUES ('$userID', '$commentID', '$content')";
-	return SQLInsert($SQL);
+	SQLInsert($SQL);
+
+	$commentAuthor = getCommentAuthor($commentID);
+	if ($commentAuthor != $userID) {
+		$SQL = "INSERT INTO notifications (userID, title, content) VALUES ('$commentAuthor', 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire')";
+		SQLInsert($SQL);
+	}
 }
 
 /**
