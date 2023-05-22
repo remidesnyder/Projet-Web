@@ -14,7 +14,7 @@ $myNotifications = getAllNotifications($_SESSION['userID']);
 <section>
     <h2>Mes Notifications</h2>
     <?php if (empty($myNotifications)) : ?>
-        <p>Vous n'avez pas encore de notifications.</p>
+        <p>Vous n'avez pas encore de notification.</p>
     <?php else : ?>
         <table>
             <thead>
