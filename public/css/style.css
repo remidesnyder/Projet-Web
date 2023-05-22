@@ -487,6 +487,7 @@ section .home-content {
 .comments {
     display: flex;
     flex-direction: column;
+    background-color: var(--background-color);
 }
 
 .comment {
@@ -494,13 +495,13 @@ section .home-content {
     flex-direction: column;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: #fff;
+    background-color: var(--background-color);
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .comment1 {
-    background-color: var(--text-color);
+    background-color: var(--background-color);
 }
 
 .comment-author {
@@ -508,7 +509,10 @@ section .home-content {
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
+    background-color: var(--background-color);
+    font: var(--text-color);
 }
+
 
 .comment-author img {
     width: 50px;
@@ -518,7 +522,7 @@ section .home-content {
 }
 
 .comment-author h4 {
-    color: #2d2e37;
+    color: var(--text-color);
 }
 
 .comment-author span {
@@ -526,7 +530,7 @@ section .home-content {
 }
 
 .comment-content {
-    color: #2d2e37;
+    color: var(--font-color);
 }
 
 .comment-info {
@@ -553,10 +557,10 @@ section .home-content {
     flex-direction: column;
     padding: 10px;
     margin-bottom: 10px;
-    /*background-color: #f7f7f7;*/
     background-color: lightgray;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: var(--background-color);
 }
 
 .comment-reply .comment-author img {
@@ -908,9 +912,5 @@ section .home-content {
 }
 
 .filmpop{
-    font-size: 24px;
-}
-
-.title{
     font-size: 24px;
 }
