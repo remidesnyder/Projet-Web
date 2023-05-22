@@ -16,6 +16,18 @@ $nbMovieToSee = getNumberOfToSeeMovie($_SESSION['userID']);
 
 $namePage = valider("view", 'GET');
 
+$timeRuntime = getMovieTime($_SESSION['userID']);
+
+// $timeRuntime est un nombre de minutes 
+// Et je veux le convertir en mois, jours, heures, minutes
+
+$minutes = $timeRuntime % 60;
+$hours = floor($timeRuntime / 60);
+$days = floor($hours / 24);
+$months = floor($days / 30);
+
+$timeRuntime = $months . " mois " . $days . " jour(s) " . $hours . " heure(s) " . $minutes . " minute(s)";
+
 ?>
 
 <section></section>
@@ -37,6 +49,7 @@ $namePage = valider("view", 'GET');
         <main>
         <div class="total_temps">
             <h1>Total temps passé</h1>
+            <h2><?= $timeRuntime ?></h2>
         </div>
         <div class="stats">
             <p><?= $nbComments ?> commentaires</p>
