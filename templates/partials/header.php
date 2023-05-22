@@ -52,7 +52,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                 </a>
             </li>
             <li class="icons">
-                <a href="">
+                <a href="?view=popularMovies&page=1">
                     <div class="calendar popular"><i class='bx bxs-hot'></i></div>
                 </a>
             </li>
