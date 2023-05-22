@@ -744,6 +744,11 @@ section .home-content {
     border-color: var(--successhover-color);
 }
 
+.btn-red {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
 .btn-red:hover {
     background-color: var(--dangerhover-color);
     border-color: var(--dangerhover-color);
