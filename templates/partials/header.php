@@ -33,6 +33,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
             });
         });
     </script>
+    <script src="public/js/header.js"></script>
 
 </head>
 <!-- **** F I N **** H E A D **** -->
