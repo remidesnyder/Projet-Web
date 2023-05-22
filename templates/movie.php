@@ -245,7 +245,7 @@ $comments = getCommentsByMovie($movieID);
                 <div class="swiper-wrapper">
                     <?php foreach ($actors as $actor) : ?>
                         <?php 
-                            $nbVoteActor = getVoteActorInMovie($actor['id'], $movieID);
+                            $alreadyVoteForThisActor = userHasAlreadyForThisActorInThisMovie($_SESSION['userID'], $movieID, $actor['id']);
                         ?>
                         <!-- Movies Box -->
                         <div class="swiper-slide swiper-actor">
@@ -260,10 +260,12 @@ $comments = getCommentsByMovie($movieID);
                                         <a class="cast-name" href="?view=actor&actorID=<?= $actor['id'] ?>"><?= $actor['name'] ?></a>
                                     </h2>
                                     <span class="movie-type"><?= $actor['character'] ?></span>
-                                    <span class="actor-nbvote votes-count"><?= $nbVoteActor ?> vote</span>
-                                    <a class="watch-btn vote-btn" href="controleur.php?action=VoteForActor&movieID=<?= $movieID ?>&actorID=<?= $actor['id'] ?>">
-                                        <i class='bx bxs-upvote'></i>
-                                    </a>
+                                    <span class="actor-nbvote votes-count"><?= $actor['nbVote'] ?> vote</span>
+                                    <?php if(empty($alreadyVoteForThisActor)) : ?>
+                                        <a class="watch-btn vote-btn" href="controleur.php?action=UnvoteForActor&movieID=<?= $movieID ?>&actorID=<?= $actor['id'] ?>">
+                                            <i class='bx bxs-upvote'></i>
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

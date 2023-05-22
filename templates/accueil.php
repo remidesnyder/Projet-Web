@@ -48,6 +48,9 @@ if (isset($_SESSION['userID'])) {
 		<div class="swiper-wrapper">
 			<!-- Movies Box -->
 			<?php foreach ($movietrendData as $data) : ?>
+				<?php 
+					$movieDate = date("Y", strtotime($data['release_date']));
+				?>
 				<div class="swiper-slide">
 					<div class="movie-box">
 						<?php if ($data['poster_path']) : ?>
@@ -59,7 +62,7 @@ if (isset($_SESSION['userID'])) {
 							<h2 class="movie-title">
 								<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
 							</h2>
-							<span class="movie-type">NaN</span>
+							<span class="movie-type"><?= $movieDate ?></span>
 							<a href="#" class="watch-btn play-btn">
 								<i class="bx bx-right-arrow"></i>
 							</a>
@@ -98,6 +101,9 @@ if (isset($_SESSION['userID'])) {
 				<div class="swiper-wrapper">
 					<!-- Movies Box -->
 					<?php foreach ($watchData as $data) : ?>
+						<?php 
+							$movieDate = date("Y", strtotime($data['release_date']));
+						?>
 						<div class="swiper-slide">
 							<div class="movie-box">
 								<?php if ($data['poster_path']) : ?>
@@ -109,7 +115,7 @@ if (isset($_SESSION['userID'])) {
 									<h2 class="movie-title">
 										<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['movieID'] ?>"><?= $data['title'] ?></a>
 									</h2>
-									<span class="movie-type">NaN</span>
+									<span class="movie-type"><?= $movieDate ?></span>
 									<a href="#" class="watch-btn play-btn">
 										<i class="bx bx-right-arrow"></i>
 									</a>
@@ -148,6 +154,9 @@ if (isset($_SESSION['userID'])) {
 				<div class="swiper-wrapper">
 					<!-- Movies Box -->
 					<?php foreach ($toWatchData as $data) : ?>
+						<?php 
+							$movieDate = date("Y", strtotime($data['release_date']));
+						?>
 						<div class="swiper-slide">
 							<div class="movie-box">
 								<?php if ($data['poster_path']) : ?>
@@ -159,7 +168,7 @@ if (isset($_SESSION['userID'])) {
 									<h2 class="movie-title">
 										<a class="movie-a" href="index.php?view=movie&movieID=<?= $data['movieID'] ?>"><?= $data['title'] ?></a>
 									</h2>
-									<span class="movie-type">NaN</span>
+									<span class="movie-type"><?= $movieDate ?></span>
 									<a href="#" class="watch-btn play-btn">
 										<i class="bx bx-right-arrow"></i>
 									</a>
