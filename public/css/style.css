@@ -6,8 +6,11 @@
     --main-color: #7a3e3e;
     --search-bar-color: #2c353d;
     --success-color: #198754;
+    --successhover-color: #156f45;
     --warning-color: #ffc107;
+    --warninghover-color: #e2ac07;
     --danger-color: #dc3545;
+    --dangerhover-color: #cb2f3f;
     --container-width-lg: 74%;
     --container-width-md: 88%;
 }
@@ -120,9 +123,7 @@ body {
 
 .navbar li:hover,
 .navbar li.active {
-    background: var(--main-color);
-    border-radius: 10px;
-    border: 5px solid var(--main-color);
+    border-radius: 5px;
 }
 
 
@@ -467,6 +468,16 @@ section .home-content {
     cursor: pointer;
 }
 
+.comment-form button:hover {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0363ca;
+    color: #fff;
+    cursor: pointer;
+}
+
 .comments {
     display: flex;
     flex-direction: column;
@@ -718,14 +729,24 @@ section .home-content {
     border-color: var(--warning-color);
 }
 
+.btn-orange:hover {
+    background-color: var(--warninghover-color);
+    border-color: var(--warninghover-color);
+}
+
 .btn-green {
     background-color: var(--success-color);
     border-color: var(--success-color);
 }
 
-.btn-red {
-    background-color: var(--danger-color);
-    border-color: var(--danger-color);
+.btn-green:hover {
+    background-color: var(--successhover-color);
+    border-color: var(--successhover-color);
+}
+
+.btn-red:hover {
+    background-color: var(--dangerhover-color);
+    border-color: var(--dangerhover-color);
 }
 
 .tags span {
@@ -767,7 +788,6 @@ section .home-content {
     padding: 10px;
     font-size: 18px;
     position: relative;
-    border-bottom: 1px solid #ddd;
 }
 
 .notification-drop ul {
