@@ -41,24 +41,27 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 <!-- **** B O D Y **** -->
 
 <body>
+    <?php 
+        $namePage = valider("view", 'GET');
+    ?>
     <nav class="navbar">
         <ul>
             <li>
                 <a href="/templates/accueil.php"><h1 class="title">MovieList</a></h1>
             </li>
             <li class="icons">
-                <a href="/">
-                    <div class="home"><i class='bx bxs-home'></i></div>
+                <a href="?view=accueil">
+                    <div class="home <?= $namePage == "accueil" ? "active" : "" ?>"><i class='bx bxs-home'></i></div>
                 </a>
             </li>
             <li class="icons">
                 <a href="?view=popularMovies&page=1">
-                    <div class="calendar popular"><i class='bx bxs-hot'></i></div>
+                    <div class="popular <?= $namePage == "popularMovies" ? "active" : "" ?>"><i class='bx bxs-hot'></i></div>
                 </a>
             </li>
             <li class="icons">
-                <a href="">
-                    <div class="calendar"><i class='bx bxs-heart'></i></div>
+                <a href="?view=favoriteMovies">
+                    <div class="favoriteMovies <?= $namePage == "favoriteMovies" ? "active" : "" ?>"><i class='bx bxs-heart'></i></div>
                 </a>
             </li>
             <li>
