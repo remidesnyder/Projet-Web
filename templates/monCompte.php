@@ -14,6 +14,8 @@ $nbReactions = getNumberOfReactionsFromCommentsAndReplies($_SESSION['userID']);
 $nbMovieSeen = getNumberOfSeenMovie($_SESSION['userID']);
 $nbMovieToSee = getNumberOfToSeeMovie($_SESSION['userID']);
 
+$namePage = valider("view", 'GET');
+
 ?>
 
 <section></section>
@@ -23,13 +25,13 @@ $nbMovieToSee = getNumberOfToSeeMovie($_SESSION['userID']);
         <h1>Paramètres</h1>
         <aside>
             <ul>
-                <li><a href="?view=updateProfil">Modifier mon profil</a></li>
-                <li><a href="?view=monCompte">Mon compte</a></li>
-                <li><a href="?view=notifications">Notifications</a></li>
-                <li><a href="?view=blockedUsers">Utilisateurs bloqués</a></li>
-                <li><a href="?view=mesMessages">Mes messages</a></li>
-                <li><a href="controleur.php?action=Logout">Se déconnecter</a></li>
-                <li><a href="">Supprimer mon compte</a></li>
+                <li><a href="?view=updateProfil" class="<?= $namePage == "updateProfil" ? "active" : "" ?>">Modifier mon profil</a></li>
+                <li><a href="?view=monCompte" class="<?= $namePage == "monCompte" ? "active" : "" ?>">Mon compte</a></li>
+                <li><a href="?view=notifications" class="<?= $namePage == "notifications" ? "active" : "" ?>">Notifications</a></li>
+                <li><a href="?view=blockedUsers" class="<?= $namePage == "blockedUsers" ? "active" : "" ?>">Utilisateurs bloqués</a></li>
+                <li><a href="?view=mesMessages" class="<?= $namePage == "mesMessages" ? "active" : "" ?>">Mes messages</a></li>
+                <li><a href="controleur.php?action=Logout" class="btn-red">Se déconnecter</a></li>
+                <li><a href="" class="btn-red">Supprimer mon compte</a></li>
             </ul>
         </aside>
         <main>

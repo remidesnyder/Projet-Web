@@ -56,9 +56,9 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
  * - Ajouter l'icône vote aux acteurs [OK]
  * - Ajouter la possibilité de voter pour un acteur [OK]
  * - Statistiques sur le profil [OK]
+ * - Changer les icons du header [OK]
  * 
  * - Ajouter un top sur la page de l'acteur ?
- * - Changer les icons du header
  * - Finir le système de notifications
  * - Ajotuer dropdown pour les notifications
  * - Ajouter dropdown pour le profil

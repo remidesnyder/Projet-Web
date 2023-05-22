@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Europe/Paris');
+
 require_once 'libs/modele.php';
 
 $movieID = valider('movieID', 'GET', 'int', 0);
@@ -98,6 +100,7 @@ $comments = getCommentsByMovie($movieID);
     <div class="left-container">
         <?php if (isset($_SESSION['userID'])) : ?>
             <div class="comment-section">
+            <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
                 <div class="comment-header">
                     <div class="comment-form">
                         <form action="controleur.php?action=AddComment" method="post">
@@ -107,6 +110,7 @@ $comments = getCommentsByMovie($movieID);
                         </form>
                     </div>
                 </div>
+            <?php endif ?>
                 <div class="comments">
                     <?php foreach ($comments as $comment) : ?>
                         <?php $reply = getRepliesByComment($comment['id']); ?>
@@ -117,6 +121,7 @@ $comments = getCommentsByMovie($movieID);
                                     <div class="author-info">
                                         <h4><?= $comment['username'] ?></h4>
                                         <?php
+                                        setLocale(LC_TIME, 'fr_FR.utf8');
                                         $date = new DateTime($comment['created_at']);
                                         $current_time = new DateTime();
                                         $time_diff = abs($current_time->getTimestamp() - $date->getTimestamp());
@@ -182,6 +187,46 @@ $comments = getCommentsByMovie($movieID);
                                         <img src="public/img/<?= $rep['profil_picture'] ?>" alt="Profil">
                                         <div class="author-info">
                                             <h4><?= $rep['username'] ?></h4>
+                                            <?php
+                                            // Je voudrais au format date de Paris 
+                                            // 1. Récupérer la date de création du commentaire
+                                            // 2. Récupérer la date actuelle
+                                            // 3. Faire la différence entre les deux
+                                            // 4. Afficher le résultat en fonction de la différence
+                                            // 6. Afficher la date de création du commentaire au format "Ecrit le 01/01/2021 (Il y a 2 jours)"
+
+                                            $date = new DateTime($rep['created_at']);
+                                            $current_time = new DateTime();
+
+                                            $date->setTimezone(new DateTimeZone('Europe/Paris'));
+                                            $current_time->setTimezone(new DateTimeZone('Europe/Paris'));
+
+                                            $time_diff = abs($current_time->getTimestamp() - $date->getTimestamp());
+
+                                        $formatted_date = "Ecrit le " . $date->format("d/m/Y");
+                                        if ($time_diff < 60) {
+                                            $formatted_date .= " (Il y a " . $time_diff . " seconde(s))";
+                                        } else if ($time_diff < 3600) {
+                                            $time_diff = round($time_diff / 60);
+                                            $formatted_date .= " (Il y a " . $time_diff . " minute(s))";
+                                        } else if ($time_diff < 86400) {
+                                            $time_diff = round($time_diff / 3600);
+                                            $formatted_date .= " (Il y a " . $time_diff . " heure(s))";
+                                        } else if ($time_diff < 604800) {
+                                            $time_diff = round($time_diff / 86400);
+                                            $formatted_date .= " (Il y a " . $time_diff . " jour(s))";
+                                        } else if ($time_diff < 2592000) {
+                                            $time_diff = round($time_diff / 604800);
+                                            $formatted_date .= " (Il y a " . $time_diff . " semaine(s))";
+                                        } else if ($time_diff < 31536000) {
+                                            $time_diff = round($time_diff / 2592000);
+                                            $formatted_date .= " (Il y a " . $time_diff . " mois)";
+                                        } else {
+                                            $time_diff = round($time_diff / 31536000);
+                                            $formatted_date .= " (Il y a " . $time_diff . " an(s))";
+                                        }
+                                        ?>
+                                        <span><?= $formatted_date ?></span>
                                         </div>
                                     </div>
                                     <div class="comment-content">
@@ -211,19 +256,21 @@ $comments = getCommentsByMovie($movieID);
                                         </div>
                                     </div>
                                 </div>
-                            <?php endforeach; ?>
-                            <div class="reply-container">
-                                <div class="profile-pic">
-                                    <img src="public/img/<?= getProfilPath($_SESSION['userID']) ?>" alt="Profile picture">
+                            <?php endforeach;?>
+                           <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
+                                <div class="reply-container">
+                                    <div class="profile-pic">
+                                        <img src="public/img/<?= getProfilPath($_SESSION['userID']) ?>" alt="Profile picture">
+                                    </div>
+                                    <div class="comment-form">
+                                        <form action="controleur.php?action=AddReply" method="post">
+                                            <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                            <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
+                                            <input type="text" id="input-reply" name="reply" placeholder="Entrez une réponse ici">
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="comment-form">
-                                    <form action="controleur.php?action=AddReply" method="post">
-                                        <input type="hidden" name="movieID" value="<?= $movieID ?>">
-                                        <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
-                                        <input type="text" id="input-reply" name="reply" placeholder="Entrez une réponse ici">
-                                    </form>
-                                </div>
-                            </div>
+                            <?php endif ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
