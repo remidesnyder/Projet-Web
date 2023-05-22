@@ -27,7 +27,7 @@ $popularMovies = getPopularMovies($page);
 <section class="results container">
     <div class="results-content">
         <br />
-        <h1 class="filmpop">Films tendances</h1>
+        <h1 class="filmpop">Films tendance</h1>
         <br />
         <div class="image-container">
             <?php foreach ($popularMovies as $data) : ?>

@@ -914,3 +914,13 @@ section .home-content {
 .filmpop{
     font-size: 24px;
 }
+
+#popup {
+	display:none;
+	position:absolute;
+	color: rgb(24, 26, 27);
+	padding:3px;
+	border:1px solid white;
+	z-index:10;
+  font-family: "p22-underground", sans-serif;
+}

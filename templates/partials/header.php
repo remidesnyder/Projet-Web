@@ -40,29 +40,29 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 
 <!-- **** B O D Y **** -->
 
-<body>
+<body onload="init();">
     <?php 
         $namePage = valider("view", 'GET');
     ?>
-    <nav class="navbar">
+    <nav class="navbar" onmouseover="popin(event);" onmouseout="popout();">
         <ul>
             <li>
-                <a href="/templates/accueil.php"><h1 class="title">MovieList</a></h1>
+                <a href="/templates/accueil.php"><h1 class="title" id="home">MovieList</a></h1>
             </li>
             <li class="icons">
                 <a href="?view=accueil">
-                    <div class="home <?= $namePage == "accueil" ? "active" : "" ?>"><i class='bx bxs-home'></i></div>
+                    <div class="home <?= $namePage == "accueil" ? "active" : "" ?>"><i class='bx bxs-home' id="home"></i></div>
                 </a>
             </li>
             <li class="icons">
                 <a href="?view=popularMovies&page=1">
-                    <div class="popular <?= $namePage == "popularMovies" ? "active" : "" ?>"><i class='bx bxs-hot'></i></div>
+                    <div class="popular <?= $namePage == "popularMovies" ? "active" : "" ?>"><i class='bx bxs-hot' id="pop"></i></div>
                 </a>
             </li>
             <?php if (isset($_SESSION['userID'])) : ?>
                 <li class="icons">
                     <a href="?view=favoriteMovies">
-                        <div class="favoriteMovies <?= $namePage == "favoriteMovies" ? "active" : "" ?>"><i class='bx bxs-heart'></i></div>
+                        <div class="favoriteMovies <?= $namePage == "favoriteMovies" ? "active" : "" ?>"><i class='bx bxs-heart' id="fav"></i></div>
                     </a>
                 </li>
             <?php endif ?>
@@ -131,5 +131,6 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                     <a href="index.php?view=signup">Inscription</a>
                 </li>
             <?php endif ?>
+            <div class="popup" id="popup"></div>
         </ul>
     </nav>
