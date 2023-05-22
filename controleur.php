@@ -147,8 +147,6 @@ if ($action = valider("action")) {
 				addReply($_SESSION['userID'], $commentID, $reply);
 			}
 			$qs = "?view=movie&movieID=$movieID";
-
-			// On redirigera vers la page index automatiquement
 			break;
 		case 'DeleteReply':
 			$replyID = valider("replyID", 'POST');

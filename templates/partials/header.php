@@ -75,11 +75,14 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
             </li>
             <?php if (isset($_SESSION['userID'])) : ?>
                 <li>
-                        <div class="calendar notification-drop"><i class='bx bxs-bell'></i>
+                    <div class="calendar notification-drop">
+                        <i class='bx bxs-bell'></i>
                         <?php if (getAllNotifications($_SESSION['userID'])) : ?>
                             <?php if (getUnreadNotifications($_SESSION['userID'])) : ?>
                                 <div class="badge red"></div>
                             <?php endif ?>
+                        <div class="notification-content">
+                            <?php if (getUnreadNotifications($_SESSION['userID'])) : ?>
                                 <ul>
                                     <li>Notifications</li>
                                     <?php foreach (getUnreadNotifications($_SESSION['userID']) as $notification) : ?>
@@ -97,8 +100,21 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                                         </li>
                                     <?php endforeach ?>
                                 </ul>
-                            <?php endif ?>
+                            <?php else : ?>
+                                <ul>
+                                    <li>Notifications</li>
+                                    <?php foreach (getAllNotifications($_SESSION['userID']) as $notification) : ?>
+                                        <li>
+                                            <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
+                                                <?= $notification['content'] ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach ?>
+                                </ul>
+                            <?php endif; ?>
                         </div>
+                        <?php endif; ?>
+                    </div>
                 </li>
                 <li class="profile-info-name">
                     <img src="public/img/default.jpg" alt="" class="profile-image">
