@@ -252,6 +252,14 @@ if ($action = valider("action")) {
 			}
 			$qs = "?view=notifications";
 			break;
+		case 'DeleteNotification':
+			$notificationID = valider("notificationID", "GET");
+
+			if ($notificationID && isset($_SESSION['userID'])) {
+				deleteNotification($notificationID);
+			}
+			$qs = "?view=notifications";
+			break;
 	}
 }
 
