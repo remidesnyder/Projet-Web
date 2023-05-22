@@ -954,7 +954,7 @@ section .home-content {
 .elemCompte:hover{
     text-decoration: underline;
 }
-.param, .temps, .stats{
+.param, .temps, .stats, .genres{
     text-align: left;
     padding: 15px;
     font-size: 30px !important;
