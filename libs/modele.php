@@ -1174,10 +1174,10 @@ function getSimilarMovies($movieID)
  * Fonction de récupération des films populaires
  * @return array
  */
-function getPopularMovies()
+function getPopularMovies($page = 1)
 {
 	global $API_KEY;
-	$api_url = "https://api.themoviedb.org/3/movie/popular?api_key=" . $API_KEY . "&language=fr-FR&page=1&region=FR";
+	$api_url = "https://api.themoviedb.org/3/movie/popular?api_key=" . $API_KEY . "&language=fr-FR&page=" . $page ."&region=FR";
 	try {
 		$api_json = file_get_contents($api_url);
 		if ($api_json === false) {
@@ -1190,6 +1190,11 @@ function getPopularMovies()
 		// Gérer l'erreur
 		return [];
 	}
+}
+
+function getNbPagePopularMovie() {
+	$query = getPopularMovies();
+	return $query['total_pages'];
 }
 
 /**
