@@ -39,8 +39,8 @@ $nbMovieToSee = getNumberOfToSeeMovie($_SESSION['userID']);
         <div class="stats">
             <p><?= $nbComments ?> commentaires</p>
             <p><?= $nbReactions ?> réactions</p>
-            <p><?= $nbMovieSeen ?> film vu</p>
-            <p><?= $nbMovieToSee ?> film à voir</p>
+            <p><?= $nbMovieSeen ?> films vus</p>
+            <p><?= $nbMovieToSee ?> films à voir</p>
         </div>
         <div class="genres_favoris">
             <h1>Genres favoris</h1>
