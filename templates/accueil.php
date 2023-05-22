@@ -32,7 +32,7 @@ if (isset($_SESSION['userID'])) {
 	<div class="heading">
 		<a href="" class="movie-a">
 			<h2 class="heading-title">
-				Films populaires (<?= count($movietrendData); ?>)
+				Films populaires
 			</h2>
 		</a>
 

@@ -59,11 +59,13 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                     <div class="popular <?= $namePage == "popularMovies" ? "active" : "" ?>"><i class='bx bxs-hot'></i></div>
                 </a>
             </li>
-            <li class="icons">
-                <a href="?view=favoriteMovies">
-                    <div class="favoriteMovies <?= $namePage == "favoriteMovies" ? "active" : "" ?>"><i class='bx bxs-heart'></i></div>
-                </a>
-            </li>
+            <?php if (isset($_SESSION['userID'])) : ?>
+                <li class="icons">
+                    <a href="?view=favoriteMovies">
+                        <div class="favoriteMovies <?= $namePage == "favoriteMovies" ? "active" : "" ?>"><i class='bx bxs-heart'></i></div>
+                    </a>
+                </li>
+            <?php endif ?>
             <li>
                 <div class="search">
                     <form class="nosubmit" action="index.php?view=results" method="POST">
