@@ -1193,8 +1193,19 @@ function getPopularMovies($page = 1)
 }
 
 function getNbPagePopularMovie() {
-	$query = getPopularMovies();
-	return $query['total_pages'];
+	global $API_KEY;
+	$api_url = "https://api.themoviedb.org/3/movie/popular?api_key=" . $API_KEY . "&language=fr-FR&page=1&region=FR";
+	try {
+		$api_json = file_get_contents($api_url);
+		if ($api_json === false) {
+			$api_json = [];
+		}
+		$api_array = json_decode($api_json, true);
+		return $api_array["total_pages"];
+	} catch (Exception $e) {
+		// Gérer l'erreur
+		return [];
+	}
 }
 
 /**
