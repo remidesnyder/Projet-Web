@@ -28,7 +28,7 @@ $nbMovieToSee = getNumberOfToSeeMovie($_SESSION['userID']);
                 <li><a href="?view=notifications">Notifications</a></li>
                 <li><a href="?view=blockedUsers">Utilisateurs bloqués</a></li>
                 <li><a href="?view=mesMessages">Mes messages</a></li>
-                <li><a href="?action=Logout">Se déconnecter</a></li>
+                <li><a href="controleur.php?action=Logout">Se déconnecter</a></li>
                 <li><a href="">Supprimer mon compte</a></li>
             </ul>
         </aside>

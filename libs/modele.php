@@ -349,6 +349,12 @@ function deleteNotification($id)
 	return SQLDelete($SQL);
 }
 
+function notificationIsUnRead($notificationID) {
+	$SQL = "SELECT * FROM `notifications` WHERE `seen_date` IS NULL AND `id` = '$notificationID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+
 /**
  * Fonction de marquage d'une notification comme lue
  * @param int $id
@@ -356,7 +362,7 @@ function deleteNotification($id)
  */
 function markAsRead($id)
 {
-	$SQL = "UPDATE notifications SET seen_date=NOW() WHERE id='$id'";
+	$SQL = "UPDATE notifications SET seen_date = NOW() WHERE id='$id'";
 	return SQLUpdate($SQL);
 }
 

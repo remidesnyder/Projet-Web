@@ -53,22 +53,12 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
             </li>
             <li class="icons">
                 <a href="">
-                    <div class="calendar"><i class='bx bxs-calendar'></i></div>
+                    <div class="calendar popular"><i class='bx bxs-hot'></i></div>
                 </a>
             </li>
             <li class="icons">
                 <a href="">
-                    <div class="calendar"><i class='bx bxs-calendar'></i></div>
-                </a>
-            </li>
-            <li class="icons">
-                <a href="">
-                    <div class="calendar"><i class='bx bxs-calendar'></i></div>
-                </a>
-            </li>
-            <li class="icons">
-                <a href="">
-                    <div class="calendar"><i class='bx bxs-calendar'></i></div>
+                    <div class="calendar"><i class='bx bxs-heart'></i></div>
                 </a>
             </li>
             <li>
@@ -89,14 +79,14 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                                     <li>Notifications</li>
                                     <?php foreach (getUnreadNotifications($_SESSION['userID']) as $notification) : ?>
                                         <li>
-                                            <a href="index.php?view=notification&id=<?= $notification['id'] ?>">
+                                            <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
                                                 <?= $notification['content'] ?>
                                             </a>
                                         </li>
                                     <?php endforeach ?>
                                     <?php foreach (getReadNotifications($_SESSION['userID']) as $notification) : ?>
                                         <li>
-                                            <a href="index.php?view=notification&id=<?= $notification['id'] ?>">
+                                            <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
                                                 <?= $notification['content'] ?>
                                             </a>
                                         </li>

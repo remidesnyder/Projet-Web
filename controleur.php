@@ -224,6 +224,14 @@ if ($action = valider("action")) {
 			}
 			$qs = "?view=movie&movieID=$movieID";
 			break;
+		case 'Notifications':
+			$notificationID = valider("notificationID", "GET");
+
+			if (notificationIsUnRead($notificationID)) {
+				markAsRead($notificationID);
+			}
+			$qs = "?view=notifications";
+			break;
 	}
 }
 
