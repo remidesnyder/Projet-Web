@@ -25,6 +25,9 @@ $moviesData = searchMovies($search);
     <div class="results-content">
         <div class="image-container">
             <?php foreach ($moviesData['results'] as $data) : ?>
+                <?php 
+					$movieDate = date("Y", strtotime($data['release_date']));
+				?>
                 <div class="movie-box-result">
                     <?php if ($data['poster_path']) : ?>
                         <img src="https://image.tmdb.org/t/p/original/<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img">
@@ -33,7 +36,7 @@ $moviesData = searchMovies($search);
                     <?php endif ?>
                     <div class="box-text">
                         <h2 class="movie-title">
-                            <a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
+                            <a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?> (<?= $movieDate ?>)</a>
                         </h2>
                         <?php if (isset($_SESSION['userID'])) : ?>
                             <div class="btnResultAdd">
