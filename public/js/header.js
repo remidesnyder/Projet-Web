@@ -8,7 +8,7 @@ function init() {
 var data = {
     home: "Revenir à l'accueil",
     pop: "Voir les films populaires",
-    fav: "Voir les films favoris",
+    fav: "Mes films favoris",
 };
 
 function popin(contexte) {

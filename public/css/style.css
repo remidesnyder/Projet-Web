@@ -915,14 +915,16 @@ section .home-content {
     font-size: 24px;
 }
 
+/*POPUP*/
+
 #popup {
 	display:none;
 	position:absolute;
-	color: rgb(24, 26, 27);
-	padding:3px;
-	border:1px solid white;
+	color: var(--text-color);
+	padding:5px;
+    margin: 2px;
+	border:1px solid var(--main-color);
 	z-index:10;
-  font-family: "p22-underground", sans-serif;
 }
 
 /*updateProfil*/
@@ -942,4 +944,23 @@ section .home-content {
     padding-right: 20px;
     padding-top: 2px;
     padding-bottom: 2px;
+}
+
+.elemCompte{
+    text-align: center;
+    font-size: 16px;
+}
+
+.elemCompte:hover{
+    text-decoration: underline;
+}
+.param, .temps, .stats{
+    text-align: left;
+    padding: 15px;
+    font-size: 30px !important;
+}
+
+.monCompte{
+    text-align: center;
+    font-size: 50px;
 }
