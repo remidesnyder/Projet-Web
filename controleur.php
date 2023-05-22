@@ -94,6 +94,28 @@ if ($action = valider("action")) {
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'UpdateProfile':
+			$whatUpdate = valider("whatUpdate", 'POST');
+			
+			if ($_SESSION['userID'] && $whatUpdate) {
+				switch ($whatUpdate) {
+					case 'username':
+						$username = valider("login", 'POST');
+						if ($username && $username != "")
+							changeUsername($_SESSION['userID'], $username);
+						break;
+					case 'password':
+						$password = valider("passe", 'POST');
+						if ($password && $password != "")
+							changePassword($_SESSION['userID'], $password);
+						break;
+					case 'image':
+						$image = $_FILES['image'];
+						if (isset($image) && $image['error'] == 0)
+							changeProfilImage($_SESSION['userID'], $image);
+						break;
+				}
+			}
+
 			// On redirigera vers la page index automatiquement
 			break;
 		case 'DeleteProfile':

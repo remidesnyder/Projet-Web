@@ -53,6 +53,7 @@ function changeUsername($id, $newUsername)
 {
 	$SQL = "UPDATE users SET username='$newUsername' WHERE id='$id'";
 	updateLastUpdate($id); // On met à jour la date de dernière mise à jour
+	$_SESSION['username'] = $newUsername; // On met à jour la variable de session
 	return SQLUpdate($SQL);
 }
 
@@ -91,9 +92,32 @@ function changeRole($id, $newRole)
  */
 function changeProfilImage($id, $newImage)
 {
-	$SQL = "UPDATE users SET profil_image='$newImage' WHERE id='$id'";
-	updateLastUpdate($id);
-	return SQLUpdate($SQL);
+	// Telechargement de l'image
+	$time = time(); // Rendre l’image unique
+    $image_name = $time . $newImage['name'];
+    $image_tmp_name = $newImage['tmp_name'];
+    $image_destination_path = 'public/img/profil/' . $image_name;
+
+	 // Le fichier est bien une image 
+	 $allowed_files = ['png', 'jpg', 'jpeg', 'gif'];
+	 $extension = explode('.', $image_name);
+	 $extension = end($extension);
+	 if (in_array($extension, $allowed_files)) {
+		// Upload image
+		move_uploaded_file($image_tmp_name, $image_destination_path);
+		// On supprime l'ancienne image
+		if (file_exists("public/img/profil/" . getProfilPath($id))) {
+			unlink("public/img/profil/" . getProfilPath($id));
+		}
+		// On met à jour la base de données
+		$SQL = "UPDATE users SET profil_picture='$image_name' WHERE id='$id'";
+		updateLastUpdate($id);
+		$_SESSION['profil_picture'] = $image_name;
+		return SQLUpdate($SQL);
+	} else {
+		// Erreur
+		$error = 'Le fichier doit être une image';
+	}
 }
 
 /**
@@ -139,6 +163,16 @@ function deleteUser($id)
 function getUsers()
 {
 	$SQL = "SELECT `id`, `username`, `profil_picture`, `role`, `created_at`, `updated_at`, `last_connexion` FROM `users`";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+/**
+ * Fonction de récupération des informations d'un utilisateur
+ * @return array
+ */
+function getUserByID($id)
+{
+	$SQL = "SELECT `id`, `username`, `profil_picture`, `role`, `created_at`, `updated_at`, `last_connexion` FROM `users` WHERE `id` = '$id'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
