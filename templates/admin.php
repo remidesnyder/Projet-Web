@@ -28,7 +28,8 @@ if ($userName) {
 <section></section>
 
 <section>
-    <div class="form">
+    <h1 class="admin">Rechercher un utilisateur</h1>
+    <div class="form recherche">
         <form action="controleur.php" method="GET">
             <input type="hidden" name="action" value="AdminSearch">
             <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" value="<?php echo $userName;?>" /><br />
@@ -38,7 +39,9 @@ if ($userName) {
     <?php  if (isset($user)) : ?>
         <div class="result">
             <div class="listComments">
-                <h2>Commentaires de <?= $user['username'] ?></h2>
+                <br />
+                <h2 class="inf">Commentaires de <?= $user['username'] ?></h2>
+                <br />
                 <?php if (empty($comments)) : ?>
                     <p>Il n'a pas encore commenté de film.</p>
                 <?php else : ?>
@@ -58,8 +61,8 @@ if ($userName) {
                                     <td><?= $comment['title'] ?></td>
                                     <td><?= $comment['content'] ?></td>
                                     <td><?= $comment['reactions'] ?></td>
-                                    <td><a href="controleur.php?action=EditCommentFromMesMessages&commentID=<?= $comment['id'] ?>">Modifier</a></td>
-                                    <td><a href="controleur.php?action=DeleteCommentFromMesMessages&commentID=<?= $comment['id'] ?>">Supprimer</a></td>
+                                    <td><a href="controleur.php?action=EditCommentFromMesMessages&commentID=<?= $comment['id'] ?>" class="btn-orange btnadmin">Modifier</a></td>
+                                    <td><a href="controleur.php?action=DeleteCommentFromMesMessages&commentID=<?= $comment['id'] ?>" class="btn-red btnadmin">Supprimer</a></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -68,7 +71,8 @@ if ($userName) {
             </div>
             <br>
             <div class="listReplies">
-                <h2>Réponses de <?= $user['username'] ?></h2>
+                <h2 class="inf">Réponses de <?= $user['username'] ?></h2>
+                <br />
                 <?php if (empty($replies)) : ?>
                     <p>Il n'a pas encore répondu à un commentaire.</p>
                 <?php else : ?>
@@ -88,8 +92,8 @@ if ($userName) {
                                     <td><?= $reply['title'] ?></td>
                                     <td><?= $reply['content'] ?></td>
                                     <td><?= $reply['reactions'] ?></td>
-                                    <td><a href="controleur.php?action=EditReplyFromMesMessages&replyID=<?= $reply['id'] ?>">Modifier</a></td>
-                                    <td><a href="controleur.php?action=DeleteReplyFromMesMessages&replyID=<?= $reply['id'] ?>">Supprimer</a></td>
+                                    <td><a href="controleur.php?action=EditReplyFromMesMessages&replyID=<?= $reply['id'] ?>" class="btn-orange btnadmin">Modifier</a></td>
+                                    <td><a href="controleur.php?action=DeleteReplyFromMesMessages&replyID=<?= $reply['id'] ?>" class="btn-red btnadmin">Supprimer</a></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -97,6 +101,8 @@ if ($userName) {
                 <?php endif; ?>
             </div>
             <div class="profile">
+                <h1 class="inf">Photo de profil de <?= $user['username'] ?></h1>
+                <br />
                 <img src="public/img/<?= getProfilPath($user['id']) ? "profil/" . getProfilPath($user['id']) : "profil/default.jpg" ?>" alt="">
                 <h1><?= $user['username'] ?></h1>
             </div>

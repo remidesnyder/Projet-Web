@@ -1003,3 +1003,42 @@ section .home-content {
     background-color: var(--main-color);
     border-color: var(--main-color);
 }
+
+/*ADMIN*/
+
+.recherche form{
+    text-align: center;
+    font-size: 50px;
+}
+
+.recherche input{
+    border-radius: 20px;
+    height: 40px;
+    margin: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.admin{
+    text-align: center;
+    font-size: 50px;
+}
+
+.inf{
+    text-align: center;
+    font-size: 30px;
+}
+
+.btnadmin{
+    text-align: center;
+    font-size: 20px;
+    border-radius: 20px;
+    height: 40px;
+    margin: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
