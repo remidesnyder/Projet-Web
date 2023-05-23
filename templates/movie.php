@@ -117,7 +117,7 @@ $comments = getCommentsByMovie($movieID);
                         <div class="comment">
                             <div class="comment1">
                                 <div class="comment-author">
-                                    <img src="public/img/<?= $comment['profil_picture'] ?>" alt="Profil">
+                                    <img src="public/img/profil/<?= $comment['profil_picture'] ?>" alt="Profil">
                                     <div class="author-info">
                                         <h4><?= $comment['username'] ?></h4>
                                         <?php
@@ -150,7 +150,7 @@ $comments = getCommentsByMovie($movieID);
                                         }
 
                                         ?>
-                                        <span><?= $formatted_date ?></span>
+                                        <span><?= $formatted_date ?> <i class='bx bxs-flag-alt'></i></span>
                                     </div>
                                 </div>
                                 <div class="comment-content">
@@ -184,7 +184,7 @@ $comments = getCommentsByMovie($movieID);
                             <?php foreach ($reply as $rep) : ?>
                                 <div class="comment-reply">
                                     <div class="comment-author">
-                                        <img src="public/img/<?= $rep['profil_picture'] ?>" alt="Profil">
+                                        <img src="public/img/profil/<?= $rep['profil_picture'] ?>" alt="Profil">
                                         <div class="author-info">
                                             <h4><?= $rep['username'] ?></h4>
                                             <?php
@@ -226,7 +226,7 @@ $comments = getCommentsByMovie($movieID);
                                             $formatted_date .= " (Il y a " . $time_diff . " an(s))";
                                         }
                                         ?>
-                                        <span><?= $formatted_date ?></span>
+                                        <span><?= $formatted_date ?> <i class='bx bxs-flag-alt'></i></span>
                                         </div>
                                     </div>
                                     <div class="comment-content">

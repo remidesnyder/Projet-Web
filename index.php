@@ -63,8 +63,8 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
  * - Changer les icons du header [OK]
  * - Modifier le profil [OK]
  * - Finir le système de notifications [OK]
+ * - Ajotuer dropdown pour les notifications [OK]
  * 
- * - Ajotuer dropdown pour les notifications
  * - Ajouter dropdown pour le profil
  * - Utilisateurs bloqués
  * - Supprimer mon compte
