@@ -455,6 +455,17 @@ function getCommentsByMovie($movieID)
 }
 
 /**
+ * Fonction de récupération de la liste des commentaires d'un film
+ * @param int $movieID
+ * @return array
+ */
+function getCommentMovie($commentID)
+{
+	$SQL = "SELECT movieID FROM comments WHERE id='$commentID'";
+	return SQLGetChamp($SQL);
+}
+
+/**
  * Fonction d'ajout d'un commentaire
  * @param int $userID
  * @param int $movieID
@@ -603,8 +614,11 @@ function addReply($userID, $commentID, $content)
 	SQLInsert($SQL);
 
 	$commentAuthor = getCommentAuthor($commentID);
+
+	$movieID = getCommentMovie($commentID);
+
 	if ($commentAuthor != $userID) {
-		$SQL = "INSERT INTO notifications (userID, title, content) VALUES ('$commentAuthor', 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire')";
+		$SQL = "INSERT INTO notifications (userID, title, content, redirection) VALUES ('$commentAuthor', 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', 'index.php?view=movie&movieID=$movieID')";
 		SQLInsert($SQL);
 	}
 }
@@ -1400,7 +1414,7 @@ function ifUserAlreadyReport($commentID, $userID) {
 }
 
 function addWarning($userID, $reason) {
-	
+
 }
 
 

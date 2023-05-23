@@ -88,16 +88,28 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                                     <h1 class="notifs">Notifications</h1>
                                     <?php foreach (getUnreadNotifications($_SESSION['userID']) as $notification) : ?>
                                         <li>
-                                            <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
-                                                <?= $notification['content'] ?>
-                                            </a>
+                                            <?php if (isset($notification['redirection'])) : ?>
+                                                <a href="<?= $notification['redirection'] ?>">
+                                                    <?= $notification['content'] ?>
+                                                </a>
+                                            <?php else : ?>
+                                                <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
+                                                    <?= $notification['content'] ?>
+                                                </a>
+                                            <?php endif ?>
                                         </li>
                                     <?php endforeach ?>
                                     <?php foreach (getReadNotifications($_SESSION['userID']) as $notification) : ?>
                                         <li>
-                                            <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
-                                                <?= $notification['content'] ?>
-                                            </a>
+                                            <?php if (isset($notification['redirection'])) : ?>
+                                                <a href="<?= $notification['redirection'] ?>">
+                                                    <?= $notification['content'] ?>
+                                                </a>
+                                            <?php else : ?>
+                                                <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
+                                                    <?= $notification['content'] ?>
+                                                </a>
+                                            <?php endif ?>
                                         </li>
                                     <?php endforeach ?>
                                 </ul>
@@ -107,9 +119,15 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                             
                                     <?php foreach (getAllNotifications($_SESSION['userID']) as $notification) : ?>
                                         <li>
-                                            <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
-                                                <?= $notification['content'] ?>
-                                            </a>
+                                            <?php if (isset($notification['redirection'])) : ?>
+                                                <a href="<?= $notification['redirection'] ?>">
+                                                    <?= $notification['content'] ?>
+                                                </a>
+                                            <?php else : ?>
+                                                <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
+                                                    <?= $notification['content'] ?>
+                                                </a>
+                                            <?php endif ?>
                                         </li>
                                     <?php endforeach ?>
                                 </ul>
