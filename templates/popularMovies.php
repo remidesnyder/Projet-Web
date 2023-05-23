@@ -98,4 +98,5 @@ $popularMovies = getPopularMovies($page);
         </li>
     </ul>
 </nav>
+<br />
 </section>
