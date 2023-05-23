@@ -398,7 +398,6 @@ function notificationIsUnRead($notificationID) {
 	return parcoursRs(SQLSelect($SQL));
 }
 
-
 /**
  * Fonction de marquage d'une notification comme lue
  * @param int $id
@@ -408,6 +407,16 @@ function markAsRead($id)
 {
 	$SQL = "UPDATE notifications SET seen_date = NOW() WHERE id='$id'";
 	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction de récupération d'une notification
+ * @param int $id
+ * @return array
+ */
+function getNotification($id) {
+	$SQL = "SELECT * FROM `notifications` WHERE `id` = '$id'";
+	return parcoursRs(SQLSelect($SQL));
 }
 
 
@@ -1392,7 +1401,6 @@ function getAllReport() {
 
 /**
  * Fonction pour récupérer tous les reports d'un utilisateur
- * @param int $replyID
  * @param int $userID
  * @return array
  */
@@ -1407,14 +1415,24 @@ function getAllReportByUser($userID) {
 	return parcoursRs(SQLSelect($SQL));
 }
 
-
+/**
+ * Fonction pour savoir si un utilisateur a déjà report un commentaire
+ * @param int $userID
+ * @return array
+ */
 function ifUserAlreadyReport($commentID, $userID) {
 	$SQL = "SELECT * FROM warns WHERE commentID = '$commentID' AND reporterID = '$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
+/**
+ * Fonction pour ajouter un avertissement à un utilisateur
+ * @param int $commentID
+ * @return array
+ */
 function addWarning($userID, $reason) {
-
+	$SQL = "INSERT INTO warnings (userID, reason) VALUES ('$userID', '$reason')";
+	return SQLInsert($SQL);
 }
 
 

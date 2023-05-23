@@ -296,7 +296,11 @@ $comments = getCommentsByMovie($movieID);
                 <div class="swiper-wrapper">
                     <?php foreach ($actors as $actor) : ?>
                         <?php 
-                            $alreadyVoteForThisActor = userHasAlreadyForThisActorInThisMovie($_SESSION['userID'], $movieID, $actor['id']);
+                            if (isset($_SESSION['userID'])) {
+                                $alreadyVoteForThisActor = userHasAlreadyForThisActorInThisMovie($_SESSION['userID'], $movieID, $actor['id']);
+                            } else {
+                                $alreadyVoteForThisActor = false;
+                            }
                         ?>
                         <!-- Movies Box -->
                         <div class="swiper-slide swiper-actor">
@@ -312,10 +316,12 @@ $comments = getCommentsByMovie($movieID);
                                     </h2>
                                     <span class="movie-type"><?= $actor['character'] ?></span>
                                     <span class="actor-nbvote votes-count"><?= $actor['nbVote'] ?> vote</span>
-                                    <?php if(empty($alreadyVoteForThisActor) && isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
-                                        <a class="watch-btn vote-btn" href="controleur.php?action=UnvoteForActor&movieID=<?= $movieID ?>&actorID=<?= $actor['id'] ?>">
-                                            <i class='bx bxs-upvote'></i>
-                                        </a>
+                                    <?php if(isset($_SESSION['userID'])) : ?>
+                                        <?php if(empty($alreadyVoteForThisActor) && isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
+                                            <a class="watch-btn vote-btn" href="controleur.php?action=UnvoteForActor&movieID=<?= $movieID ?>&actorID=<?= $actor['id'] ?>">
+                                                <i class='bx bxs-upvote'></i>
+                                            </a>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>

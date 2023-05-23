@@ -250,7 +250,15 @@ if ($action = valider("action")) {
 			if (notificationIsUnRead($notificationID)) {
 				markAsRead($notificationID);
 			}
-			$qs = "?view=notifications";
+
+			$notification = getNotification($notificationID)[0];
+
+			if (isset($notification['redirection'])) {
+				$qs = $notification['redirection'];
+			} else {
+				$qs = "?view=notifications";
+			}
+
 			break;
 		case 'DeleteNotification':
 			$notificationID = valider("notificationID", "GET");
