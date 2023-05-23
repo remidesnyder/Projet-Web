@@ -1345,6 +1345,67 @@ function getActorMovies($actorID)
 }
 
 /* ******************************** */
+/* 		Fonction REPORT			    */
+/* ******************************** */
+
+/**
+ * Fonction de report d'un commentaire
+ * @param int $commentID
+ * @param int $userID
+ * @return array
+ */
+function reportComment($commentID, $authorID, $reporterID) {
+	if (ifUserAlreadyReport($commentID, $reporterID)) return;
+	$SQL = "INSERT INTO warns (commentID, authorID, reporterID) VALUES ('$commentID', '$authorID', '$reporterID')";
+	return SQLInsert($SQL);
+}
+
+/**
+ * Fonction pour récupérer tous les reports
+ * @param int $replyID
+ * @param int $userID
+ * @return array
+ */
+function getAllReport() {
+	$SQL = "SELECT warns.*, comments.content AS commentContent, comments.movieID, movies.title AS movieTitle, users.username AS authorName, users.profil_picture AS authorPicture, users.role AS authorRole, users2.username AS reporterName, users2.profil_picture AS reporterPicture, users2.role AS reporterRole
+			FROM `warns` 
+			INNER JOIN `comments` ON comments.id = warns.commentID
+			INNER JOIN `movies` ON movies.movieID = comments.movieID
+			INNER JOIN `users` ON users.id = warns.authorID
+			INNER JOIN `users` AS users2 ON users2.id = warns.reporterID";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+/**
+ * Fonction pour récupérer tous les reports d'un utilisateur
+ * @param int $replyID
+ * @param int $userID
+ * @return array
+ */
+function getAllReportByUser($userID) {
+	$SQL = "SELECT warns.*, comments.content AS commentContent, comments.movieID, movies.title AS movieTitle, users.username AS authorName, users.profil_picture AS authorPicture, users.role AS authorRole, users2.username AS reporterName, users2.profil_picture AS reporterPicture, users2.role AS reporterRole
+			FROM `warns` 
+			INNER JOIN `comments` ON comments.id = warns.commentID
+			INNER JOIN `movies` ON movies.movieID = comments.movieID
+			INNER JOIN `users` ON users.id = warns.authorID
+			INNER JOIN `users` AS users2 ON users2.id = warns.reporterID
+			WHERE warns.reporterID = '$userID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+
+function ifUserAlreadyReport($commentID, $userID) {
+	$SQL = "SELECT * FROM warns WHERE commentID = '$commentID' AND reporterID = '$userID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+function addWarning($userID, $reason) {
+	
+}
+
+
+
+/* ******************************** */
 /* 		Fonction GLOBALE		    */
 /* ******************************** */
 

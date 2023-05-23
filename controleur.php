@@ -265,6 +265,18 @@ if ($action = valider("action")) {
 			if (!$username) { $qs="?view=admin"; break; }
 			$qs = "?view=admin&username=$username";
 			break;
+		case 'ReportComment':
+			$commentID = valider("commentID", "GET");
+			$movieID = valider("movieID", "GET");
+			$authorID = valider("authorID", "GET");
+
+			if ($commentID && $authorID && isset($_SESSION['userID'])) {
+				reportComment($commentID, $authorID ,$_SESSION['userID']);
+			}
+
+			$qs = "?view=movie&movieID=$movieID";
+
+			break;
 	}
 }
 

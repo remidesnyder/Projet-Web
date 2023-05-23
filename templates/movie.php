@@ -150,7 +150,16 @@ $comments = getCommentsByMovie($movieID);
                                         }
 
                                         ?>
-                                        <span><?= $formatted_date ?> <i class='bx bxs-flag-alt'></i></span>
+                                        <span>
+                                            <?= $formatted_date ?>
+                                            <form action="controleur.php?">
+                                                <input type="hidden" name="action" value="ReportComment">
+                                                <input type="hidden" name="commentID" value="<?= $comment['id'] ?>">
+                                                <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                                <input type="hidden" name="authorID" value="<?= $comment['userID'] ?>">
+                                                <button><i class='bx bxs-flag-alt'></i></button>
+                                            </form>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="comment-content">
@@ -188,12 +197,6 @@ $comments = getCommentsByMovie($movieID);
                                         <div class="author-info">
                                             <h4><?= $rep['username'] ?></h4>
                                             <?php
-                                            // Je voudrais au format date de Paris 
-                                            // 1. Récupérer la date de création du commentaire
-                                            // 2. Récupérer la date actuelle
-                                            // 3. Faire la différence entre les deux
-                                            // 4. Afficher le résultat en fonction de la différence
-                                            // 6. Afficher la date de création du commentaire au format "Ecrit le 01/01/2021 (Il y a 2 jours)"
 
                                             $date = new DateTime($rep['created_at']);
                                             $current_time = new DateTime();
@@ -260,7 +263,7 @@ $comments = getCommentsByMovie($movieID);
                            <?php if (isTheMovieInWatchedList($_SESSION['userID'], $movieID)) : ?>
                                 <div class="reply-container">
                                     <div class="profile-pic">
-                                        <img src="public/img/<?= getProfilPath($_SESSION['userID']) ?>" alt="Profile picture">
+                                        <img src="public/img/profil/<?= getProfilPath($_SESSION['userID']) ?>" alt="Profile picture">
                                     </div>
                                     <div class="comment-form">
                                         <form action="controleur.php?action=AddReply" method="post">
