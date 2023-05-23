@@ -31,10 +31,8 @@ $timeRuntime = $months . " mois " . $days . " jour(s) " . $hours . " heure(s) " 
 ?>
 
 <section></section>
-<br />
-<br />
-<h1 class="monCompte">Mon compte</h1>
 <section class="profile">
+<h1 class="monCompte">Mon compte</h1>
     <div class="profile-container mc-sidebar">
         <h1 class="param">Paramètres du compte</h1>
         <aside>

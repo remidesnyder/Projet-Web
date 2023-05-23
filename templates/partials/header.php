@@ -85,7 +85,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                         <div class="notification-content">
                             <?php if (getUnreadNotifications($_SESSION['userID'])) : ?>
                                 <ul>
-                                    <li>Notifications</li>
+                                    <h1 class="notifs">Notifications</h1>
                                     <?php foreach (getUnreadNotifications($_SESSION['userID']) as $notification) : ?>
                                         <li>
                                             <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
@@ -103,7 +103,8 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                                 </ul>
                             <?php else : ?>
                                 <ul>
-                                    <li>Notifications</li>
+                                    <h1 class="notifs">Notifications</h1>
+                            
                                     <?php foreach (getAllNotifications($_SESSION['userID']) as $notification) : ?>
                                         <li>
                                             <a href="controleur.php?action=Notifications&notificationID=<?= $notification['id'] ?>">
