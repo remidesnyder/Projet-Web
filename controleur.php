@@ -260,6 +260,11 @@ if ($action = valider("action")) {
 			}
 			$qs = "?view=notifications";
 			break;
+		case 'AdminSearch':
+			$username = valider('username', 'GET');
+			if (!$username) { $qs="?view=admin"; break; }
+			$qs = "?view=admin&username=$username";
+			break;
 	}
 }
 

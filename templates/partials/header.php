@@ -119,7 +119,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                     </div>
                 </li>
                 <li class="profile-info-name">
-                    <img src="public/img/<?= getProfilPath($_SESSION['userID']) ? "profil/" . getProfilPath($_SESSION['userID']) : "default.jpg" ?>" alt="" class="profile-image">
+                    <img src="public/img/<?= getProfilPath($_SESSION['userID']) ? "profil/" . getProfilPath($_SESSION['userID']) : "profil/default.jpg" ?>" alt="" class="profile-image">
                     <a href="index.php?view=monCompte">
                         <div class="profile-name"><?= $_SESSION['username'] ?></div>
                     </a>

@@ -27,7 +27,7 @@ function verifUserBdd($login, $passe)
 function isAdmin($id)
 {
 	$SQL = "SELECT role FROM users WHERE id='$id'";
-	if (SQLGetChamp($SQL) == 1 || 2) return true; // 1 représentant l'id pour le créateur et 2 pour l'administrateur
+	if (SQLGetChamp($SQL) == 1 || SQLGetChamp($SQL) == 2) return true; // 1 représentant l'id pour le créateur et 2 pour l'administrateur
 	else return false;
 }
 
@@ -173,6 +173,16 @@ function getUsers()
 function getUserByID($id)
 {
 	$SQL = "SELECT `id`, `username`, `profil_picture`, `role`, `created_at`, `updated_at`, `last_connexion` FROM `users` WHERE `id` = '$id'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+/**
+ * Fonction de récupération des informations d'un utilisateur
+ * @return array
+ */
+function getUserByUsername($username)
+{
+	$SQL = "SELECT `id`, `username`, `profil_picture`, `role`, `created_at`, `updated_at`, `last_connexion` FROM `users` WHERE `username` = '$username'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
