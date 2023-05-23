@@ -28,6 +28,10 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
 	if (($view == "login" || $view == "inscription") && isset($_SESSION['userID']) && $_SESSION['userID'] != 0)
 		$view = "accueil";
 
+	// La page est interdit aux utilisateurs pas connecté et au non admin
+	if ($view == "admin" && (!isset($_SESSION['userID']) || $_SESSION['userID'] == 0 || !$_SESSION['isAdmin']))
+		$view = "accueil";
+
 	include("templates/partials/header.php");
 
 	// En fonction de la vue à afficher, on appelle tel ou tel template
@@ -60,7 +64,6 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
  * - Modifier le profil [OK]
  * - Finir le système de notifications [OK]
  * 
- * - Ajouter un top sur la page de l'acteur ?
  * - Ajotuer dropdown pour les notifications
  * - Ajouter dropdown pour le profil
  * - Utilisateurs bloqués
