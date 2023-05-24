@@ -59,6 +59,7 @@ $biographyLimite = 350; // Nombre de caractères maximum pour la biographie
             <div class="swiper-wrapper">
                 <!-- Movies Box -->
                 <?php foreach ($actorMovies as $data) : ?>
+                    <?php $movieDate = date("Y", strtotime($data['release_date'])); ?>
                     <div class="swiper-slide">
                         <div class="movie-box">
                             <?php if ($data['poster_path']) : ?>
@@ -70,7 +71,7 @@ $biographyLimite = 350; // Nombre de caractères maximum pour la biographie
                                 <h2 class="movie-title">
                                     <a class="movie-a" href="index.php?view=movie&movieID=<?= $data['id'] ?>"><?= $data['title'] ?></a>
                                 </h2>
-                                <span class="movie-type">NaN</span>
+                                <span class="movie-type"><?= $movieDate ?></span>
                                 <a href="#" class="watch-btn play-btn">
                                     <i class="bx bx-right-arrow"></i>
                                 </a>
