@@ -120,8 +120,18 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                 </li>
                 <li class="profile-info-name">
                     <img src="public/img/<?= getProfilPath($_SESSION['userID']) ? "profil/" . getProfilPath($_SESSION['userID']) : "profil/default.jpg" ?>" alt="" class="profile-image">
-                    <a href="index.php?view=monCompte">
-                        <div class="profile-name"><?= $_SESSION['username'] ?></div>
+                        <div id="profileName" class="profile-name" onclick="showOrHideDropdown()"><?= $_SESSION['username'] ?></div>
+                        <div class="dropdownProfil hidden" id="dropdownProfil">
+                            <ul>
+                                <li><a href="index.php?view=monCompte">Mon compte</a></li>
+                                <hr size="2" noshade width="100%"> 
+                                <?php if (isAdmin($_SESSION['userID'])) : ?>
+                                    <li><a href="index.php?view=admin" class="adminColor">Panel administrateur</a></li>
+                                    <hr size="2" noshade width="100%">
+                                <?php endif ?>
+                                <li><a href="controleur.php?action=Logout" class="logoutColor">Déconnexion</a></li>
+                            </ul>
+                        </div>
                     </a>
                     <i class='bx bx-chevron-down'></i>
                 </li>

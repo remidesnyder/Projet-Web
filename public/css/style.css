@@ -512,7 +512,6 @@ section .home-content {
     font: var(--text-color);
 }
 
-
 .comment-author img {
     width: 50px;
     height: 50px;
@@ -840,17 +839,18 @@ section .home-content {
     float: right;
 }
 
-.notifs{
+.notifs {
     text-align: center;
     font-size: 20px;
     background-color: var(--background-color);
 }
 
-.notification-content{
+.notification-content {
     text-align: center;
     font-size: 20px;
     background-color: var(--background-color);
 }
+
 
 /*SIGNUP ET LOGIN*/
 
@@ -924,36 +924,42 @@ section .home-content {
     justify-content: center;
 }
 
-#creer, #connecter{
+#creer,
+#connecter {
     text-decoration: underline !important;
 }
 
-.filmpop{
+.filmpop {
     font-size: 24px;
 }
+
 
 /*POPUP*/
 
 #popup {
-	display:none;
-	position:absolute;
-	color: var(--text-color);
-	padding:5px;
+    display: none;
+    position: absolute;
+    color: var(--text-color);
+    padding: 5px;
     margin: 2px;
-	border:1px solid var(--main-color);
-	z-index:10;
+    border: 1px solid var(--main-color);
+    z-index: 10;
 }
+
 
 /*updateProfil*/
 
-.home-content, #formUsername,
-#formPassword, #formImage {
+.home-content,
+#formUsername,
+#formPassword,
+#formImage {
     text-align: center;
     font-size: 30px;
 }
 
 #formUsername input,
-#formPassword input, #formImage input {
+#formPassword input,
+#formImage input {
     border-radius: 20px;
     height: 40px;
     margin: 5px;
@@ -963,21 +969,25 @@ section .home-content {
     padding-bottom: 2px;
 }
 
-.elemCompte{
+.elemCompte {
     text-align: center;
     font-size: 16px;
 }
 
-.elemCompte:hover{
+.elemCompte:hover {
     text-decoration: underline;
 }
-.param, .temps, .stats, .genres{
+
+.param,
+.temps,
+.stats,
+.genres {
     text-align: left;
     padding: 15px;
     font-size: 30px !important;
 }
 
-.monCompte{
+.monCompte {
     text-align: center;
     font-size: 50px;
 }
@@ -985,18 +995,18 @@ section .home-content {
 
 /*POPULARMOVIES*/
 
-.page-item{
+.page-item {
     text-align: center;
     float: left;
 }
 
-.page-link{
+.page-link {
     text-align: center;
     font-size: 20px;
     float: left;
 }
 
-.page-link:hover{
+.page-link:hover {
     text-align: center;
     font-size: 20px;
     float: left;
@@ -1004,14 +1014,15 @@ section .home-content {
     border-color: var(--main-color);
 }
 
+
 /*ADMIN*/
 
-.recherche form{
+.recherche form {
     text-align: center;
     font-size: 50px;
 }
 
-.recherche input{
+.recherche input {
     border-radius: 20px;
     height: 40px;
     margin: 5px;
@@ -1021,17 +1032,17 @@ section .home-content {
     padding-bottom: 2px;
 }
 
-.admin{
+.admin {
     text-align: center;
     font-size: 50px;
 }
 
-.inf{
+.inf {
     text-align: center;
     font-size: 30px;
 }
 
-.btnadmin{
+.btnadmin {
     text-align: center;
     font-size: 20px;
     border-radius: 20px;
@@ -1041,4 +1052,40 @@ section .home-content {
     padding-right: 20px;
     padding-top: 2px;
     padding-bottom: 2px;
+}
+
+.hidden {
+    display: none;
+}
+
+.dropdownProfil ul {
+    display: flex;
+    align-items: flex-start;
+    z-index: 100 !important;
+    flex-direction: column;
+    background: var(--background-color);
+    position: absolute;
+    top: 5rem;
+    right: 15rem;
+    border-radius: 10px;
+    padding: 9px 10px 9px 10px;
+    gap: 0;
+    border: 1px solid var(--main-color);
+}
+
+.dropdownProfil ul hr {
+    border-color: var(--text-color);
+}
+
+.dropdownProfil ul li {
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.dropdownProfil .adminColor {
+    color: var(--notification-color);
+}
+
+.dropdownProfil .logoutColor {
+    color: var(--danger-color);
 }

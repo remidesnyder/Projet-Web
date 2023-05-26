@@ -1,8 +1,11 @@
 var refPopup = null;
+var profileName = null;
+var dropdownProfil = null;
 
 function init() {
-    console.log("init");
     refPopup = document.getElementById("popup");
+    profileName = document.getElementById("profileName");
+    dropdownProfil = document.getElementById("dropdownProfil");
 }
 
 var data = {
@@ -40,4 +43,12 @@ function popin(contexte) {
 function popout() {
     console.log("popout");
     refPopup.style.display = "none";
+}
+
+function showOrHideDropdown() {
+    if (dropdownProfil.classList.contains("hidden")) {
+        dropdownProfil.classList.remove("hidden");
+    } else {
+        dropdownProfil.classList.add("hidden");
+    }
 }
