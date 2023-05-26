@@ -124,7 +124,8 @@ $comments = getCommentsByMovie($movieID);
             <?php endif ?>
                 <div class="comments">
                     <?php foreach ($comments as $comment) : ?>
-                        <?php $reply = getRepliesByComment($comment['id']); ?>
+                        <?php if(!$comment['hidden']) : ?>
+                            <?php $reply = getRepliesByComment($comment['id']); ?>
                         <div class="comment">
                             <div class="comment1">
                                 <div class="comment-author">
@@ -286,6 +287,7 @@ $comments = getCommentsByMovie($movieID);
                                 </div>
                             <?php endif ?>
                         </div>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>

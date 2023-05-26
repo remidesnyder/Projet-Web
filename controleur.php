@@ -21,6 +21,11 @@ if ($action = valider("action")) {
 					// On verifie l'utilisateur, 
 					// et on crée des variables de session si tout est OK
 					// Cf. maLibSecurisation
+					$userID = getUserByUsername($login)['id'];
+					if (userIsBlocked($userID)) {
+						$qs = "?view=login&error=" . urldecode("Votre compte est bloqué");
+						break;
+					}
 					if (verifUser($login, $passe)) {
 						// tout s'est bien passé, doit-on se souvenir de la personne ? 
 						if (valider("remember")) {
@@ -271,7 +276,7 @@ if ($action = valider("action")) {
 		case 'AdminSearch':
 			$username = valider('username', 'GET');
 			if (!$username) { $qs="?view=admin"; break; }
-			$qs = "?view=admin&username=$username";
+			$qs = "?view=adminSearchUser&username=$username";
 			break;
 		case 'ReportComment':
 			$commentID = valider("commentID", "GET");
@@ -305,6 +310,53 @@ if ($action = valider("action")) {
 			$qs = "?view=movie&movieID=$movieID";
 
 			break;
+		case 'deleteReport':
+			$reportID = valider("reportID", "GET");
+
+			if ($reportID && isset($_SESSION['userID'])) {
+				deleteReport($reportID);
+			}
+
+			$qs = "?view=adminTreatWarn";
+
+			break;
+		case 'TreatReport':
+			// On ajoute un warn à l'utilisateur du commentaire
+			// On cache le commentaire
+
+			$reportID = valider("reportID", "GET");
+			$authorID = getAuthorIDOfReport($reportID);
+			$commentID = getCommentIDOfReport($reportID);
+
+			if ($reportID && $authorID && $commentID && isset($_SESSION['userID']) && isAdmin($_SESSION['userID'])) {
+				addWarn($authorID, "Votre commentaire a été signalé et caché par un modérateur.", $commentID);
+				hideComment($commentID);
+				treatReport($reportID);
+			}
+
+			$qs = "?view=adminTreatWarn";
+			break;
+		case 'AdminUnblockUser':
+			$userID = valider("userID", "GET");
+			$pseudo = valider("pseudo", "GET");
+
+			if ($userID && isset($_SESSION['userID']) && isAdmin($_SESSION['userID'])) {
+				unblockUser($userID);
+			}
+
+			$qs = "?view=adminSearchUser&username=$pseudo";
+			break;
+		case 'AdminBlockUser':
+			$userID = valider("userID", "GET");
+			$pseudo = valider("pseudo", "GET");
+
+			if ($userID && isset($_SESSION['userID']) && isAdmin($_SESSION['userID'])) {
+				blockUser($userID);
+			}
+
+			$qs = "?view=adminSearchUser&username=$pseudo";
+			break;
+		
 	}
 }
 

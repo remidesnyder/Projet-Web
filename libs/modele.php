@@ -48,12 +48,45 @@ function getPermissionLevel($id)
  * @param string $newUsername
  * @return int
  */
-
 function changeUsername($id, $newUsername)
 {
 	$SQL = "UPDATE users SET username='$newUsername' WHERE id='$id'";
 	updateLastUpdate($id); // On met à jour la date de dernière mise à jour
 	$_SESSION['username'] = $newUsername; // On met à jour la variable de session
+	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction pour savoir si un utilisateur est bloqué
+ * @param int $id
+ * @param string $newUsername
+ * @return int
+ */
+function userIsBlocked($id)
+{
+	$SQL = "SELECT blocked FROM users WHERE id='$id'";
+	return SQLGetChamp($SQL);
+}
+
+/**
+ * Fonction de blocage d'un utilisateur
+ * @param int $id
+ * @return int
+ */
+function blockUser($id)
+{
+	$SQL = "UPDATE users SET blocked='1' WHERE id='$id'";
+	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction de déblocage d'un utilisateur
+ * @param int $id
+ * @return int
+ */
+function unblockUser($id)
+{
+	$SQL = "UPDATE users SET blocked='0' WHERE id='$id'";
 	return SQLUpdate($SQL);
 }
 
@@ -376,9 +409,9 @@ function getReadNotifications($userID)
  * @param string $content
  * @return int
  */
-function addNotification($userID, $title, $content)
+function addNotification($userID, $title, $content, $redirection = NULL)
 {
-	$SQL = "INSERT INTO notifications (userID, title, content) VALUES ('$userID', '$title', '$content')";
+	$SQL = "INSERT INTO notifications (userID, title, content, redirection) VALUES ('$userID', '$title', '$content', '$redirection')";
 	return SQLInsert($SQL);
 }
 
@@ -1461,14 +1494,12 @@ function getAllReport() {
  * @param int $userID
  * @return array
  */
-function getAllReportByUser($userID) {
-	$SQL = "SELECT warns.*, comments.content AS commentContent, comments.movieID, movies.title AS movieTitle, users.username AS authorName, users.profil_picture AS authorPicture, users.role AS authorRole, users2.username AS reporterName, users2.profil_picture AS reporterPicture, users2.role AS reporterRole
-			FROM `warns` 
-			INNER JOIN `comments` ON comments.id = warns.commentID
-			INNER JOIN `movies` ON movies.movieID = comments.movieID
-			INNER JOIN `users` ON users.id = warns.authorID
-			INNER JOIN `users` AS users2 ON users2.id = warns.reporterID
-			WHERE warns.reporterID = '$userID'";
+function getAllWarningByUser($userID) {
+	$SQL = "SELECT movies.title, movies.movieID, warning.*, comments.*
+	FROM `warning` 
+    INNER JOIN `comments` ON comments.id = warning.commentID
+    INNER JOIN `movies` ON movies.movieID = comments.movieID
+    WHERE warning.`userID` = '$userID'";
 	return parcoursRs(SQLSelect($SQL));
 }
 
@@ -1492,6 +1523,108 @@ function addWarning($userID, $reason) {
 	return SQLInsert($SQL);
 }
 
+/**
+ * Fonction pour supprimmer un report
+ * @param int $userID
+ * @return array
+ */
+function deleteReport($reportID) {
+	$SQL = "DELETE FROM warns WHERE id = '$reportID'";
+	return SQLDelete($SQL);
+}
+
+/**
+ * Fonction pour récupérer l'ID de l'auteur d'un report
+ * @param int $reportID
+ * @return array
+ */
+function getAuthorIDOfReport($reportID) {
+	$SQL = "SELECT authorID FROM warns WHERE id = '$reportID'";
+	return SQLGetChamp($SQL);
+}
+
+function getMovieIDOFReport($reportID) {
+	$SQL = "SELECT movieID FROM comments WHERE id = '$reportID'";
+	return SQLGetChamp($SQL);
+}
+
+/**
+ * Fonction pour récupérer l'ID du commentaire d'un report
+ * @param int $reportID
+ * @return array
+ */
+function getCommentIDOfReport($reportID) {
+	$SQL = "SELECT commentID FROM warns WHERE id = '$reportID'";
+	return SQLGetChamp($SQL);
+}
+
+function getContentOFCOmment($commentID) {
+	$SQL = "SELECT content FROM comments WHERE id = '$commentID'";
+	return SQLGetChamp($SQL);
+}
+
+/**
+ * Fonction pour récupérer l'ID du film d'un report
+ * @param int $userID
+ * @param string $reason
+ * @param int $commentID
+ * @return array
+ */
+function addWarn($userID, $reason, $commentID) {
+	// Si l'utilisateur à déjà un warn pour ce commentaire on fait rien
+	if (ifUserAlreadyWarn($userID, $commentID)) return;
+	$SQL = "INSERT INTO warning	(userID, reason, commentID) VALUES ('$userID', '$reason', '$commentID')";
+	$movieID = getMovieIDOFReport($commentID);
+	$contentOFComment = getContentOFCOmment($commentID);
+	addNotification($userID, "Vous avez reçu un avertissement pour un commentaire", "Votre Commentaire : $contentOFComment a été signalé pour la raison suivante : $reason. Vous avez reçu un avertissement. Si vous en recevez 3, votre compte sera supprimé.", "?view=movie&id=$movieID");
+	return SQLInsert($SQL);
+}
+
+/**
+ * Fonction pour savoir si un utilisateur a déjà un warn pour un commentaire
+ * @param int $userID
+ * @param int $commentID
+ * @return array
+ */
+function ifUserAlreadyWarn($userID, $commentID) {
+	$SQL = "SELECT * FROM warning WHERE userID = '$userID' AND commentID = '$commentID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+/**
+ * Fonction pour caché un commentaire
+ * @param int $reportID
+ * @return array
+ */
+function hideComment($commentID) {
+	$SQL = "UPDATE comments SET hidden = 1 WHERE id = '$commentID'";
+	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction pour traiter un report
+ * @param int $reportID
+ * @return array
+ */
+function treatReport($reportID) {
+	$SQL = "UPDATE warns SET treat_at = NOW() WHERE id = '$reportID'";
+	return SQLUpdate($SQL);
+}
+
+/**
+ * Fonction pour récupérer tous les avertissements non traités
+ * @return array
+ */
+function getAllReportUntreated() {
+	$SQL = "SELECT warns.*, comments.content AS commentContent, comments.movieID, movies.title AS movieTitle, users.username AS authorName, users.profil_picture AS authorPicture, users.role AS authorRole, users2.username AS reporterName, users2.profil_picture AS reporterPicture, users2.role AS reporterRole
+			FROM `warns` 
+			INNER JOIN `comments` ON comments.id = warns.commentID
+			INNER JOIN `movies` ON movies.movieID = comments.movieID
+			INNER JOIN `users` ON users.id = warns.authorID
+			INNER JOIN `users` AS users2 ON users2.id = warns.reporterID
+			WHERE warns.treat_at is NULL ";
+	return parcoursRs(SQLSelect($SQL));
+}
 
 
 /* ******************************** */
