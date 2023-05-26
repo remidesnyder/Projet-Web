@@ -33,9 +33,9 @@ $timeRuntime = $months . " mois " . $days . " jour(s) " . $hours . " heure(s) " 
 <section></section>
 <section class="profile">
 <h1 class="monCompte">Mon compte</h1>
-    <div class="profile-container mc-sidebar">
+    <div class="profile-container">
         <h1 class="param">Paramètres du compte</h1>
-        <aside>
+        <aside class="mc-sidebar">
             <ul>
                 <li class="elemCompte"><a href="?view=updateProfil" class="<?= $namePage == "updateProfil" ? "active" : "" ?>">Modifier mon profil</a></li>
                 <li class="elemCompte"><a href="?view=monCompte" class="<?= $namePage == "monCompte" ? "active" : "" ?>">Mon compte</a></li>
@@ -46,7 +46,7 @@ $timeRuntime = $months . " mois " . $days . " jour(s) " . $hours . " heure(s) " 
                 <li class="elemCompte"><a href="" class="btn-red">Supprimer mon compte</a></li>
             </ul>
         </aside>
-        <main>
+        <main class="mc-content">
         <div>
             <h1 class="temps">Temps de visionnage total : </h1>
             <h2><?= $timeRuntime ?></h2>

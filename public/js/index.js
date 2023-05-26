@@ -148,7 +148,7 @@ var swiperActor = new Swiper(".casting-content", {
             spaceBetween: 15,
         },
         900: {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 20,
         },
     },
