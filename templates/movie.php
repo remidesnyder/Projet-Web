@@ -58,6 +58,17 @@ $comments = getCommentsByMovie($movieID);
                             <input type="hidden" name="movieID" value="<?= $movieID ?>">
                             <button class="btn btn-red">Retirer vu</button>
                         </form>
+                        <?php if (isTheMovieInFavoriteList($_SESSION['userID'], $movieID)) : ?>
+                            <form action="controleur.php?action=RemoveMovieFromFavoriteList" method="POST">
+                                <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                <button class="btn btn-red">Retirer favoris</button>
+                            </form>
+                        <?php else : ?>
+                            <form action="controleur.php?action=AddMovieInFavoriteList" method="POST">
+                                <input type="hidden" name="movieID" value="<?= $movieID ?>">
+                                <button class="btn btn-green">Ajouter favoris</button>
+                            </form>
+                        <?php endif ?>
                     <?php else : ?>
                         <form action="controleur.php?action=AddMovieInWatchList" method="POST">
                             <input type="hidden" name="movieID" value="<?= $movieID ?>">

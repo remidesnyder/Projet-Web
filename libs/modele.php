@@ -1158,6 +1158,63 @@ function isTheMovieInToWatchList($userID, $movieID)
 }
 
 /* ******************************** */
+/* 		Fonction Film Favori		*/
+/* ******************************** */
+
+/**
+ * Fonction de récupération du nombre de films favoris d'un utilisateur
+ * @param int $userID
+ * @return int
+ */
+function getUserFavoriteMovie($userID)
+{
+	$SQL = "SELECT favorites_movies.userID, favorites_movies.add_date, movies.* 
+				FROM `favorites_movies` 
+				INNER JOIN `movies` ON movies.movieID = favorites_movies.movieID 
+				WHERE favorites_movies.userID = '$userID'";
+	return parcoursRs(SQLSelect($SQL));
+}
+
+/**
+ * Fonction d'ajout d'un film favori
+ * @param int $userID
+ * @param int $movieID
+ * @return int
+ */
+function addFavoriteMovie($userID, $movieID)
+{
+	if (getMovie($movieID) == null) {
+		addMovieWithAPI($movieID);
+	}
+	if (isTheMovieInFavoriteList($userID, $movieID) != null) return false;
+	$SQL = "INSERT INTO favorites_movies (userID, movieID) VALUES ('$userID', '$movieID')";
+	return SQLInsert($SQL);
+}
+
+/**
+ * Fonction de suppression d'un film favori
+ * @param int $userID
+ * @param int $movieID
+ * @return int
+ */
+function removeFavoriteMovie($userID, $movieID)
+{
+	$SQL = "DELETE FROM favorites_movies WHERE userID='$userID' AND movieID='$movieID'";
+	return SQLDelete($SQL);
+}
+
+/**
+ * Fonction de vérification si un film est dans la liste des favoris d'un utilisateur
+ * @param int $userID
+ * @param int $movieID
+ * @return int
+ */
+function isTheMovieInFavoriteList($userID, $movieID) {
+	$SQL = "SELECT * FROM favorites_movies WHERE userID='$userID' AND movieID='$movieID'";
+	return SQLGetChamp($SQL);
+}
+
+/* ******************************** */
 /* 		Fonction API			    */
 /* ******************************** */
 

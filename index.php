@@ -64,8 +64,8 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
  * - Modifier le profil [OK]
  * - Finir le système de notifications [OK]
  * - Ajotuer dropdown pour les notifications [OK]
+ * - Ajouter dropdown pour le profil [OK]
  * 
- * - Ajouter dropdown pour le profil
  * - Utilisateurs bloqués
  * - Supprimer mon compte
  * - Design

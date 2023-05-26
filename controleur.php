@@ -285,6 +285,26 @@ if ($action = valider("action")) {
 			$qs = "?view=movie&movieID=$movieID";
 
 			break;
+		case 'RemoveMovieFromFavoriteList':
+			$movieID = valider("movieID", "POST");
+
+			if ($movieID && isset($_SESSION['userID'])) {
+				removeFavoriteMovie($_SESSION['userID'], $movieID);
+			}
+
+			$qs = "?view=movie&movieID=$movieID";
+
+			break;
+		case 'AddMovieInFavoriteList':
+			$movieID = valider("movieID", "POST");
+
+			if ($movieID && isset($_SESSION['userID'])) {
+				addFavoriteMovie($_SESSION['userID'], $movieID);
+			}
+
+			$qs = "?view=movie&movieID=$movieID";
+
+			break;
 	}
 }
 
