@@ -175,7 +175,7 @@ $comments = getCommentsByMovie($movieID);
                                     </div>
                                 </div>
                                 <div class="comment-content">
-                                    <p><?= $comment['content'] ?></p>
+                                    <p><?= htmlentities($comment['content']) ?></p>
                                     <div class="comment-actions">
                                         <span><?= count($reply) ?> <?= count($reply) > 1 ? 'Réponses' : 'Réponse' ?></span>
                                         <span><?= $comment['reactions'] ?> <?= $comment['reactions'] > 1 ? 'Likes' : 'Like' ?></span>

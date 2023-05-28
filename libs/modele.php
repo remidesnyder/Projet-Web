@@ -365,6 +365,21 @@ function getNumberOfReactionsFromCommentsAndReplies($userID)
 	return $commentResult + $replyResult;
 }
 
+/**
+ * Fonction de récupération des acteurs préférés d'un utilisateur
+ * @param int $userID
+ * @return array
+ */
+function getListOfPreferedActors($userID)
+{
+	$SQL = "SELECT `movie_favorite_actors`.`actorID`, COUNT( `movie_favorite_actors`.`id`)
+		FROM `movie_favorite_actors` 
+    	WHERE `movie_favorite_actors`.`userID` = '$userID'
+    	GROUP BY `movie_favorite_actors`.`actorID`
+    	ORDER BY COUNT( `movie_favorite_actors`.`id`) DESC";
+	return parcoursRs(SQLSelect($SQL));
+}
+
 /* ******************************** */
 /* 		Fonction Notification */
 /* ******************************** */

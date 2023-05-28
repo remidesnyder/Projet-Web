@@ -128,7 +128,8 @@ if ($action = valider("action")) {
 			break;
 		case 'AddComment':
 			$movieID = valider("movieID", 'POST');
-			$comment = valider("content", 'POST');
+			//$comment = valider("content", 'POST');
+			$comment = nl2br($_POST['content']);
 
 			// On vérifie que le commentaire n'est pas vide
 			if ($movieID && isset($_SESSION['userID']) && $comment && $comment != "") {
