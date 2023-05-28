@@ -10,13 +10,16 @@ require_once "libs/modele.php";
 
 // On détermine sur quelle page on se trouve
 $page = valider('page', 'GET');
-if($page){
+if ($page) {
     $currentPage = (int) strip_tags($page);
-}else{
+} else {
     $currentPage = 1;
 }
 
-$nbPages = getNbPagePopularMovie();
+//$nbPages = getNbPagePopularMovie();
+// Pour des soucis de sécurité, on s'assure que $currentPage est un entier
+// Mais on limitera aussi à 50 pages maximun
+$nbPages = 50;
 
 $popularMovies = getPopularMovies($page);
 
@@ -31,9 +34,9 @@ $popularMovies = getPopularMovies($page);
         <br />
         <div class="image-container">
             <?php foreach ($popularMovies as $data) : ?>
-                <?php 
-					$movieDate = date("Y", strtotime($data['release_date']));
-				?>
+                <?php
+                $movieDate = date("Y", strtotime($data['release_date']));
+                ?>
                 <div class="movie-box-result">
                     <?php if ($data['poster_path']) : ?>
                         <img src="https://image.tmdb.org/t/p/original/<?= $data['poster_path'] ?>" alt="Affiche du film <?= $data['title'] ?>" class="movie-box-img">
@@ -80,23 +83,22 @@ $popularMovies = getPopularMovies($page);
             <?php endforeach ?>
         </div>
     </div>
-    <nav>
-    <ul class="pagination">
-        <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
-        <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-            <a href="?view=popularMovies&page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
-        </li>
-        <?php for($page = $page; $page <= $currentPage + 5; $page++): ?>
-            <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
-            <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
-                <a href="?view=popularMovies&page=<?= $page ?>" class="page-link"><?= $page ?></a>
-            </li>
-        <?php endfor ?>
-            <!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
-            <li class="page-item <?= ($currentPage == $nbPages) ? "disabled" : "" ?>">
-            <a href="?view=popularMovies&page=<?= $currentPage + 1 ?>" class="page-link">Suivante</a>
-        </li>
-    </ul>
-</nav>
-<br />
+</section>
+
+<section>
+    <div class="center">
+        <div class="pagination">
+            <a href="<?= ($currentPage == 1) ? "" : "?view=popularMovies&page=" . $currentPage - 1 ?>">&laquo;</a>
+            <?php if ($currentPage > 1) : ?>
+                <?php for ($iPage = $currentPage - 1; $iPage <= $currentPage + 5; $iPage++) : ?>
+                    <a href="?view=popularMovies&page=<?= $iPage ?>" class="page-link <?= ($currentPage == $iPage) ? "active" : "" ?>"><?= $iPage ?></a>
+                <?php endfor ?>
+            <?php else : ?>
+                <?php for ($iPage = $currentPage; $iPage <= $currentPage + 5; $iPage++) : ?>
+                    <a href="?view=popularMovies&page=<?= $iPage ?>" class="page-link <?= ($currentPage == $iPage) ? "active" : "" ?>"><?= $iPage ?></a>
+                <?php endfor ?>
+            <?php endif ?>
+            <a href="<?= ($currentPage == $nbPages) ? "" : "?view=popularMovies&page=" . $currentPage + 1 ?>">&raquo;</a>
+        </div>
+    </div>
 </section>

@@ -21,8 +21,8 @@ $biographyLimite = 350; // Nombre de caractères maximum pour la biographie
     <div class="about-actor container">
         <div class="about-actor-content">
             <br />
-            <h2 class="title"><?= $actor['name'] ?></h2>
-            <div class="about-actor content">
+            <h2 class="title actorInfoName"><?= $actor['name'] ?></h2>
+            <div class="about-actor content actorInfoBio">
                 <p>
                     <br />
                     <?php if (strlen($actor['biography']) > $biographyLimite) {
@@ -38,7 +38,7 @@ $biographyLimite = 350; // Nombre de caractères maximum pour la biographie
 <?php if (count($actorMovies) > 0) : ?>
 
     <!-- Section Movies Starts -->
-    <section class="movies container" id="actorMovies">
+    <section class="movies container actorContainer" id="actorMovies">
         <!-- Heading -->
         <div class="heading">
             <a href="" class="movie-a">
