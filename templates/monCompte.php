@@ -16,17 +16,42 @@ $nbMovieToSee = getNumberOfToSeeMovie($_SESSION['userID']);
 
 $namePage = valider("view", 'GET');
 
-$timeRuntime = getMovieTime($_SESSION['userID']);
+$tempsEnMinutes = getMovieTime($_SESSION['userID']);
 
-// $timeRuntime est un nombre de minutes 
-// Et je veux le convertir en mois, jours, heures, minutes
+// Conversion en secondes
+$tempsEnSecondes = $tempsEnMinutes * 60;
 
-$minutes = $timeRuntime % 60;
-$hours = floor($timeRuntime / 60);
-$days = floor($hours / 24);
-$months = floor($days / 30);
+// Conversion en date
+$date = new DateTime("@$tempsEnSecondes");
+$annees = $date->format('Y') - 1970; // Récupère le nombre d'années
+$mois = $date->format('n') - 1; // Récupère le nombre de mois
+$jours = $date->format('j') - 1; // Récupère le nombre de jours
+$heures = $date->format('G'); // Récupère le nombre d'heures
+$minutes = $date->format('i'); // Récupère le nombre de minutes
+$secondes = $date->format('s'); // Récupère le nombre de secondes
 
-$timeRuntime = $months . " mois " . $days . " jour(s) " . $hours . " heure(s) " . $minutes . " minute(s)";
+$timeRuntime = "";
+
+if ($annees > 0) {
+    $timeRuntime .= $annees . " ans ";
+}
+if ($mois > 0) {
+    $timeRuntime .= $mois . " mois ";
+}
+if ($jours > 0) {
+    $timeRuntime .= $jours . " jours ";
+}
+if ($heures > 0) {
+    $timeRuntime .= $heures . " heures ";
+}
+if ($minutes > 0) {
+    $timeRuntime .= $minutes . " minutes ";
+}
+if ($secondes > 0) {
+    $timeRuntime .= $secondes . " secondes ";
+}
+
+
 
 ?>
 
