@@ -12,6 +12,10 @@ $myReplies = getAllRepliesByUser($_SESSION['userID']);
 
 <section></section>
 
+<?php
+include_once "partials/profileSidebar.php";
+?>
+
 <section>
     <h2>Mes commentaires</h2>
     <?php if (empty($myComment)) : ?>

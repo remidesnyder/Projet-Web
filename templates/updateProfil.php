@@ -12,6 +12,7 @@ $usersData = getUserByID($_SESSION['userID']);
 ?>
 
 <section></section>
+
 <section class="home-content">
     <h1 class="home-title">Modifier mon profil</h1>
     <br />
