@@ -29,10 +29,12 @@ Insert gif or link to demo
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| Background Color | ![#262D34](https://via.placeholder.com/10/262D34?text=+) #262D34 |
-| Example Color | ![#F0A500](https://via.placeholder.com/10/F0A500?text=+) #F0A500 |
-| Example Color | ![#00ADB5](https://via.placeholder.com/10/00ADB5?text=+) #00ADB5 |
-| Example Color | ![#E84A5F](https://via.placeholder.com/10/E84A5F?text=+) #E84A5F |
+| Couleur de Fond | ![#1e1e2a](https://via.placeholder.com/10/1e1e2a?text=+) #1e1e2a |
+| Couleur du texte | ![#f1f1f1](https://via.placeholder.com/10/f1f1f1?text=+) #f1f1f1 |
+| Couleur Principale | ![#7a3e3e](https://via.placeholder.com/10/7a3e3e?text=+) #7a3e3e |
+| Couleur Succès | ![#198754](https://via.placeholder.com/10/198754?text=+) #198754 |
+| Couleur Avertissement | ![#ffc107](https://via.placeholder.com/10/ffc107?text=+) #ffc107 |
+| Couleur Refus | ![#dc3545](https://via.placeholder.com/10/dc3545?text=+) #dc3545 |
 
 
 ## Variables d'environnement
@@ -64,8 +66,8 @@ Assurez-vous de garder votre clé API TMDb privée et ne la partagez pas avec d'
 ## Fonctionnalités
 
 - Création d'utilisateurs et assignements de rôles
-- Ajout par l'utilisateur des films vus, à voir
-- L'utilisateur peut noter les films qu'il a vus, et choisir l'acteur qu'il a préféré dans ce film
+- Ajout par l'utilisateur des films vus, à voir, et de ses films favoris / préférés
+- L'utilisateur peut choisir l'acteur qu'il a préféré dans ce film
 - Une partie administrateur qui permet de gérer les membres, et notamment de modérer les commentaires qui ont été mis par les membres
 - Tableau de bord de l'utilisateur, regroupant le nombre d'heures de films vus, les statistiques sur les acteurs...
 - Un accès en mode déconnecté différent de celui en mode connecté
