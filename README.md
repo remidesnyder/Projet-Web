@@ -29,12 +29,12 @@ Insert gif or link to demo
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| Couleur de Fond | ![#1e1e2a](https://via.placeholder.com/10/262D34?text=+) #1e1e2a |
-| Couleur du texte | ![#f1f1f1](https://via.placeholder.com/10/F0A500?text=+) #f1f1f1 |
-| Couleur Principale | ![#7a3e3e](https://via.placeholder.com/10/00ADB5?text=+) #7a3e3e |
-| Couleur Succès | ![#198754](https://via.placeholder.com/10/E84A5F?text=+) #198754 |
-| Couleur Avertissement | ![#ffc107](https://via.placeholder.com/10/E84A5F?text=+) #ffc107 |
-| Couleur Refus | ![#dc3545](https://via.placeholder.com/10/E84A5F?text=+) #dc3545 |
+| Couleur de Fond | ![#1e1e2a](https://via.placeholder.com/10/1e1e2a?text=+) #1e1e2a |
+| Couleur du texte | ![#f1f1f1](https://via.placeholder.com/10/f1f1f1?text=+) #f1f1f1 |
+| Couleur Principale | ![#7a3e3e](https://via.placeholder.com/10/7a3e3e?text=+) #7a3e3e |
+| Couleur Succès | ![#198754](https://via.placeholder.com/10/198754?text=+) #198754 |
+| Couleur Avertissement | ![#ffc107](https://via.placeholder.com/10/ffc107?text=+) #ffc107 |
+| Couleur Refus | ![#dc3545](https://via.placeholder.com/10/dc3545?text=+) #dc3545 |
 
 
 ## Variables d'environnement
