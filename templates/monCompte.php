@@ -51,7 +51,15 @@ if ($secondes > 0) {
     $timeRuntime .= $secondes . " secondes ";
 }
 
+$preferedActors = getListOfPreferedActors($_SESSION['userID']);
+$preferedActorsWithInfo = array();
+foreach ($preferedActors as $actor) {
+    $actorInfo = getActorByID($actor['actorID']);
+    $actorNbVotes = $actor['nbVotes'];
+    array_push($preferedActorsWithInfo, array($actorInfo, $actorNbVotes));
+}
 
+// die(var_dump($preferedActorsWithInfo));
 
 ?>
 
@@ -84,12 +92,52 @@ include_once "partials/profileSidebar.php";
                 <canvas id="myChart"></canvas>
             </div>
         </div>
-        <div class="acteurs_pref">
-            <!-- SLIDER ici -->
-        </div>
     </main>
     </div>
 </section>
+
+            <!-- Actor Section Start -->
+            <section class="actorPref container" id="actorPref">
+	<!-- Heading -->
+	<div class="heading">
+		<a href="" class="movie-a">
+			<h2 class="heading-title">
+                Acteurs préférés
+			</h2>
+		</a>
+
+		<!-- Swiper Buttons -->
+		<div class="swiper-btn">
+			<div class="swiper-button-prev" id="actorPref-prev"></div>
+			<div class="swiper-button-next" id="actorPref-next"></div>
+		</div>
+	</div>
+
+	<!-- Content -->
+	<div class="actorPref-content swiper">
+		<div class="swiper-wrapper">
+			<!-- Movies Box -->
+			<?php foreach ($preferedActorsWithInfo as $data) : ?>
+				<div class="swiper-slide">
+					<div class="movie-box">
+						<?php if ($data[0]['profile_path']) : ?>
+							<img src="https://image.tmdb.org/t/p/original<?= $data[0]['profile_path'] ?>" alt="Affiche du film <?= $data[0]['name'] ?>" class="movie-box-img" />
+						<?php else : ?>
+							<img src="public/img/visuel-default.png" alt="Affiche du film <?= $data[0]['name'] ?>" class="movie-box-img">
+						<?php endif ?>
+						<div class="box-text">
+							<h2 class="movie-title">
+								<a class="movie-a" href="index.php?view=actor&actorID=<?= $data[0]['id'] ?>"><?= $data[0]['name'] ?></a>
+							</h2>
+							<span class="movie-type"><?= $data[1] ?></span>
+						</div>
+					</div>
+				</div>
+			<?php endforeach ?>
+		</div>
+	</div>
+</section>
+<!-- Actor Section End -->
 
 <script>
     // Récupération des données JSON créées en PHP

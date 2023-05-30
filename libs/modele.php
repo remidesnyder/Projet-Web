@@ -372,7 +372,7 @@ function getNumberOfReactionsFromCommentsAndReplies($userID)
  */
 function getListOfPreferedActors($userID)
 {
-	$SQL = "SELECT `movie_favorite_actors`.`actorID`, COUNT( `movie_favorite_actors`.`id`)
+	$SQL = "SELECT `movie_favorite_actors`.`actorID`, COUNT( `movie_favorite_actors`.`id`) AS `nbVotes`
 		FROM `movie_favorite_actors` 
     	WHERE `movie_favorite_actors`.`userID` = '$userID'
     	GROUP BY `movie_favorite_actors`.`actorID`
@@ -673,9 +673,10 @@ function addReply($userID, $commentID, $content)
 	$commentAuthor = getCommentAuthor($commentID);
 
 	$movieID = getCommentMovie($commentID);
+	$movieTitle = getMovieInfo($movieID)['movie']['title'];
 
 	if ($commentAuthor != $userID) {
-		$SQL = "INSERT INTO notifications (userID, title, content, redirection) VALUES ('$commentAuthor', 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', 'index.php?view=movie&movieID=$movieID')";
+		$SQL = "INSERT INTO notifications (userID, title, content, redirection) VALUES ('$commentAuthor', 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire sur le film : $movieTitle', 'index.php?view=movie&movieID=$movieID')";
 		SQLInsert($SQL);
 	}
 }
@@ -1591,7 +1592,7 @@ function addWarn($userID, $reason, $commentID) {
 	$SQL = "INSERT INTO warning	(userID, reason, commentID) VALUES ('$userID', '$reason', '$commentID')";
 	$movieID = getMovieIDOFReport($commentID);
 	$contentOFComment = getContentOFCOmment($commentID);
-	addNotification($userID, "Vous avez reçu un avertissement pour un commentaire", "Votre Commentaire : $contentOFComment a été signalé pour la raison suivante : $reason. Vous avez reçu un avertissement. Si vous en recevez 3, votre compte sera supprimé.", "?view=movie&id=$movieID");
+	addNotification($userID, "Vous avez reçu un avertissement pour un commentaire", "Votre Commentaire : $contentOFComment a été signalé pour la raison suivante : $reason. Vous avez reçu un avertissement. Si vous en recevez 3, votre compte sera supprimé.", "?view=movie&movieID=$movieID");
 	return SQLInsert($SQL);
 }
 

@@ -7,7 +7,7 @@ require_once 'libs/modele.php';
 $movieID = valider('movieID', 'GET', 'int', 0);
 
 if ($movieID == 0) {
-    header('Location: /');
+    header('Location: index.php?view=accueil');
     exit;
 }
 
