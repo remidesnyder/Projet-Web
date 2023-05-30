@@ -61,13 +61,13 @@ Assurez-vous de garder votre clé API TMDb privée et ne la partagez pas avec d'
 ## Captures d'écran
 
 La page d'accueil en mode connecté
-![Alt text](/screenshots/page_d_accueil.png?raw=true "Page d'accueil")
+![Page d'accueil](/screenshots/page_d_accueil.png?raw=true "Page d'accueil")
 
 La liste des films populaires
-![Alt text](/screenshots/film_populaire.png?raw=true "Page film populaire")
+![Page film populaire](/screenshots/film_populaire.png?raw=true "Page film populaire")
 
 La page de recherche
-![Alt text](/screenshots/recherche.png?raw=true "Page film populaire")
+![Page film populaire](/screenshots/recherche.png?raw=true "Page film populaire")
 
 ## Fonctionnalités
 
