@@ -60,7 +60,7 @@ Pour exécuter ce projet, vous devrez ajouter les variables d'environnement suiv
 Assurez-vous de garder votre clé API TMDb privée et ne la partagez pas avec d'autres personnes.
 ## Captures d'écran
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Alt text](/screenshots/page_d_accueil.png?raw=true "Optional Title")
 
 
 ## Fonctionnalités
