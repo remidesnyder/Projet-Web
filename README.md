@@ -60,8 +60,14 @@ Pour exécuter ce projet, vous devrez ajouter les variables d'environnement suiv
 Assurez-vous de garder votre clé API TMDb privée et ne la partagez pas avec d'autres personnes.
 ## Captures d'écran
 
-![Alt text](/screenshots/page_d_accueil.png?raw=true "Optional Title")
+La page d'accueil en mode connecté
+![Alt text](/screenshots/page_d_accueil.png?raw=true "Page d'accueil")
 
+La liste des films populaires
+![Alt text](/screenshots/film_populaire.png?raw=true "Page film populaire")
+
+La page de recherche
+![Alt text](/screenshots/recherche.png?raw=true "Page film populaire")
 
 ## Fonctionnalités
 
