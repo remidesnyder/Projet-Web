@@ -19,12 +19,6 @@ The user interface is developed using PHP and HTML/CSS, providing a pleasant and
 
 MovieList also offers search and sorting capabilities, allowing users to easily find movies based on their preferences.
 
-
-## Démonstration
-
-[<img src="https://youtu.be/lhplJ5nS-NQ" width="50%">]([https://www.youtube.com/watch?v=Hc79sDi3f0U](https://youtu.be/lhplJ5nS-NQ) "Now in Android: 55")
-
-
 ## Charte graphique
 
 | Color             | Hex                                                                |
@@ -68,6 +62,14 @@ La liste des films populaires
 
 La page de recherche
 ![Page film populaire](/screenshots/recherche.png?raw=true "Page film populaire")
+
+## Démonstration
+
+ - Vidéo de démonstration de la vue sans être connecté : https://youtu.be/dbgBlbG12PM
+ - Vidéo de démonstration de la vue de création de compte : https://youtu.be/ZyCfclbmPVw
+ - Vidéo de démonstration de la vue en étant connecté : https://youtu.be/d8yNbH_Gwn0
+ - Vidéo de démonstration de la vue administrateur : https://youtu.be/lhplJ5nS-NQ
+
 
 ## Fonctionnalités
 
