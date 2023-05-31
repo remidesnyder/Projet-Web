@@ -676,7 +676,7 @@ function addReply($userID, $commentID, $content)
 	$movieTitle = getMovieInfo($movieID)['movie']['title'];
 
 	if ($commentAuthor != $userID) {
-		$SQL = "INSERT INTO notifications (userID, title, content, redirection) VALUES ('$commentAuthor', 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire sur le film : $movieTitle', 'index.php?view=movie&movieID=$movieID')";
+		$SQL = "INSERT INTO notifications (userID, title, content, redirection) VALUES ('$commentAuthor', 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire sur le film : $movieTitle', '?view=movie&movieID=$movieID')";
 		SQLInsert($SQL);
 	}
 }
