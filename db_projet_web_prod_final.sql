@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mer. 31 mai 2023 à 11:56
+-- Généré le : mer. 31 mai 2023 à 13:24
 -- Version du serveur : 5.7.39
 -- Version de PHP : 8.2.0
 
@@ -288,8 +288,8 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `userID`, `title`, `content`, `redirection`, `created_at`, `seen_date`) VALUES
-(1, 2, 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', 'index.php?view=movie&movieID=19123', '2023-05-24 07:24:29', NULL),
-(2, 3, 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', 'index.php?view=movie&movieID=9317', '2023-05-24 07:26:38', NULL);
+(1, 2, 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', '?view=movie&movieID=19123', '2023-05-24 07:24:29', NULL),
+(2, 3, 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', '?view=movie&movieID=9317', '2023-05-24 07:26:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -413,6 +413,7 @@ CREATE TABLE `warning` (
   `id` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
   `reason` int(11) NOT NULL,
+  `commentID` int(11) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -576,7 +577,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `warning`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `userID` (`userID`);
+  ADD KEY `userID` (`userID`),
+  ADD KEY `commentID` (`commentID`);
 
 --
 -- Index pour la table `warns`
@@ -752,7 +754,8 @@ ALTER TABLE `users`
 -- Contraintes pour la table `warning`
 --
 ALTER TABLE `warning`
-  ADD CONSTRAINT `warning_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `warning_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `warning_ibfk_2` FOREIGN KEY (`commentID`) REFERENCES `comments` (`id`);
 
 --
 -- Contraintes pour la table `warns`
