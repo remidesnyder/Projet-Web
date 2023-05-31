@@ -1103,7 +1103,7 @@ section .home-content {
     border-radius: 10px;
     padding: 9px 10px 9px 10px;
     gap: 0;
-    border: 1px solid var(--main-color);
+    border: 2px solid var(--main-color);
 }
 
 .dropdownProfil ul hr {
