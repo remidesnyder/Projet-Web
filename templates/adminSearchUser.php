@@ -28,6 +28,13 @@ if ($userName) {
 
 <section></section>
 
+<section class="sidebar">
+    <h1 class="adminTitle"><a href="?view=adminSearchUser">Rechercher un utilisateur</a></h1>
+    <br />
+    <h2 class="adminTitle"><a href="?view=adminTreatWarn">Signalements</a></h2>
+    <br />
+</section>
+
 <section>
     <h1 class="admin">Rechercher un utilisateur</h1>
     <div class="form recherche">

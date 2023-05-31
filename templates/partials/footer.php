@@ -10,7 +10,6 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php") {
 
 <section class="copyright">
 	<p>&copy All Right Reserved</p>
-	<?= tprint($_SESSION); ?>
 </section>
 
 <!-- Link to JS -->

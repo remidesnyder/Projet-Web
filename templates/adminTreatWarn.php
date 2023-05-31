@@ -14,12 +14,22 @@ $getAllReportUntreated = getAllReportUntreated();
 
 <section></section>
 
+<section class="sidebar">
+    <h1 class="adminTitle"><a href="?view=adminSearchUser">Rechercher un utilisateur</a></h1>
+    <br />
+    <h2 class="adminTitle"><a href="?view=adminTreatWarn">Signalements</a></h2>
+    <br />
+</section>
+
 <section>
     <h1 class="adminTitle">Administration</h1>
     <br />
     <h2 class="adminTitle">Signalements</h2>
     <br />
-    <div class="adminTitle">
+    <?php if(empty($getAllReportUntreated)) { ?>
+        <p class="adminText">Il n'y a aucun signalement à traiter.</p>
+    <?php } else { ?>
+        <div class="adminTitle">
         <table>
             <thead>
                 <tr>
@@ -47,4 +57,5 @@ $getAllReportUntreated = getAllReportUntreated();
             </tbody>
         </table>
     </div>
+    <?php } ?>
 </section>
