@@ -69,7 +69,6 @@ La page de recherche
  - Vidéo de démonstration de la vue de création de compte : https://youtu.be/ZyCfclbmPVw
  - Vidéo de démonstration de la vue en étant connecté : https://youtu.be/d8yNbH_Gwn0
  - Vidéo de démonstration de la vue administrateur : https://youtu.be/lhplJ5nS-NQ
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dbgBlbG12PM?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Fonctionnalités
 
