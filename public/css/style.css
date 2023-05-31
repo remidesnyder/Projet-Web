@@ -209,6 +209,7 @@ input.nosubmit {
 
 .profile-name {
     padding-left: 10px;
+    cursor: pointer;
 }
 
 nav a {
@@ -853,20 +854,22 @@ section .home-content {
     background-color: var(--background-color);
 }
 
-.dropCase{
+.dropCase {
     text-align: center;
     font-size: 20px;
     background-color: var(--background-color);
 }
 
-.choiceDrop{
+.choiceDrop {
     text-align: center;
     font-size: 20px;
     background-color: var(--background-color);
 }
-.choiceDrop:hover{
+
+.choiceDrop:hover {
     text-decoration: underline;
 }
+
 
 /*SIGNUP ET LOGIN*/
 
@@ -1004,7 +1007,6 @@ section .home-content {
     text-decoration: underline;
 }
 
-
 .temps,
 .stats,
 .genres {
@@ -1013,7 +1015,7 @@ section .home-content {
     font-size: 30px !important;
 }
 
-.param{
+.param {
     text-align: center;
     font-size: 50px;
 }
@@ -1119,10 +1121,6 @@ section .home-content {
 
 .dropdownProfil .logoutColor {
     color: var(--danger-color);
-}
-
-.bx-chevron-down:hover{
-    text-decoration: underline;
 }
 
 .actor-profile {
