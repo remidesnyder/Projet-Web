@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mer. 31 mai 2023 à 13:24
+-- Généré le : mer. 31 mai 2023 à 13:30
 -- Version du serveur : 5.7.39
 -- Version de PHP : 8.2.0
 
@@ -33,6 +33,7 @@ CREATE TABLE `comments` (
   `userID` int(11) NOT NULL,
   `content` text NOT NULL,
   `reactions` int(11) NOT NULL DEFAULT '0',
+  `hidden` int(11) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -41,22 +42,22 @@ CREATE TABLE `comments` (
 -- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`id`, `movieID`, `userID`, `content`, `reactions`, `created_at`, `updated_at`) VALUES
-(20, 19123, 2, 'C\'était une expérience cinématographique divertissante. Ce film français, réalisé par Francis Veber, est une comédie hilarante qui mêle l\'absurdité et les quiproquos.\r\n\r\nL\'histoire tourne autour d\'un détective malchanceux, joué par Pierre Richard, qui est chargé de retrouver la fille d\'un riche homme d\'affaires. Pour l\'aider dans sa quête, on lui assigne un garde du corps, interprété par Gérard Depardieu, dont l\'incompétence ajoute une dimension comique à l\'intrigue.\r\n\r\n\"La Chèvre\" est un film qui repose principalement sur le duo comique formé par Richard et Depardieu. Leur chimie à l\'écran est indéniable, et ils offrent des performances comiques vraiment mémorables. Les situations loufoques dans lesquelles ils se retrouvent et les dialogues plein d\'humour font mouche et m\'ont fait rire tout au long du film.\r\n\r\nBien que l\'histoire puisse sembler simple, le scénario est bien rythmé et maintient l\'intérêt du spectateur jusqu\'à la fin. La réalisation de Francis Veber est efficace, mettant en valeur le talent des acteurs et la nature comique de l\'histoire.\r\n\r\nEn résumé, \"La Chèvre\" est un classique de la comédie française qui mérite d\'être vu. Si vous recherchez un film léger et amusant, avec des performances comiques mémorables, alors je vous recommande vivement de regarder ce film.', 2, '2023-05-23 20:40:45', '2023-05-23 20:40:45'),
-(21, 10484, 2, 'Une comédie divertissante et amusante.', 0, '2023-05-23 20:43:48', '2023-05-23 20:43:48'),
-(22, 761, 2, 'Une comédie gastronomique délicieusement drôle.', 0, '2023-05-24 06:55:46', '2023-05-24 06:55:46'),
-(23, 71524, 2, 'Une comédie d\'aventure légère et divertissante.', 0, '2023-05-24 06:56:41', '2023-05-24 06:56:41'),
-(24, 1672, 2, 'Ce qui rend Le Professionnel si captivant, c\'est le mélange habile d\'action, de suspense et de tension. Les scènes d\'action sont bien chorégraphiées et Belmondo livre une performance remarquable en incarnant un personnage à la fois charismatique et impitoyable. Le film aborde également des thèmes plus profonds, tels que la corruption politique et la loyauté.', 0, '2023-05-24 06:59:37', '2023-05-24 06:59:37'),
-(25, 51163, 2, 'Effroyables Jardins est un film qui touche le cœur par sa capacité à aborder des sujets graves avec humanité et tendresse.\r\nEffroyables Jardins est un film émouvant et poignant, porté par des performances remarquables', 0, '2023-05-24 07:02:34', '2023-05-24 07:02:34'),
-(26, 9421, 2, 'Le Dîner de Cons repose sur un humour intelligent et des dialogues ciselés. Les situations loufoques et les quiproquos qui se déroulent tout au long du film provoquent des éclats de rire. Les performances de Thierry Lhermitte et Jacques Villeret sont brillantes, avec une chimie comique irrésistible.', 0, '2023-05-24 07:04:09', '2023-05-24 07:04:09'),
-(27, 60030, 2, 'C\'est une histoire poignante et émouvante inspirée d\'événements réels.', 0, '2023-05-24 07:04:48', '2023-05-24 07:04:48'),
-(28, 360638, 2, 'C\'est un film charmant et drôle qui explore les relations intergénérationnelles.', 0, '2023-05-24 07:06:25', '2023-05-24 07:06:25'),
-(29, 54544, 2, 'C\'est un film divertissant et plein d\'humour qui explore les dynamiques familiales et les relations amoureuses.', 0, '2023-05-24 07:07:09', '2023-05-24 07:07:09'),
-(30, 36719, 2, 'Les Enfants du marais est un film touchant qui transporte le spectateur dans une époque révolue et offre une belle réflexion sur l\'amitié et les plaisirs simples de la vie.', 0, '2023-05-24 07:08:05', '2023-05-24 07:08:05'),
-(31, 49838, 2, '\'Antidote est une comédie française amusante qui offre des moments de rires et de légèreté.', 0, '2023-05-24 07:08:56', '2023-05-24 07:08:56'),
-(32, 481848, 2, 'Un film rempli d\'humour, de tendresse et d\'amour', 0, '2023-05-24 07:19:13', '2023-05-24 07:19:13'),
-(33, 9317, 3, 'Magnifique', 0, '2023-05-24 07:24:51', '2023-05-24 07:24:51'),
-(34, 335977, 3, 'La fin est ....', 0, '2023-05-24 07:25:27', '2023-05-24 07:25:27');
+INSERT INTO `comments` (`id`, `movieID`, `userID`, `content`, `reactions`, `hidden`, `created_at`, `updated_at`) VALUES
+(20, 19123, 2, 'C\'était une expérience cinématographique divertissante. Ce film français, réalisé par Francis Veber, est une comédie hilarante qui mêle l\'absurdité et les quiproquos.\r\n\r\nL\'histoire tourne autour d\'un détective malchanceux, joué par Pierre Richard, qui est chargé de retrouver la fille d\'un riche homme d\'affaires. Pour l\'aider dans sa quête, on lui assigne un garde du corps, interprété par Gérard Depardieu, dont l\'incompétence ajoute une dimension comique à l\'intrigue.\r\n\r\n\"La Chèvre\" est un film qui repose principalement sur le duo comique formé par Richard et Depardieu. Leur chimie à l\'écran est indéniable, et ils offrent des performances comiques vraiment mémorables. Les situations loufoques dans lesquelles ils se retrouvent et les dialogues plein d\'humour font mouche et m\'ont fait rire tout au long du film.\r\n\r\nBien que l\'histoire puisse sembler simple, le scénario est bien rythmé et maintient l\'intérêt du spectateur jusqu\'à la fin. La réalisation de Francis Veber est efficace, mettant en valeur le talent des acteurs et la nature comique de l\'histoire.\r\n\r\nEn résumé, \"La Chèvre\" est un classique de la comédie française qui mérite d\'être vu. Si vous recherchez un film léger et amusant, avec des performances comiques mémorables, alors je vous recommande vivement de regarder ce film.', 2, 0, '2023-05-23 20:40:45', '2023-05-23 20:40:45'),
+(21, 10484, 2, 'Une comédie divertissante et amusante.', 0, 0, '2023-05-23 20:43:48', '2023-05-23 20:43:48'),
+(22, 761, 2, 'Une comédie gastronomique délicieusement drôle.', 0, 0, '2023-05-24 06:55:46', '2023-05-24 06:55:46'),
+(23, 71524, 2, 'Une comédie d\'aventure légère et divertissante.', 0, 0, '2023-05-24 06:56:41', '2023-05-24 06:56:41'),
+(24, 1672, 2, 'Ce qui rend Le Professionnel si captivant, c\'est le mélange habile d\'action, de suspense et de tension. Les scènes d\'action sont bien chorégraphiées et Belmondo livre une performance remarquable en incarnant un personnage à la fois charismatique et impitoyable. Le film aborde également des thèmes plus profonds, tels que la corruption politique et la loyauté.', 0, 0, '2023-05-24 06:59:37', '2023-05-24 06:59:37'),
+(25, 51163, 2, 'Effroyables Jardins est un film qui touche le cœur par sa capacité à aborder des sujets graves avec humanité et tendresse.\r\nEffroyables Jardins est un film émouvant et poignant, porté par des performances remarquables', 0, 0, '2023-05-24 07:02:34', '2023-05-24 07:02:34'),
+(26, 9421, 2, 'Le Dîner de Cons repose sur un humour intelligent et des dialogues ciselés. Les situations loufoques et les quiproquos qui se déroulent tout au long du film provoquent des éclats de rire. Les performances de Thierry Lhermitte et Jacques Villeret sont brillantes, avec une chimie comique irrésistible.', 0, 0, '2023-05-24 07:04:09', '2023-05-24 07:04:09'),
+(27, 60030, 2, 'C\'est une histoire poignante et émouvante inspirée d\'événements réels.', 0, 0, '2023-05-24 07:04:48', '2023-05-24 07:04:48'),
+(28, 360638, 2, 'C\'est un film charmant et drôle qui explore les relations intergénérationnelles.', 0, 0, '2023-05-24 07:06:25', '2023-05-24 07:06:25'),
+(29, 54544, 2, 'C\'est un film divertissant et plein d\'humour qui explore les dynamiques familiales et les relations amoureuses.', 0, 0, '2023-05-24 07:07:09', '2023-05-24 07:07:09'),
+(30, 36719, 2, 'Les Enfants du marais est un film touchant qui transporte le spectateur dans une époque révolue et offre une belle réflexion sur l\'amitié et les plaisirs simples de la vie.', 0, 0, '2023-05-24 07:08:05', '2023-05-24 07:08:05'),
+(31, 49838, 2, '\'Antidote est une comédie française amusante qui offre des moments de rires et de légèreté.', 0, 0, '2023-05-24 07:08:56', '2023-05-24 07:08:56'),
+(32, 481848, 2, 'Un film rempli d\'humour, de tendresse et d\'amour', 0, 0, '2023-05-24 07:19:13', '2023-05-24 07:19:13'),
+(33, 9317, 3, 'Magnifique', 0, 0, '2023-05-24 07:24:51', '2023-05-24 07:24:51'),
+(34, 335977, 3, 'La fin est ....', 0, 1, '2023-05-24 07:25:27', '2023-05-24 07:25:27');
 
 -- --------------------------------------------------------
 
@@ -276,7 +277,7 @@ INSERT INTO `movie_favorite_actors` (`id`, `userID`, `movieID`, `actorID`) VALUE
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
-  `title` varchar(50) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `redirection` text,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -289,7 +290,10 @@ CREATE TABLE `notifications` (
 
 INSERT INTO `notifications` (`id`, `userID`, `title`, `content`, `redirection`, `created_at`, `seen_date`) VALUES
 (1, 2, 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', '?view=movie&movieID=19123', '2023-05-24 07:24:29', NULL),
-(2, 3, 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', '?view=movie&movieID=9317', '2023-05-24 07:26:38', NULL);
+(2, 3, 'Nouvelle réponse', 'Un utilisateur a répondu à votre commentaire', '?view=movie&movieID=9317', '2023-05-24 07:26:38', NULL),
+(3, 3, 'Vous avez reçu un avertissement pour un commentaire', 'Votre Commentaire : La fin est .... a été signalé pour la raison suivante : Votre commentaire a été signalé et caché par un modérateur.. Vous avez reçu un avertissement. Si vous en recevez 3, votre compte sera supprimé.', '?view=movie&movieID=335977', '2023-05-31 15:28:04', NULL),
+(4, 3, 'Vous avez reçu un avertissement pour un commentaire', 'Votre Commentaire : La fin est .... a été signalé pour la raison suivante : Votre commentaire a été signalé et caché par un modérateur.. Vous avez reçu un avertissement. Si vous en recevez 3, votre compte sera supprimé.', '?view=movie&movieID=335977', '2023-05-31 15:29:32', NULL),
+(5, 3, 'Vous avez reçu un avertissement pour un commentaire', 'Votre Commentaire : La fin est .... a été signalé pour la raison suivante : Votre commentaire a été signalé et caché par un modérateur.. Vous avez reçu un avertissement. Si vous en recevez 3, votre compte sera supprimé.', '?view=movie&movieID=335977', '2023-05-31 15:29:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -412,10 +416,17 @@ INSERT INTO `users` (`id`, `username`, `password`, `profil_picture`, `role`, `bl
 CREATE TABLE `warning` (
   `id` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
-  `reason` int(11) NOT NULL,
+  `reason` varchar(255) NOT NULL,
   `commentID` int(11) NOT NULL,
-  `created_at` datetime NOT NULL
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `warning`
+--
+
+INSERT INTO `warning` (`id`, `userID`, `reason`, `commentID`, `created_at`) VALUES
+(1, 3, 'Votre commentaire a été signalé et caché par un modérateur.', 34, '2023-05-31 15:29:49');
 
 -- --------------------------------------------------------
 
@@ -437,7 +448,8 @@ CREATE TABLE `warns` (
 --
 
 INSERT INTO `warns` (`id`, `reporterID`, `authorID`, `commentID`, `reported_at`, `treat_at`) VALUES
-(1, 2, 3, 34, '2023-05-24 07:25:59', NULL);
+(1, 2, 3, 34, '2023-05-24 07:25:59', '2023-05-31 15:30:28'),
+(2, 1, 2, 20, '2023-05-31 15:26:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -635,7 +647,7 @@ ALTER TABLE `movie_favorite_actors`
 -- AUTO_INCREMENT pour la table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `replies`
@@ -671,13 +683,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `warning`
 --
 ALTER TABLE `warning`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `warns`
 --
 ALTER TABLE `warns`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `watched_movies`
