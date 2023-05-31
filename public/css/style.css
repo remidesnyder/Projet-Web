@@ -75,7 +75,7 @@ body {
 }
 
 
-/* NAVBAR*/
+/*NAVBAR*/
 
 .navbar {
     position: relative;
@@ -209,6 +209,7 @@ input.nosubmit {
 
 .profile-name {
     padding-left: 10px;
+    cursor: pointer;
 }
 
 nav a {
@@ -853,6 +854,22 @@ section .home-content {
     background-color: var(--background-color);
 }
 
+.dropCase {
+    text-align: center;
+    font-size: 20px;
+    background-color: var(--background-color);
+}
+
+.choiceDrop {
+    text-align: center;
+    font-size: 20px;
+    background-color: var(--background-color);
+}
+
+.choiceDrop:hover {
+    text-decoration: underline;
+}
+
 
 /*SIGNUP ET LOGIN*/
 
@@ -990,13 +1007,17 @@ section .home-content {
     text-decoration: underline;
 }
 
-.param,
 .temps,
 .stats,
 .genres {
     text-align: left;
     padding: 15px;
     font-size: 30px !important;
+}
+
+.param {
+    text-align: center;
+    font-size: 50px;
 }
 
 .monCompte {
@@ -1082,7 +1103,7 @@ section .home-content {
     border-radius: 10px;
     padding: 9px 10px 9px 10px;
     gap: 0;
-    border: 1px solid var(--main-color);
+    border: 2px solid var(--main-color);
 }
 
 .dropdownProfil ul hr {

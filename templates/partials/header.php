@@ -120,20 +120,20 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                 </li>
                 <li class="profile-info-name">
                     <img src="public/img/<?= getProfilPath($_SESSION['userID']) ? "profil/" . getProfilPath($_SESSION['userID']) : "profil/default.jpg" ?>" alt="" class="profile-image">
-                        <div id="profileName" class="profile-name" onclick="showOrHideDropdown()"><?= $_SESSION['username'] ?></div>
+                        <div id="profileName" class="profile-name" onclick="showOrHideDropdown()"><?= $_SESSION['username'] ?><i class='bx bx-chevron-down'></i></div>
                         <div class="dropdownProfil hidden" id="dropdownProfil">
-                            <ul>
-                                <li><a href="index.php?view=monCompte">Mon compte</a></li>
+                            <ul class="hidden dropCase">
+                                <li class="choiceDrop"><a href="index.php?view=monCompte">Mon compte</a></li>
                                 <hr size="2" noshade width="100%"> 
                                 <?php if (isAdmin($_SESSION['userID'])) : ?>
-                                    <li><a href="index.php?view=admin" class="adminColor">Panel administrateur</a></li>
+                                    <li class="choiceDrop"><a href="index.php?view=admin" class="adminColor">Panel administrateur</a></li>
                                     <hr size="2" noshade width="100%">
                                 <?php endif ?>
-                                <li><a href="controleur.php?action=Logout" class="logoutColor">Déconnexion</a></li>
+                                <li class="choiceDrop"><a href="controleur.php?action=Logout" class="logoutColor">Déconnexion</a></li>
                             </ul>
                         </div>
                     </a>
-                    <i class='bx bx-chevron-down'></i>
+                    
                 </li>
             <?php else : ?>
                 <li class="profile-info-name">

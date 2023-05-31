@@ -88,7 +88,7 @@ $popularMovies = getPopularMovies($page);
 <section>
     <div class="center">
         <div class="pagination">
-            <a href="<?= ($currentPage == 1) ? "" : "?view=popularMovies&page=" . $currentPage - 1 ?>">&laquo;</a>
+            <a href="<?= ($currentPage == 1) ? "?view=popularMovies&page=1" : "?view=popularMovies&page=" . ($currentPage - 1) ?>">&laquo;</a>
             <?php if ($currentPage > 1) : ?>
                 <?php for ($iPage = $currentPage - 1; $iPage <= $currentPage + 5; $iPage++) : ?>
                     <a href="?view=popularMovies&page=<?= $iPage ?>" class="page-link <?= ($currentPage == $iPage) ? "active" : "" ?>"><?= $iPage ?></a>
@@ -98,7 +98,7 @@ $popularMovies = getPopularMovies($page);
                     <a href="?view=popularMovies&page=<?= $iPage ?>" class="page-link <?= ($currentPage == $iPage) ? "active" : "" ?>"><?= $iPage ?></a>
                 <?php endfor ?>
             <?php endif ?>
-            <a href="<?= ($currentPage == $nbPages) ? "" : "?view=popularMovies&page=" . $currentPage + 1 ?>">&raquo;</a>
+            <a href="<?= ($currentPage == $nbPages) ? "?view=popularMovies&page=50" : "?view=popularMovies&page=" . ($currentPage + 1) ?>">&raquo;</a>
         </div>
     </div>
 </section>
