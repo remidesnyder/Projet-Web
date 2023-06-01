@@ -118,8 +118,9 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                         <?php endif; ?>
                     </div>
                 </li>
-                <li class="profile-info-name">
-                    <img src="public/img/<?= getProfilPath($_SESSION['userID']) ? "profil/" . getProfilPath($_SESSION['userID']) : "profil/default.jpg" ?>" alt="" class="profile-image">
+                <li class="">
+                    <div class="profile-info-name dropdownProfil-drop">
+                        <img src="public/img/<?= getProfilPath($_SESSION['userID']) ? "profil/" . getProfilPath($_SESSION['userID']) : "profil/default.jpg" ?>" alt="" class="profile-image">
                         <div id="profileName" class="profile-name" onclick="showOrHideDropdown()"><?= $_SESSION['username'] ?><i class='bx bx-chevron-down'></i></div>
                         <div class="dropdownProfil hidden" id="dropdownProfil">
                             <ul class="hidden dropCase">
@@ -132,8 +133,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
                                 <li class="choiceDrop"><a href="controleur.php?action=Logout" class="logoutColor">Déconnexion</a></li>
                             </ul>
                         </div>
-                    </a>
-                    
+                    </div>
                 </li>
             <?php else : ?>
                 <li class="profile-info-name">
