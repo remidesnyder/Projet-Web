@@ -15,11 +15,11 @@ var data = {
 };
 
 function popin(contexte) {
-    console.log("popin" + contexte);
-    console.log(contexte.target.id);
-    console.log("clientX" + contexte.clientX);
-    console.log("screenX" + contexte.screenX);
-    observateur = contexte.target;
+    //console.log("popin" + contexte);
+    //console.log(contexte.target.id);
+    //console.log("clientX" + contexte.clientX);
+    //console.log("screenX" + contexte.screenX);
+    //observateur = contexte.target;
 
     if (data[contexte.target.id] == undefined) return;
     refPopup.innerHTML = data[contexte.target.id];
@@ -41,7 +41,7 @@ function popin(contexte) {
 }
 
 function popout() {
-    console.log("popout");
+    //console.log("popout");
     refPopup.style.display = "none";
 }
 
